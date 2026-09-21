@@ -1,0 +1,70 @@
+# 원본 시세·대용량 데이터 (git에 올리지 않음)
+/rowdata/
+*.csv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+
+# 백테스트·전처리 산출물
+/outputs/
+/results/
+/reports/
+/artifacts/
+/cache/
+/tmp/
+/data/processed/
+logs/
+*.log
+
+# 비밀키·증권사 계정정보
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+secrets.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+
+# 테스트·린트
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

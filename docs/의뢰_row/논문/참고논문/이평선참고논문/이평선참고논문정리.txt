@@ -1,0 +1,69 @@
+디비증권 90틱 
+초록 60선과 핑크 240선의 중간에서 반등하는 경우는
+키움 갭보정 60선_후행스팬 차트 참고 
+
+기술적 트레이딩 룰은 예측능력이 있으며
+이동평균과 trading range break 룰을 미국와
+유럽의 주식시장에 적용하여 생성한 신호에
+따라서 매매를 하면 단순 수익률보다 초과(낮
+은) 수익을 얻을 수 있다는 연구가 있었다.
+(Brock et al., 1992; Hudson et al., 1996)
+기존의 Brock의 연구방법을 아시아 시장
+에 적용하여 기술적 트레이딩 전략은 예측능
+력이 있으며 기술적 분석을 사용하여 얻은 수
+익과 단순 매매전략의 수익이 동일하다는 귀
+무가설을 기각하고 아시아 주식시장에 이동평
+균을 사용하여 거래전략을 적용하면 초과 수
+익률을 얻을 수 있다고 주장하였다..
+(Gunasekarange & Power, 2000)
+이동평균과 trading range breakout 룰을
+아시아 9개의 신흥시장에 적용하고 점검을 통
+하여 20일, 60일 이동평균선이 가장 많은 수익
+률을 얻을 수 있다고 검증하였다. 이 논문에서
+는 20일, 60일, 120일, 180일 240일 이동평균선
+을 사용하였고 주가데이터와 비교를 하여 수
+익률을 계산하였다. (Lai & Lau, 2005)
+본 논문에서는 5일, 20일, 60일, 120일 이
+동평균선과 골든크로스 및 데드크로스를 기준
+으로 신호을 발생시키고 매매 시점을 정의 하
+였다. 본 논문의 연구와 기존의 연구의 가장
+큰 차이점은 각각의 이동평균선으로 생성될
+수 있는 모든 골든크로스와 데드크로스를 고
+려함으로써 정해진 기간 내에 이동평균선을
+이용해 만든 거래 규칙으로 매매를 할 경우
+얻을 수 있는 최대 수익률과
+
+
+
+Van  home  and  Parker  (1967)는  주가이동평균선  이론으로  턬자성과를
+  분 석하씀다.  주가  이동평균선  분석은  단기적으로  나타나는  비정상적이고
+  불규 칙한 주가의 변동성을  없애고  장기적이면서  안정적인  변동추이를 
+ 관찰하는 데  사용된다.  불규칙성과  비정상적인  것을 제거하기  위하여  
+일정한 기간  동 안의  변동치를  차례로  산선평균한  후  그  값을  
+해당기간의  일수로  나누어  줌 으로써  추세변동을  파악하는  방법이다.  
+주가  이동평균선은  과거의  주가를 사용하기  때문에  매매시점이  
+늦게  된다는 결점이 있다.
+
+Technical analysis uses past data and other statistic to predict future market movement.
+Technical analysis is already used in the investment analysis by practitioners from 1800s but it is still concluded useless by academic area (Brock, Lakonishok, and LeBaron (1992). 
+However,  numerous  empirical  studies  found  strong  evidence  for  the  profitability  of technical analysis. 
+Brock, Lakonishok, and LeBaron (1992) find evidence that simple technical indicator, such as moving average, have significant ability to predict stock return. 
+Although just using simple technical tools like moving average and trading break, they provide strong support for technical analysis. 
+Lo, Mamaysky, and Wang (2000) also find that technical analysis has predictive ability andcan add value to the investment process. 
+Neely et al. (2014) show that technical indicator is statistically significant in-sample and out-of-sample predictive power as macroeconomic variables in forecasting stock market The previousresearch hasweigh more on the time-series data and individual stocks returnin technical analysis calculation. 
+Recently, Han et al. (2013) find evidence that technical analysis hascross-sectional profitability in U.S.stock market. 
+They focus on the portfolios sorted by volatility than on the individual stocks. 
+Han et al. (2013) stated that the more uncertain the information is or the more volatile the stockis, the more profitable the technical analysiswill be. 
+When the market is uncertain, investors tend to focus more onthe technical indicator because the fundamental analysis will differ more from the actual price.
+
+기술 분석은 과거 데이터 및 기타 통계를 사용하여 미래 시장 움직임을 예측합니다.
+기술적 분석은 이미 1800년대부터 실무자들에 의해 투자 분석에 사용되었지만 여전히 학계에서는 쓸모가 없다고 결론지었습니다(Brock, Lakonishok, and LeBaron(1992)).
+그러나 수많은 경험적 연구에서 기술적 분석의 수익성에 대한 강력한 증거를 발견했습니다.
+Brock, Lakonishok 및 LeBaron(1992)은 이동 평균과 같은 단순한 기술 지표가 주식 수익률을 예측하는 상당한 능력을 가지고 있다는 증거를 발견했습니다.
+이동 평균 및 거래 중단과 같은 간단한 기술 도구를 사용하지만 기술 분석에 대한 강력한 지원을 제공합니다.
+Lo, Mamaysky, and Wang(2000)은 기술적 분석이 예측 능력을 가지고 있으며 투자 과정에 가치를 더할 수 있음을 발견했습니다.
+Neely et al. (2014)은 기술지표가 주식시장을 예측하는 거시경제 변수로서 표본내외 예측력이 통계적으로 유의함을 보여주고 있다.
+최근 Han et al. (2013)은 기술적 분석이 미국 주식 시장에서 횡단면 수익성을 가지고 있다는 증거를 찾습니다.
+그들은 개별 주식보다 변동성에 따라 분류된 포트폴리오에 초점을 맞춥니다.
+Han et al. (2013)은 정보가 불확실하거나 주식의 변동성이 높을수록 기술적 분석의 수익성이 높아진다고 말했습니다.
+시장이 불확실할 때 투자자들은 펀더멘탈 분석이 실제 가격과 더 많이 다를 것이기 때문에 기술적 지표에 더 집중하는 경향이 있습니다.
