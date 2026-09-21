@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "verified_expiry_groups": 83,
+  "verified_overall_records": 3569,
+  "verified_band_records": 19844,
+  "invalid_rows_seen": 1,
+  "overall_missing_count": 0,
+  "overall_extra_count": 0,
+  "overall_mismatch_count": 0,
+  "band_missing_count": 0,
+  "band_extra_count": 0,
+  "band_mismatch_count": 0,
+  "invariant_error_count": 0,
+  "samples": {
+    "overall_missing": [],
+    "overall_extra": [],
+    "overall_mismatch": [],
+    "band_missing": [],
+    "band_extra": [],
+    "band_mismatch": [],
+    "invariant_errors": []
+  }
+}

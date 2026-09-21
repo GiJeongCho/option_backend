@@ -1,0 +1,183 @@
+{
+  "definition": {
+    "period_start": "20251001",
+    "period_end": "20260831",
+    "market_id": "DRV",
+    "premium_min": 1.0,
+    "premium_max": 5.0,
+    "same_bar_low_high_allowed": false,
+    "primary_unit": "expiry_date + option_code"
+  },
+  "expiry_group_count": 83,
+  "eligible_contract_days": 3569,
+  "success_5x_contract_days": 1062,
+  "success_5x_contract_rate_pct": 29.7562,
+  "success_10x_contract_days": 408,
+  "success_10x_contract_rate_pct": 11.4318,
+  "expiry_days_with_5x": 74,
+  "expiry_days_with_5x_rate_pct": 89.1566,
+  "expiry_days_with_10x": 40,
+  "expiry_days_with_10x_rate_pct": 48.1928,
+  "expiry_days_without_5x": [
+    "20251027",
+    "20251117",
+    "20251204",
+    "20251215",
+    "20251222",
+    "20251224",
+    "20260209",
+    "20260219",
+    "20260803"
+  ],
+  "expiry_days_without_10x": [
+    "20251010",
+    "20251013",
+    "20251016",
+    "20251023",
+    "20251027",
+    "20251030",
+    "20251106",
+    "20251110",
+    "20251117",
+    "20251120",
+    "20251124",
+    "20251127",
+    "20251201",
+    "20251204",
+    "20251208",
+    "20251215",
+    "20251218",
+    "20251222",
+    "20251224",
+    "20251229",
+    "20251230",
+    "20260112",
+    "20260115",
+    "20260122",
+    "20260126",
+    "20260209",
+    "20260219",
+    "20260223",
+    "20260330",
+    "20260406",
+    "20260413",
+    "20260416",
+    "20260420",
+    "20260427",
+    "20260430",
+    "20260511",
+    "20260526",
+    "20260615",
+    "20260625",
+    "20260723",
+    "20260803",
+    "20260810",
+    "20260827"
+  ],
+  "premium_band_summary": [
+    {
+      "premium_band": "1.00-1.49",
+      "eligible_contract_days": 3070,
+      "success_5x_contract_days": 699,
+      "success_5x_rate_pct": 22.7687,
+      "success_10x_contract_days": 303,
+      "success_10x_rate_pct": 9.8697,
+      "expiry_days_with_5x": 74,
+      "expiry_days_with_10x": 39
+    },
+    {
+      "premium_band": "1.50-1.99",
+      "eligible_contract_days": 2825,
+      "success_5x_contract_days": 590,
+      "success_5x_rate_pct": 20.885,
+      "success_10x_contract_days": 215,
+      "success_10x_rate_pct": 7.6106,
+      "expiry_days_with_5x": 65,
+      "expiry_days_with_10x": 30
+    },
+    {
+      "premium_band": "2.00-2.49",
+      "eligible_contract_days": 2637,
+      "success_5x_contract_days": 482,
+      "success_5x_rate_pct": 18.2783,
+      "success_10x_contract_days": 156,
+      "success_10x_rate_pct": 5.9158,
+      "expiry_days_with_5x": 61,
+      "expiry_days_with_10x": 24
+    },
+    {
+      "premium_band": "2.50-2.99",
+      "eligible_contract_days": 2475,
+      "success_5x_contract_days": 414,
+      "success_5x_rate_pct": 16.7273,
+      "success_10x_contract_days": 111,
+      "success_10x_rate_pct": 4.4848,
+      "expiry_days_with_5x": 52,
+      "expiry_days_with_10x": 18
+    },
+    {
+      "premium_band": "3.00-3.49",
+      "eligible_contract_days": 2339,
+      "success_5x_contract_days": 347,
+      "success_5x_rate_pct": 14.8354,
+      "success_10x_contract_days": 80,
+      "success_10x_rate_pct": 3.4203,
+      "expiry_days_with_5x": 44,
+      "expiry_days_with_10x": 16
+    },
+    {
+      "premium_band": "3.50-3.99",
+      "eligible_contract_days": 2236,
+      "success_5x_contract_days": 289,
+      "success_5x_rate_pct": 12.9249,
+      "success_10x_contract_days": 56,
+      "success_10x_rate_pct": 2.5045,
+      "expiry_days_with_5x": 38,
+      "expiry_days_with_10x": 15
+    },
+    {
+      "premium_band": "4.00-4.49",
+      "eligible_contract_days": 2155,
+      "success_5x_contract_days": 234,
+      "success_5x_rate_pct": 10.8585,
+      "success_10x_contract_days": 36,
+      "success_10x_rate_pct": 1.6705,
+      "expiry_days_with_5x": 32,
+      "expiry_days_with_10x": 12
+    },
+    {
+      "premium_band": "4.50-5.00",
+      "eligible_contract_days": 2107,
+      "success_5x_contract_days": 199,
+      "success_5x_rate_pct": 9.4447,
+      "success_10x_contract_days": 29,
+      "success_10x_rate_pct": 1.3764,
+      "expiry_days_with_5x": 32,
+      "expiry_days_with_10x": 9
+    }
+  ],
+  "call_put_summary": [
+    {
+      "call_put": "CALL",
+      "eligible_contract_days": 1739,
+      "success_5x_contract_days": 494,
+      "success_5x_rate_pct": 28.4071,
+      "success_10x_contract_days": 165,
+      "success_10x_rate_pct": 9.4882
+    },
+    {
+      "call_put": "PUT",
+      "eligible_contract_days": 1830,
+      "success_5x_contract_days": 568,
+      "success_5x_rate_pct": 31.0383,
+      "success_10x_contract_days": 243,
+      "success_10x_rate_pct": 13.2787
+    }
+  ],
+  "diagnostics": {
+    "duplicate_bar_rows": 0,
+    "invalid_rows": 1,
+    "min_time": 845,
+    "max_time": 1519
+  }
+}
