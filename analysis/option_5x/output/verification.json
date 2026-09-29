@@ -1,9 +1,9 @@
 {
   "passed": true,
-  "verified_expiry_groups": 83,
-  "verified_overall_records": 3569,
-  "verified_band_records": 19844,
-  "invalid_rows_seen": 1,
+  "verified_expiry_groups": 282,
+  "verified_overall_records": 5023,
+  "verified_band_records": 26134,
+  "invalid_rows_seen": 16208,
   "overall_missing_count": 0,
   "overall_extra_count": 0,
   "overall_mismatch_count": 0,

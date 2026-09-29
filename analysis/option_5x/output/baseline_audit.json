@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "daily_rows": 83,
+  "trade_rows": 439,
+  "initial_cash": 80000000,
+  "ending_cash": 126802500,
+  "total_pnl": 46802500,
+  "maximum_daily_entry_spend": 4996000,
+  "pnl_excluding_best_1_day": 28580000,
+  "pnl_excluding_best_3_days": 1006500,
+  "pnl_excluding_best_5_days": -17918500,
+  "error_count": 0,
+  "error_samples": []
+}

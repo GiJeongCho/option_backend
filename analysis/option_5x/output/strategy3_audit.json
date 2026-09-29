@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "fixed": {
+    "passed": true,
+    "error_count": 0,
+    "error_samples": [],
+    "daily_rows": 83,
+    "trade_rows": 174
+  },
+  "same_entries_across_exit_candidates": {
+    "passed": true,
+    "reference_exit_mode": "two_x_all",
+    "entry_days": 71,
+    "mismatches": [],
+    "excluded_controls": [
+      {
+        "exit_mode": "time_only",
+        "reason": "continuous account exhausted before period end, so later fills are not comparable"
+      }
+    ]
+  },
+  "entry_candidates_passed": true,
+  "exit_candidates_passed": true
+}

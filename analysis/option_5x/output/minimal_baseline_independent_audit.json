@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "daily_rows": 12126,
+  "trade_rows": 13800,
+  "strategy_count": 43,
+  "error_count": 0,
+  "error_samples": []
+}

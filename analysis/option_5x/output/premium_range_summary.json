@@ -1,0 +1,92 @@
+{
+  "definition": {
+    "same_bar_low_high_allowed": false,
+    "unit": "expiry_date + option_code",
+    "ranges": {
+      "below_1": "0 < low < 1.00",
+      "from_1_to_5": "1.00 <= low <= 5.00",
+      "above_5": "low > 5.00"
+    },
+    "overlap_note": "한 종목이 여러 가격대를 통과하면 가격대별 결과에는 중복될 수 있음"
+  },
+  "all_period": {
+    "ranges": {
+      "below_1": {
+        "eligible_contract_days": 7435,
+        "success_5x_contract_days": 3114,
+        "success_5x_contract_rate_pct": 41.883,
+        "expiry_days_with_5x": 83,
+        "expiry_days_with_5x_rate_pct": 100.0
+      },
+      "from_1_to_5": {
+        "eligible_contract_days": 3569,
+        "success_5x_contract_days": 1062,
+        "success_5x_contract_rate_pct": 29.7562,
+        "expiry_days_with_5x": 74,
+        "expiry_days_with_5x_rate_pct": 89.1566
+      },
+      "above_5": {
+        "eligible_contract_days": 4169,
+        "success_5x_contract_days": 273,
+        "success_5x_contract_rate_pct": 6.5483,
+        "expiry_days_with_5x": 31,
+        "expiry_days_with_5x_rate_pct": 37.3494
+      }
+    },
+    "unique_5x_contract_days_all_positive_premiums": 3638,
+    "unique_5x_contract_days_outside_1_to_5": 3327,
+    "unique_5x_contract_days_only_outside_1_to_5": 2576,
+    "expiry_days_with_5x_all_positive_premiums": 83,
+    "expiry_days_with_5x_outside_1_to_5": 83,
+    "expiry_days_with_5x_only_outside_1_to_5": 9,
+    "expiry_days_without_1_to_5_but_with_outside_5x": [
+      "20251027",
+      "20251117",
+      "20251204",
+      "20251215",
+      "20251222",
+      "20251224",
+      "20260209",
+      "20260219",
+      "20260803"
+    ],
+    "expiry_days_without_any_5x": []
+  },
+  "year_2026": {
+    "ranges": {
+      "below_1": {
+        "eligible_contract_days": 6490,
+        "success_5x_contract_days": 2815,
+        "success_5x_contract_rate_pct": 43.3744,
+        "expiry_days_with_5x": 60,
+        "expiry_days_with_5x_rate_pct": 100.0
+      },
+      "from_1_to_5": {
+        "eligible_contract_days": 3239,
+        "success_5x_contract_days": 1002,
+        "success_5x_contract_rate_pct": 30.9355,
+        "expiry_days_with_5x": 57,
+        "expiry_days_with_5x_rate_pct": 95.0
+      },
+      "above_5": {
+        "eligible_contract_days": 3723,
+        "success_5x_contract_days": 273,
+        "success_5x_contract_rate_pct": 7.3328,
+        "expiry_days_with_5x": 31,
+        "expiry_days_with_5x_rate_pct": 51.6667
+      }
+    },
+    "unique_5x_contract_days_all_positive_premiums": 3314,
+    "unique_5x_contract_days_outside_1_to_5": 3028,
+    "unique_5x_contract_days_only_outside_1_to_5": 2312,
+    "expiry_days_with_5x_all_positive_premiums": 60,
+    "expiry_days_with_5x_outside_1_to_5": 60,
+    "expiry_days_with_5x_only_outside_1_to_5": 3,
+    "expiry_days_without_1_to_5_but_with_outside_5x": [
+      "20260209",
+      "20260219",
+      "20260803"
+    ],
+    "expiry_days_without_any_5x": []
+  }
+}

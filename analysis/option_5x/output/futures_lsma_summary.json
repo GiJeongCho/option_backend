@@ -1,0 +1,171 @@
+{
+  "status": "research_complete",
+  "source_method": "ma_leakage_test.py weekly construction and indicators",
+  "data_profile": {
+    "path": "C:\\project\\option\\backend\\rowdata\\코스피200 선물 (F) 선물 과거 데이터.csv",
+    "rows": 683,
+    "start": "2023-08-03",
+    "end": "2026-09-23",
+    "descending_in_source": true,
+    "duplicate_dates_in_source": 0,
+    "duplicate_dates_after_cleanup": 0,
+    "excluded_ohlc_rows": [
+      {
+        "date": "2023-09-14",
+        "open": 336.7,
+        "high": 340.35,
+        "low": 336.65,
+        "close": 341.19
+      },
+      {
+        "date": "2024-06-13",
+        "open": 375.5,
+        "high": 378.9,
+        "low": 375.4,
+        "close": 374.75
+      },
+      {
+        "date": "2024-09-12",
+        "open": 340.4,
+        "high": 343.1,
+        "low": 339.45,
+        "close": 343.85
+      }
+    ],
+    "missing_weekdays_including_holidays": 153,
+    "minimum_close": 304.65,
+    "maximum_close": 1490.5
+  },
+  "weekly_rows": 148,
+  "weekly_start": "2023-08-10",
+  "weekly_end": "2026-09-17",
+  "window": 3,
+  "indicators": {
+    "SMA": {
+      "biased": {
+        "hits": 137,
+        "total": 146,
+        "touch_accuracy": 0.938356,
+        "endpoint_direction_hits": 93,
+        "endpoint_direction_accuracy": 0.636986
+      },
+      "shifted": {
+        "hits": 75,
+        "total": 145,
+        "touch_accuracy": 0.517241,
+        "endpoint_direction_hits": 66,
+        "endpoint_direction_accuracy": 0.455172
+      },
+      "shifted_high_volatility_period": {
+        "hits": 27,
+        "total": 49,
+        "touch_accuracy": 0.55102,
+        "endpoint_direction_hits": 21,
+        "endpoint_direction_accuracy": 0.428571
+      },
+      "touch_accuracy_overstatement": 0.421115
+    },
+    "EMA": {
+      "biased": {
+        "hits": 140,
+        "total": 148,
+        "touch_accuracy": 0.945946,
+        "endpoint_direction_hits": 117,
+        "endpoint_direction_accuracy": 0.790541
+      },
+      "shifted": {
+        "hits": 88,
+        "total": 147,
+        "touch_accuracy": 0.598639,
+        "endpoint_direction_hits": 62,
+        "endpoint_direction_accuracy": 0.421769
+      },
+      "shifted_high_volatility_period": {
+        "hits": 28,
+        "total": 49,
+        "touch_accuracy": 0.571429,
+        "endpoint_direction_hits": 20,
+        "endpoint_direction_accuracy": 0.408163
+      },
+      "touch_accuracy_overstatement": 0.347307
+    },
+    "WMA": {
+      "biased": {
+        "hits": 145,
+        "total": 145,
+        "touch_accuracy": 1.0,
+        "endpoint_direction_hits": 118,
+        "endpoint_direction_accuracy": 0.813793
+      },
+      "shifted": {
+        "hits": 91,
+        "total": 144,
+        "touch_accuracy": 0.631944,
+        "endpoint_direction_hits": 63,
+        "endpoint_direction_accuracy": 0.4375
+      },
+      "shifted_high_volatility_period": {
+        "hits": 30,
+        "total": 49,
+        "touch_accuracy": 0.612245,
+        "endpoint_direction_hits": 21,
+        "endpoint_direction_accuracy": 0.428571
+      },
+      "touch_accuracy_overstatement": 0.368056
+    },
+    "LSMA": {
+      "biased": {
+        "hits": 139,
+        "total": 145,
+        "touch_accuracy": 0.958621,
+        "endpoint_direction_hits": 132,
+        "endpoint_direction_accuracy": 0.910345
+      },
+      "shifted": {
+        "hits": 119,
+        "total": 144,
+        "touch_accuracy": 0.826389,
+        "endpoint_direction_hits": 67,
+        "endpoint_direction_accuracy": 0.465278
+      },
+      "shifted_high_volatility_period": {
+        "hits": 42,
+        "total": 49,
+        "touch_accuracy": 0.857143,
+        "endpoint_direction_hits": 25,
+        "endpoint_direction_accuracy": 0.510204
+      },
+      "touch_accuracy_overstatement": 0.132232
+    },
+    "TRIMA": {
+      "biased": {
+        "hits": 133,
+        "total": 145,
+        "touch_accuracy": 0.917241,
+        "endpoint_direction_hits": 82,
+        "endpoint_direction_accuracy": 0.565517
+      },
+      "shifted": {
+        "hits": 71,
+        "total": 144,
+        "touch_accuracy": 0.493056,
+        "endpoint_direction_hits": 65,
+        "endpoint_direction_accuracy": 0.451389
+      },
+      "shifted_high_volatility_period": {
+        "hits": 27,
+        "total": 49,
+        "touch_accuracy": 0.55102,
+        "endpoint_direction_hits": 22,
+        "endpoint_direction_accuracy": 0.44898
+      },
+      "touch_accuracy_overstatement": 0.424185
+    }
+  },
+  "interpretation_boundary": {
+    "reported_accuracy_is": "whether the following weekly range touches the shifted indicator level",
+    "reported_accuracy_is_not": "option profitability or final futures direction accuracy",
+    "lsma_formula": "linear-regression fitted value at the final input point; shift(1) supplies the prior completed value",
+    "safe_option_alignment": "use only shifted LSMA from the latest weekly row whose date is not later than the option trading date"
+  }
+}

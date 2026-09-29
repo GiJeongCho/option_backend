@@ -1,5 +1,1000 @@
 [
   {
+    "expiry_date": "20230803",
+    "product_kind": "THURSDAY",
+    "series": "2308W1"
+  },
+  {
+    "expiry_date": "20230807",
+    "product_kind": "MONDAY",
+    "series": "2308W1"
+  },
+  {
+    "expiry_date": "20230814",
+    "product_kind": "MONDAY",
+    "series": "2308W2"
+  },
+  {
+    "expiry_date": "20230817",
+    "product_kind": "THURSDAY",
+    "series": "2308W3"
+  },
+  {
+    "expiry_date": "20230821",
+    "product_kind": "MONDAY",
+    "series": "2308W3"
+  },
+  {
+    "expiry_date": "20230824",
+    "product_kind": "THURSDAY",
+    "series": "2308W4"
+  },
+  {
+    "expiry_date": "20230828",
+    "product_kind": "MONDAY",
+    "series": "2308W4"
+  },
+  {
+    "expiry_date": "20230831",
+    "product_kind": "THURSDAY",
+    "series": "2308W5"
+  },
+  {
+    "expiry_date": "20230904",
+    "product_kind": "MONDAY",
+    "series": "2309W1"
+  },
+  {
+    "expiry_date": "20230907",
+    "product_kind": "THURSDAY",
+    "series": "2309W1"
+  },
+  {
+    "expiry_date": "20230911",
+    "product_kind": "MONDAY",
+    "series": "2309W2"
+  },
+  {
+    "expiry_date": "20230918",
+    "product_kind": "MONDAY",
+    "series": "2309W3"
+  },
+  {
+    "expiry_date": "20230921",
+    "product_kind": "THURSDAY",
+    "series": "2309W3"
+  },
+  {
+    "expiry_date": "20230925",
+    "product_kind": "MONDAY",
+    "series": "2309W4"
+  },
+  {
+    "expiry_date": "20230927",
+    "product_kind": "THURSDAY",
+    "series": "2309W4"
+  },
+  {
+    "expiry_date": "20231004",
+    "product_kind": "MONDAY",
+    "series": "2310W1"
+  },
+  {
+    "expiry_date": "20231005",
+    "product_kind": "THURSDAY",
+    "series": "2310W1"
+  },
+  {
+    "expiry_date": "20231010",
+    "product_kind": "MONDAY",
+    "series": "2310W2"
+  },
+  {
+    "expiry_date": "20231016",
+    "product_kind": "MONDAY",
+    "series": "2310W3"
+  },
+  {
+    "expiry_date": "20231019",
+    "product_kind": "THURSDAY",
+    "series": "2310W3"
+  },
+  {
+    "expiry_date": "20231023",
+    "product_kind": "MONDAY",
+    "series": "2310W4"
+  },
+  {
+    "expiry_date": "20231026",
+    "product_kind": "THURSDAY",
+    "series": "2310W4"
+  },
+  {
+    "expiry_date": "20231030",
+    "product_kind": "MONDAY",
+    "series": "2310W5"
+  },
+  {
+    "expiry_date": "20231102",
+    "product_kind": "THURSDAY",
+    "series": "2311W1"
+  },
+  {
+    "expiry_date": "20231106",
+    "product_kind": "MONDAY",
+    "series": "2311W1"
+  },
+  {
+    "expiry_date": "20231113",
+    "product_kind": "MONDAY",
+    "series": "2311W2"
+  },
+  {
+    "expiry_date": "20231116",
+    "product_kind": "THURSDAY",
+    "series": "2311W3"
+  },
+  {
+    "expiry_date": "20231120",
+    "product_kind": "MONDAY",
+    "series": "2311W3"
+  },
+  {
+    "expiry_date": "20231123",
+    "product_kind": "THURSDAY",
+    "series": "2311W4"
+  },
+  {
+    "expiry_date": "20231127",
+    "product_kind": "MONDAY",
+    "series": "2311W4"
+  },
+  {
+    "expiry_date": "20231130",
+    "product_kind": "THURSDAY",
+    "series": "2311W5"
+  },
+  {
+    "expiry_date": "20231204",
+    "product_kind": "MONDAY",
+    "series": "2312W1"
+  },
+  {
+    "expiry_date": "20231207",
+    "product_kind": "THURSDAY",
+    "series": "2312W1"
+  },
+  {
+    "expiry_date": "20231211",
+    "product_kind": "MONDAY",
+    "series": "2312W2"
+  },
+  {
+    "expiry_date": "20231218",
+    "product_kind": "MONDAY",
+    "series": "2312W3"
+  },
+  {
+    "expiry_date": "20231221",
+    "product_kind": "THURSDAY",
+    "series": "2312W3"
+  },
+  {
+    "expiry_date": "20231226",
+    "product_kind": "MONDAY",
+    "series": "2312W4"
+  },
+  {
+    "expiry_date": "20231228",
+    "product_kind": "THURSDAY",
+    "series": "2312W4"
+  },
+  {
+    "expiry_date": "20240102",
+    "product_kind": "MONDAY",
+    "series": "2401W1"
+  },
+  {
+    "expiry_date": "20240104",
+    "product_kind": "THURSDAY",
+    "series": "2401W1"
+  },
+  {
+    "expiry_date": "20240108",
+    "product_kind": "MONDAY",
+    "series": "2401W2"
+  },
+  {
+    "expiry_date": "20240115",
+    "product_kind": "MONDAY",
+    "series": "2401W3"
+  },
+  {
+    "expiry_date": "20240118",
+    "product_kind": "THURSDAY",
+    "series": "2401W3"
+  },
+  {
+    "expiry_date": "20240122",
+    "product_kind": "MONDAY",
+    "series": "2401W4"
+  },
+  {
+    "expiry_date": "20240125",
+    "product_kind": "THURSDAY",
+    "series": "2401W4"
+  },
+  {
+    "expiry_date": "20240129",
+    "product_kind": "MONDAY",
+    "series": "2401W5"
+  },
+  {
+    "expiry_date": "20240201",
+    "product_kind": "THURSDAY",
+    "series": "2402W1"
+  },
+  {
+    "expiry_date": "20240205",
+    "product_kind": "MONDAY",
+    "series": "2402W1"
+  },
+  {
+    "expiry_date": "20240213",
+    "product_kind": "MONDAY",
+    "series": "2402W2"
+  },
+  {
+    "expiry_date": "20240215",
+    "product_kind": "THURSDAY",
+    "series": "2402W3"
+  },
+  {
+    "expiry_date": "20240219",
+    "product_kind": "MONDAY",
+    "series": "2402W3"
+  },
+  {
+    "expiry_date": "20240222",
+    "product_kind": "THURSDAY",
+    "series": "2402W4"
+  },
+  {
+    "expiry_date": "20240226",
+    "product_kind": "MONDAY",
+    "series": "2402W4"
+  },
+  {
+    "expiry_date": "20240229",
+    "product_kind": "THURSDAY",
+    "series": "2402W5"
+  },
+  {
+    "expiry_date": "20240304",
+    "product_kind": "MONDAY",
+    "series": "2403W1"
+  },
+  {
+    "expiry_date": "20240307",
+    "product_kind": "THURSDAY",
+    "series": "2403W1"
+  },
+  {
+    "expiry_date": "20240311",
+    "product_kind": "MONDAY",
+    "series": "2403W2"
+  },
+  {
+    "expiry_date": "20240318",
+    "product_kind": "MONDAY",
+    "series": "2403W3"
+  },
+  {
+    "expiry_date": "20240321",
+    "product_kind": "THURSDAY",
+    "series": "2403W3"
+  },
+  {
+    "expiry_date": "20240325",
+    "product_kind": "MONDAY",
+    "series": "2403W4"
+  },
+  {
+    "expiry_date": "20240328",
+    "product_kind": "THURSDAY",
+    "series": "2403W4"
+  },
+  {
+    "expiry_date": "20240401",
+    "product_kind": "MONDAY",
+    "series": "2404W1"
+  },
+  {
+    "expiry_date": "20240404",
+    "product_kind": "THURSDAY",
+    "series": "2404W1"
+  },
+  {
+    "expiry_date": "20240408",
+    "product_kind": "MONDAY",
+    "series": "2404W2"
+  },
+  {
+    "expiry_date": "20240415",
+    "product_kind": "MONDAY",
+    "series": "2404W3"
+  },
+  {
+    "expiry_date": "20240418",
+    "product_kind": "THURSDAY",
+    "series": "2404W3"
+  },
+  {
+    "expiry_date": "20240422",
+    "product_kind": "MONDAY",
+    "series": "2404W4"
+  },
+  {
+    "expiry_date": "20240425",
+    "product_kind": "THURSDAY",
+    "series": "2404W4"
+  },
+  {
+    "expiry_date": "20240429",
+    "product_kind": "MONDAY",
+    "series": "2404W5"
+  },
+  {
+    "expiry_date": "20240502",
+    "product_kind": "THURSDAY",
+    "series": "2405W1"
+  },
+  {
+    "expiry_date": "20240507",
+    "product_kind": "MONDAY",
+    "series": "2405W1"
+  },
+  {
+    "expiry_date": "20240513",
+    "product_kind": "MONDAY",
+    "series": "2405W2"
+  },
+  {
+    "expiry_date": "20240516",
+    "product_kind": "THURSDAY",
+    "series": "2405W3"
+  },
+  {
+    "expiry_date": "20240520",
+    "product_kind": "MONDAY",
+    "series": "2405W3"
+  },
+  {
+    "expiry_date": "20240523",
+    "product_kind": "THURSDAY",
+    "series": "2405W4"
+  },
+  {
+    "expiry_date": "20240527",
+    "product_kind": "MONDAY",
+    "series": "2405W4"
+  },
+  {
+    "expiry_date": "20240530",
+    "product_kind": "THURSDAY",
+    "series": "2405W5"
+  },
+  {
+    "expiry_date": "20240603",
+    "product_kind": "MONDAY",
+    "series": "2406W1"
+  },
+  {
+    "expiry_date": "20240605",
+    "product_kind": "THURSDAY",
+    "series": "2406W1"
+  },
+  {
+    "expiry_date": "20240610",
+    "product_kind": "MONDAY",
+    "series": "2406W2"
+  },
+  {
+    "expiry_date": "20240617",
+    "product_kind": "MONDAY",
+    "series": "2406W3"
+  },
+  {
+    "expiry_date": "20240620",
+    "product_kind": "THURSDAY",
+    "series": "2406W3"
+  },
+  {
+    "expiry_date": "20240624",
+    "product_kind": "MONDAY",
+    "series": "2406W4"
+  },
+  {
+    "expiry_date": "20240627",
+    "product_kind": "THURSDAY",
+    "series": "2406W4"
+  },
+  {
+    "expiry_date": "20240701",
+    "product_kind": "MONDAY",
+    "series": "2407W1"
+  },
+  {
+    "expiry_date": "20240704",
+    "product_kind": "THURSDAY",
+    "series": "2407W1"
+  },
+  {
+    "expiry_date": "20240708",
+    "product_kind": "MONDAY",
+    "series": "2407W2"
+  },
+  {
+    "expiry_date": "20240715",
+    "product_kind": "MONDAY",
+    "series": "2407W3"
+  },
+  {
+    "expiry_date": "20240718",
+    "product_kind": "THURSDAY",
+    "series": "2407W3"
+  },
+  {
+    "expiry_date": "20240722",
+    "product_kind": "MONDAY",
+    "series": "2407W4"
+  },
+  {
+    "expiry_date": "20240725",
+    "product_kind": "THURSDAY",
+    "series": "2407W4"
+  },
+  {
+    "expiry_date": "20240729",
+    "product_kind": "MONDAY",
+    "series": "2407W5"
+  },
+  {
+    "expiry_date": "20240801",
+    "product_kind": "THURSDAY",
+    "series": "2408W1"
+  },
+  {
+    "expiry_date": "20240805",
+    "product_kind": "MONDAY",
+    "series": "2408W1"
+  },
+  {
+    "expiry_date": "20240812",
+    "product_kind": "MONDAY",
+    "series": "2408W2"
+  },
+  {
+    "expiry_date": "20240814",
+    "product_kind": "THURSDAY",
+    "series": "2408W3"
+  },
+  {
+    "expiry_date": "20240819",
+    "product_kind": "MONDAY",
+    "series": "2408W3"
+  },
+  {
+    "expiry_date": "20240822",
+    "product_kind": "THURSDAY",
+    "series": "2408W4"
+  },
+  {
+    "expiry_date": "20240826",
+    "product_kind": "MONDAY",
+    "series": "2408W4"
+  },
+  {
+    "expiry_date": "20240829",
+    "product_kind": "THURSDAY",
+    "series": "2408W5"
+  },
+  {
+    "expiry_date": "20240902",
+    "product_kind": "MONDAY",
+    "series": "2409W1"
+  },
+  {
+    "expiry_date": "20240905",
+    "product_kind": "THURSDAY",
+    "series": "2409W1"
+  },
+  {
+    "expiry_date": "20240909",
+    "product_kind": "MONDAY",
+    "series": "2409W2"
+  },
+  {
+    "expiry_date": "20240919",
+    "product_kind": "MONDAY",
+    "series": "2409W3"
+  },
+  {
+    "expiry_date": "20240923",
+    "product_kind": "MONDAY",
+    "series": "2409W4"
+  },
+  {
+    "expiry_date": "20240926",
+    "product_kind": "THURSDAY",
+    "series": "2409W4"
+  },
+  {
+    "expiry_date": "20240930",
+    "product_kind": "MONDAY",
+    "series": "2409W5"
+  },
+  {
+    "expiry_date": "20241002",
+    "product_kind": "THURSDAY",
+    "series": "2410W1"
+  },
+  {
+    "expiry_date": "20241007",
+    "product_kind": "MONDAY",
+    "series": "2410W1"
+  },
+  {
+    "expiry_date": "20241014",
+    "product_kind": "MONDAY",
+    "series": "2410W2"
+  },
+  {
+    "expiry_date": "20241017",
+    "product_kind": "THURSDAY",
+    "series": "2410W3"
+  },
+  {
+    "expiry_date": "20241021",
+    "product_kind": "MONDAY",
+    "series": "2410W3"
+  },
+  {
+    "expiry_date": "20241024",
+    "product_kind": "THURSDAY",
+    "series": "2410W4"
+  },
+  {
+    "expiry_date": "20241028",
+    "product_kind": "MONDAY",
+    "series": "2410W4"
+  },
+  {
+    "expiry_date": "20241031",
+    "product_kind": "THURSDAY",
+    "series": "2410W5"
+  },
+  {
+    "expiry_date": "20241104",
+    "product_kind": "MONDAY",
+    "series": "2411W1"
+  },
+  {
+    "expiry_date": "20241107",
+    "product_kind": "THURSDAY",
+    "series": "2411W1"
+  },
+  {
+    "expiry_date": "20241111",
+    "product_kind": "MONDAY",
+    "series": "2411W2"
+  },
+  {
+    "expiry_date": "20241118",
+    "product_kind": "MONDAY",
+    "series": "2411W3"
+  },
+  {
+    "expiry_date": "20241121",
+    "product_kind": "THURSDAY",
+    "series": "2411W3"
+  },
+  {
+    "expiry_date": "20241125",
+    "product_kind": "MONDAY",
+    "series": "2411W4"
+  },
+  {
+    "expiry_date": "20241128",
+    "product_kind": "THURSDAY",
+    "series": "2411W4"
+  },
+  {
+    "expiry_date": "20241202",
+    "product_kind": "MONDAY",
+    "series": "2412W1"
+  },
+  {
+    "expiry_date": "20241205",
+    "product_kind": "THURSDAY",
+    "series": "2412W1"
+  },
+  {
+    "expiry_date": "20241209",
+    "product_kind": "MONDAY",
+    "series": "2412W2"
+  },
+  {
+    "expiry_date": "20241216",
+    "product_kind": "MONDAY",
+    "series": "2412W3"
+  },
+  {
+    "expiry_date": "20241219",
+    "product_kind": "THURSDAY",
+    "series": "2412W3"
+  },
+  {
+    "expiry_date": "20241223",
+    "product_kind": "MONDAY",
+    "series": "2412W4"
+  },
+  {
+    "expiry_date": "20241226",
+    "product_kind": "THURSDAY",
+    "series": "2412W4"
+  },
+  {
+    "expiry_date": "20241230",
+    "product_kind": "MONDAY",
+    "series": "2412W5"
+  },
+  {
+    "expiry_date": "20250102",
+    "product_kind": "THURSDAY",
+    "series": "2501W1"
+  },
+  {
+    "expiry_date": "20250106",
+    "product_kind": "MONDAY",
+    "series": "2501W1"
+  },
+  {
+    "expiry_date": "20250113",
+    "product_kind": "MONDAY",
+    "series": "2501W2"
+  },
+  {
+    "expiry_date": "20250116",
+    "product_kind": "THURSDAY",
+    "series": "2501W3"
+  },
+  {
+    "expiry_date": "20250120",
+    "product_kind": "MONDAY",
+    "series": "2501W3"
+  },
+  {
+    "expiry_date": "20250123",
+    "product_kind": "THURSDAY",
+    "series": "2501W4"
+  },
+  {
+    "expiry_date": "20250124",
+    "product_kind": "THURSDAY",
+    "series": "2501W5"
+  },
+  {
+    "expiry_date": "20250131",
+    "product_kind": "MONDAY",
+    "series": "2501W4"
+  },
+  {
+    "expiry_date": "20250203",
+    "product_kind": "MONDAY",
+    "series": "2502W1"
+  },
+  {
+    "expiry_date": "20250206",
+    "product_kind": "THURSDAY",
+    "series": "2502W1"
+  },
+  {
+    "expiry_date": "20250210",
+    "product_kind": "MONDAY",
+    "series": "2502W2"
+  },
+  {
+    "expiry_date": "20250217",
+    "product_kind": "MONDAY",
+    "series": "2502W3"
+  },
+  {
+    "expiry_date": "20250220",
+    "product_kind": "THURSDAY",
+    "series": "2502W3"
+  },
+  {
+    "expiry_date": "20250224",
+    "product_kind": "MONDAY",
+    "series": "2502W4"
+  },
+  {
+    "expiry_date": "20250227",
+    "product_kind": "THURSDAY",
+    "series": "2502W4"
+  },
+  {
+    "expiry_date": "20250304",
+    "product_kind": "MONDAY",
+    "series": "2503W1"
+  },
+  {
+    "expiry_date": "20250306",
+    "product_kind": "THURSDAY",
+    "series": "2503W1"
+  },
+  {
+    "expiry_date": "20250310",
+    "product_kind": "MONDAY",
+    "series": "2503W2"
+  },
+  {
+    "expiry_date": "20250317",
+    "product_kind": "MONDAY",
+    "series": "2503W3"
+  },
+  {
+    "expiry_date": "20250320",
+    "product_kind": "THURSDAY",
+    "series": "2503W3"
+  },
+  {
+    "expiry_date": "20250324",
+    "product_kind": "MONDAY",
+    "series": "2503W4"
+  },
+  {
+    "expiry_date": "20250327",
+    "product_kind": "THURSDAY",
+    "series": "2503W4"
+  },
+  {
+    "expiry_date": "20250331",
+    "product_kind": "MONDAY",
+    "series": "2503W5"
+  },
+  {
+    "expiry_date": "20250403",
+    "product_kind": "THURSDAY",
+    "series": "2504W1"
+  },
+  {
+    "expiry_date": "20250407",
+    "product_kind": "MONDAY",
+    "series": "2504W1"
+  },
+  {
+    "expiry_date": "20250414",
+    "product_kind": "MONDAY",
+    "series": "2504W2"
+  },
+  {
+    "expiry_date": "20250417",
+    "product_kind": "THURSDAY",
+    "series": "2504W3"
+  },
+  {
+    "expiry_date": "20250421",
+    "product_kind": "MONDAY",
+    "series": "2504W3"
+  },
+  {
+    "expiry_date": "20250424",
+    "product_kind": "THURSDAY",
+    "series": "2504W4"
+  },
+  {
+    "expiry_date": "20250428",
+    "product_kind": "MONDAY",
+    "series": "2504W4"
+  },
+  {
+    "expiry_date": "20250430",
+    "product_kind": "THURSDAY",
+    "series": "2505W1"
+  },
+  {
+    "expiry_date": "20250507",
+    "product_kind": "MONDAY",
+    "series": "2505W1"
+  },
+  {
+    "expiry_date": "20250512",
+    "product_kind": "MONDAY",
+    "series": "2505W2"
+  },
+  {
+    "expiry_date": "20250515",
+    "product_kind": "THURSDAY",
+    "series": "2505W3"
+  },
+  {
+    "expiry_date": "20250519",
+    "product_kind": "MONDAY",
+    "series": "2505W3"
+  },
+  {
+    "expiry_date": "20250522",
+    "product_kind": "THURSDAY",
+    "series": "2505W4"
+  },
+  {
+    "expiry_date": "20250526",
+    "product_kind": "MONDAY",
+    "series": "2505W4"
+  },
+  {
+    "expiry_date": "20250529",
+    "product_kind": "THURSDAY",
+    "series": "2505W5"
+  },
+  {
+    "expiry_date": "20250602",
+    "product_kind": "MONDAY",
+    "series": "2506W1"
+  },
+  {
+    "expiry_date": "20250605",
+    "product_kind": "THURSDAY",
+    "series": "2506W1"
+  },
+  {
+    "expiry_date": "20250609",
+    "product_kind": "MONDAY",
+    "series": "2506W2"
+  },
+  {
+    "expiry_date": "20250616",
+    "product_kind": "MONDAY",
+    "series": "2506W3"
+  },
+  {
+    "expiry_date": "20250619",
+    "product_kind": "THURSDAY",
+    "series": "2506W3"
+  },
+  {
+    "expiry_date": "20250623",
+    "product_kind": "MONDAY",
+    "series": "2506W4"
+  },
+  {
+    "expiry_date": "20250626",
+    "product_kind": "THURSDAY",
+    "series": "2506W4"
+  },
+  {
+    "expiry_date": "20250630",
+    "product_kind": "MONDAY",
+    "series": "2506W5"
+  },
+  {
+    "expiry_date": "20250703",
+    "product_kind": "THURSDAY",
+    "series": "2507W1"
+  },
+  {
+    "expiry_date": "20250707",
+    "product_kind": "MONDAY",
+    "series": "2507W1"
+  },
+  {
+    "expiry_date": "20250714",
+    "product_kind": "MONDAY",
+    "series": "2507W2"
+  },
+  {
+    "expiry_date": "20250717",
+    "product_kind": "THURSDAY",
+    "series": "2507W3"
+  },
+  {
+    "expiry_date": "20250721",
+    "product_kind": "MONDAY",
+    "series": "2507W3"
+  },
+  {
+    "expiry_date": "20250724",
+    "product_kind": "THURSDAY",
+    "series": "2507W4"
+  },
+  {
+    "expiry_date": "20250728",
+    "product_kind": "MONDAY",
+    "series": "2507W4"
+  },
+  {
+    "expiry_date": "20250731",
+    "product_kind": "THURSDAY",
+    "series": "2507W5"
+  },
+  {
+    "expiry_date": "20250804",
+    "product_kind": "MONDAY",
+    "series": "2508W1"
+  },
+  {
+    "expiry_date": "20250807",
+    "product_kind": "THURSDAY",
+    "series": "2508W1"
+  },
+  {
+    "expiry_date": "20250811",
+    "product_kind": "MONDAY",
+    "series": "2508W2"
+  },
+  {
+    "expiry_date": "20250818",
+    "product_kind": "MONDAY",
+    "series": "2508W3"
+  },
+  {
+    "expiry_date": "20250821",
+    "product_kind": "THURSDAY",
+    "series": "2508W3"
+  },
+  {
+    "expiry_date": "20250825",
+    "product_kind": "MONDAY",
+    "series": "2508W4"
+  },
+  {
+    "expiry_date": "20250828",
+    "product_kind": "THURSDAY",
+    "series": "2508W4"
+  },
+  {
+    "expiry_date": "20250901",
+    "product_kind": "MONDAY",
+    "series": "2509W1"
+  },
+  {
+    "expiry_date": "20250904",
+    "product_kind": "THURSDAY",
+    "series": "2509W1"
+  },
+  {
+    "expiry_date": "20250908",
+    "product_kind": "MONDAY",
+    "series": "2509W2"
+  },
+  {
+    "expiry_date": "20250915",
+    "product_kind": "MONDAY",
+    "series": "2509W3"
+  },
+  {
+    "expiry_date": "20250918",
+    "product_kind": "THURSDAY",
+    "series": "2509W3"
+  },
+  {
+    "expiry_date": "20250922",
+    "product_kind": "MONDAY",
+    "series": "2509W4"
+  },
+  {
+    "expiry_date": "20250925",
+    "product_kind": "THURSDAY",
+    "series": "2509W4"
+  },
+  {
+    "expiry_date": "20250929",
+    "product_kind": "MONDAY",
+    "series": "2509W5"
+  },
+  {
     "expiry_date": "20251010",
     "product_kind": "MONDAY",
     "series": "2510W1"

@@ -1,0 +1,1214 @@
+{
+  "strategy": "S2-v0.1",
+  "definition": {
+    "development": "20251001_20260430",
+    "validation": "20260501_onward",
+    "moving_averages": [
+      5,
+      10,
+      20,
+      40,
+      60
+    ],
+    "feature_time": "completed signal minute only"
+  },
+  "overall": {
+    "count": 44,
+    "profitable": 26,
+    "losing": 18,
+    "total_pnl": 27231500,
+    "average_pnl": 618898,
+    "profit_factor": 1.7479,
+    "pnl_excluding_best_3": 16093500
+  },
+  "development": {
+    "count": 31,
+    "profitable": 19,
+    "losing": 12,
+    "total_pnl": 21473000,
+    "average_pnl": 692677,
+    "profit_factor": 1.8915,
+    "pnl_excluding_best_3": 11995000
+  },
+  "validation": {
+    "count": 13,
+    "profitable": 7,
+    "losing": 6,
+    "total_pnl": 5758500,
+    "average_pnl": 442962,
+    "profit_factor": 1.4673,
+    "pnl_excluding_best_3": -5379500
+  },
+  "dimensions": {
+    "short_state": [
+      {
+        "group": "bull_5_10_20",
+        "all": {
+          "count": 34,
+          "profitable": 20,
+          "losing": 14,
+          "total_pnl": 22105000,
+          "average_pnl": 650147,
+          "profit_factor": 1.834,
+          "pnl_excluding_best_3": 11045500
+        },
+        "development": {
+          "count": 24,
+          "profitable": 15,
+          "losing": 9,
+          "total_pnl": 19607000,
+          "average_pnl": 816958,
+          "profit_factor": 2.2365,
+          "pnl_excluding_best_3": 10129000
+        },
+        "validation": {
+          "count": 10,
+          "profitable": 5,
+          "losing": 5,
+          "total_pnl": 2498000,
+          "average_pnl": 249800,
+          "profit_factor": 1.2346,
+          "pnl_excluding_best_3": -8080000
+        }
+      },
+      {
+        "group": "ma10_above_ma5",
+        "all": {
+          "count": 7,
+          "profitable": 4,
+          "losing": 3,
+          "total_pnl": 2725500,
+          "average_pnl": 389357,
+          "profit_factor": 1.332,
+          "pnl_excluding_best_3": -5952500
+        },
+        "development": {
+          "count": 5,
+          "profitable": 3,
+          "losing": 2,
+          "total_pnl": 868500,
+          "average_pnl": 173700,
+          "profit_factor": 1.133,
+          "pnl_excluding_best_3": -6532500
+        },
+        "validation": {
+          "count": 2,
+          "profitable": 1,
+          "losing": 1,
+          "total_pnl": 1857000,
+          "average_pnl": 928500,
+          "profit_factor": 2.108,
+          "pnl_excluding_best_3": -1676000
+        }
+      },
+      {
+        "group": "ma10_below_ma20",
+        "all": {
+          "count": 3,
+          "profitable": 2,
+          "losing": 1,
+          "total_pnl": 2401000,
+          "average_pnl": 800333,
+          "profit_factor": 2.4148,
+          "pnl_excluding_best_3": -1697000
+        },
+        "development": {
+          "count": 2,
+          "profitable": 1,
+          "losing": 1,
+          "total_pnl": 997500,
+          "average_pnl": 498750,
+          "profit_factor": 1.5878,
+          "pnl_excluding_best_3": -1697000
+        },
+        "validation": {
+          "count": 1,
+          "profitable": 1,
+          "losing": 0,
+          "total_pnl": 1403500,
+          "average_pnl": 1403500,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      }
+    ],
+    "long_state": [
+      {
+        "group": "bear_20_40_60",
+        "all": {
+          "count": 8,
+          "profitable": 5,
+          "losing": 3,
+          "total_pnl": 4084000,
+          "average_pnl": 510500,
+          "profit_factor": 1.4784,
+          "pnl_excluding_best_3": -3869500
+        },
+        "development": {
+          "count": 8,
+          "profitable": 5,
+          "losing": 3,
+          "total_pnl": 4084000,
+          "average_pnl": 510500,
+          "profit_factor": 1.4784,
+          "pnl_excluding_best_3": -3869500
+        },
+        "validation": {
+          "count": 0,
+          "profitable": 0,
+          "losing": 0,
+          "total_pnl": 0,
+          "average_pnl": 0,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      },
+      {
+        "group": "bull_20_40_60",
+        "all": {
+          "count": 10,
+          "profitable": 7,
+          "losing": 3,
+          "total_pnl": 14258000,
+          "average_pnl": 1425800,
+          "profit_factor": 4.6766,
+          "pnl_excluding_best_3": 4064500
+        },
+        "development": {
+          "count": 7,
+          "profitable": 4,
+          "losing": 3,
+          "total_pnl": 6013000,
+          "average_pnl": 859000,
+          "profit_factor": 2.5505,
+          "pnl_excluding_best_3": -2080000
+        },
+        "validation": {
+          "count": 3,
+          "profitable": 3,
+          "losing": 0,
+          "total_pnl": 8245000,
+          "average_pnl": 2748333,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      },
+      {
+        "group": "mixed_20_40_60",
+        "all": {
+          "count": 7,
+          "profitable": 5,
+          "losing": 2,
+          "total_pnl": 7039500,
+          "average_pnl": 1005643,
+          "profit_factor": 2.7047,
+          "pnl_excluding_best_3": -466000
+        },
+        "development": {
+          "count": 5,
+          "profitable": 4,
+          "losing": 1,
+          "total_pnl": 8105500,
+          "average_pnl": 1621100,
+          "profit_factor": 5.8594,
+          "pnl_excluding_best_3": 600000
+        },
+        "validation": {
+          "count": 2,
+          "profitable": 1,
+          "losing": 1,
+          "total_pnl": -1066000,
+          "average_pnl": -533000,
+          "profit_factor": 0.5669,
+          "pnl_excluding_best_3": -2461500
+        }
+      },
+      {
+        "group": "unavailable",
+        "all": {
+          "count": 19,
+          "profitable": 9,
+          "losing": 10,
+          "total_pnl": 1850000,
+          "average_pnl": 97368,
+          "profit_factor": 1.0931,
+          "pnl_excluding_best_3": -8642000
+        },
+        "development": {
+          "count": 11,
+          "profitable": 6,
+          "losing": 5,
+          "total_pnl": 3270500,
+          "average_pnl": 297318,
+          "profit_factor": 1.327,
+          "pnl_excluding_best_3": -5329000
+        },
+        "validation": {
+          "count": 8,
+          "profitable": 3,
+          "losing": 5,
+          "total_pnl": -1420500,
+          "average_pnl": -177562,
+          "profit_factor": 0.856,
+          "pnl_excluding_best_3": -9861500
+        }
+      }
+    ],
+    "full_bull_alignment": [
+      {
+        "group": "False",
+        "all": {
+          "count": 36,
+          "profitable": 20,
+          "losing": 16,
+          "total_pnl": 14367500,
+          "average_pnl": 399097,
+          "profit_factor": 1.4144,
+          "pnl_excluding_best_3": 3315500
+        },
+        "development": {
+          "count": 25,
+          "profitable": 15,
+          "losing": 10,
+          "total_pnl": 13321000,
+          "average_pnl": 532840,
+          "profit_factor": 1.5961,
+          "pnl_excluding_best_3": 4362500
+        },
+        "validation": {
+          "count": 11,
+          "profitable": 5,
+          "losing": 6,
+          "total_pnl": 1046500,
+          "average_pnl": 95136,
+          "profit_factor": 1.0849,
+          "pnl_excluding_best_3": -9524000
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 8,
+          "profitable": 6,
+          "losing": 2,
+          "total_pnl": 12864000,
+          "average_pnl": 1608000,
+          "profit_factor": 8.3974,
+          "pnl_excluding_best_3": 3300000
+        },
+        "development": {
+          "count": 6,
+          "profitable": 4,
+          "losing": 2,
+          "total_pnl": 8152000,
+          "average_pnl": 1358667,
+          "profit_factor": 5.6878,
+          "pnl_excluding_best_3": 59000
+        },
+        "validation": {
+          "count": 2,
+          "profitable": 2,
+          "losing": 0,
+          "total_pnl": 4712000,
+          "average_pnl": 2356000,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      }
+    ],
+    "short_bull_long_bear_reversal": [
+      {
+        "group": "False",
+        "all": {
+          "count": 39,
+          "profitable": 23,
+          "losing": 16,
+          "total_pnl": 23704500,
+          "average_pnl": 607808,
+          "profit_factor": 1.7347,
+          "pnl_excluding_best_3": 12566500
+        },
+        "development": {
+          "count": 26,
+          "profitable": 16,
+          "losing": 10,
+          "total_pnl": 17946000,
+          "average_pnl": 690231,
+          "profit_factor": 1.8999,
+          "pnl_excluding_best_3": 8468000
+        },
+        "validation": {
+          "count": 13,
+          "profitable": 7,
+          "losing": 6,
+          "total_pnl": 5758500,
+          "average_pnl": 442962,
+          "profit_factor": 1.4673,
+          "pnl_excluding_best_3": -5379500
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 5,
+          "profitable": 3,
+          "losing": 2,
+          "total_pnl": 3527000,
+          "average_pnl": 705400,
+          "profit_factor": 1.8511,
+          "pnl_excluding_best_3": -4144000
+        },
+        "development": {
+          "count": 5,
+          "profitable": 3,
+          "losing": 2,
+          "total_pnl": 3527000,
+          "average_pnl": 705400,
+          "profit_factor": 1.8511,
+          "pnl_excluding_best_3": -4144000
+        },
+        "validation": {
+          "count": 0,
+          "profitable": 0,
+          "losing": 0,
+          "total_pnl": 0,
+          "average_pnl": 0,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      }
+    ],
+    "ma5_rising_5m": [
+      {
+        "group": "False",
+        "all": {
+          "count": 7,
+          "profitable": 4,
+          "losing": 3,
+          "total_pnl": 2725500,
+          "average_pnl": 389357,
+          "profit_factor": 1.332,
+          "pnl_excluding_best_3": -5952500
+        },
+        "development": {
+          "count": 5,
+          "profitable": 3,
+          "losing": 2,
+          "total_pnl": 868500,
+          "average_pnl": 173700,
+          "profit_factor": 1.133,
+          "pnl_excluding_best_3": -6532500
+        },
+        "validation": {
+          "count": 2,
+          "profitable": 1,
+          "losing": 1,
+          "total_pnl": 1857000,
+          "average_pnl": 928500,
+          "profit_factor": 2.108,
+          "pnl_excluding_best_3": -1676000
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 37,
+          "profitable": 22,
+          "losing": 15,
+          "total_pnl": 24506000,
+          "average_pnl": 662324,
+          "profit_factor": 1.869,
+          "pnl_excluding_best_3": 13446500
+        },
+        "development": {
+          "count": 26,
+          "profitable": 16,
+          "losing": 10,
+          "total_pnl": 20604500,
+          "average_pnl": 792481,
+          "profit_factor": 2.1738,
+          "pnl_excluding_best_3": 11126500
+        },
+        "validation": {
+          "count": 11,
+          "profitable": 6,
+          "losing": 5,
+          "total_pnl": 3901500,
+          "average_pnl": 354682,
+          "profit_factor": 1.3664,
+          "pnl_excluding_best_3": -6676500
+        }
+      }
+    ],
+    "ma20_rising_5m": [
+      {
+        "group": "False",
+        "all": {
+          "count": 12,
+          "profitable": 5,
+          "losing": 7,
+          "total_pnl": -1273000,
+          "average_pnl": -106083,
+          "profit_factor": 0.9159,
+          "pnl_excluding_best_3": -11486500
+        },
+        "development": {
+          "count": 8,
+          "profitable": 3,
+          "losing": 5,
+          "total_pnl": -4002000,
+          "average_pnl": -500250,
+          "profit_factor": 0.677,
+          "pnl_excluding_best_3": -12390500
+        },
+        "validation": {
+          "count": 4,
+          "profitable": 2,
+          "losing": 2,
+          "total_pnl": 2729000,
+          "average_pnl": 682250,
+          "profit_factor": 1.9963,
+          "pnl_excluding_best_3": -2739000
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 32,
+          "profitable": 21,
+          "losing": 11,
+          "total_pnl": 28504500,
+          "average_pnl": 890766,
+          "profit_factor": 2.3395,
+          "pnl_excluding_best_3": 18311000
+        },
+        "development": {
+          "count": 23,
+          "profitable": 16,
+          "losing": 7,
+          "total_pnl": 25475000,
+          "average_pnl": 1107609,
+          "profit_factor": 3.1782,
+          "pnl_excluding_best_3": 16642000
+        },
+        "validation": {
+          "count": 9,
+          "profitable": 5,
+          "losing": 4,
+          "total_pnl": 3029500,
+          "average_pnl": 336611,
+          "profit_factor": 1.3161,
+          "pnl_excluding_best_3": -7017000
+        }
+      }
+    ],
+    "ma40_rising_5m": [
+      {
+        "group": "False",
+        "all": {
+          "count": 25,
+          "profitable": 13,
+          "losing": 12,
+          "total_pnl": 6209500,
+          "average_pnl": 248380,
+          "profit_factor": 1.2343,
+          "pnl_excluding_best_3": -4282500
+        },
+        "development": {
+          "count": 16,
+          "profitable": 9,
+          "losing": 7,
+          "total_pnl": 6234500,
+          "average_pnl": 389656,
+          "profit_factor": 1.3747,
+          "pnl_excluding_best_3": -2557000
+        },
+        "validation": {
+          "count": 9,
+          "profitable": 4,
+          "losing": 5,
+          "total_pnl": -25000,
+          "average_pnl": -2778,
+          "profit_factor": 0.9975,
+          "pnl_excluding_best_3": -8466000
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 19,
+          "profitable": 13,
+          "losing": 6,
+          "total_pnl": 21022000,
+          "average_pnl": 1106421,
+          "profit_factor": 3.1218,
+          "pnl_excluding_best_3": 10828500
+        },
+        "development": {
+          "count": 15,
+          "profitable": 10,
+          "losing": 5,
+          "total_pnl": 15238500,
+          "average_pnl": 1015900,
+          "profit_factor": 3.0465,
+          "pnl_excluding_best_3": 6405500
+        },
+        "validation": {
+          "count": 4,
+          "profitable": 3,
+          "losing": 1,
+          "total_pnl": 5783500,
+          "average_pnl": 1445875,
+          "profit_factor": 3.3496,
+          "pnl_excluding_best_3": -2461500
+        }
+      }
+    ],
+    "ma60_rising_5m": [
+      {
+        "group": "False",
+        "all": {
+          "count": 31,
+          "profitable": 16,
+          "losing": 15,
+          "total_pnl": 6527500,
+          "average_pnl": 210565,
+          "profit_factor": 1.2007,
+          "pnl_excluding_best_3": -3964500
+        },
+        "development": {
+          "count": 22,
+          "profitable": 13,
+          "losing": 9,
+          "total_pnl": 10409500,
+          "average_pnl": 473159,
+          "profit_factor": 1.5151,
+          "pnl_excluding_best_3": 1451000
+        },
+        "validation": {
+          "count": 9,
+          "profitable": 3,
+          "losing": 6,
+          "total_pnl": -3882000,
+          "average_pnl": -431333,
+          "profit_factor": 0.685,
+          "pnl_excluding_best_3": -12323000
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 13,
+          "profitable": 10,
+          "losing": 3,
+          "total_pnl": 20704000,
+          "average_pnl": 1592615,
+          "profit_factor": 6.3388,
+          "pnl_excluding_best_3": 10510500
+        },
+        "development": {
+          "count": 9,
+          "profitable": 6,
+          "losing": 3,
+          "total_pnl": 11063500,
+          "average_pnl": 1229278,
+          "profit_factor": 3.8529,
+          "pnl_excluding_best_3": 2410500
+        },
+        "validation": {
+          "count": 4,
+          "profitable": 4,
+          "losing": 0,
+          "total_pnl": 9640500,
+          "average_pnl": 2410125,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 1171500
+        }
+      }
+    ],
+    "ma5_ma20_both_rising": [
+      {
+        "group": "False",
+        "all": {
+          "count": 17,
+          "profitable": 9,
+          "losing": 8,
+          "total_pnl": 7522000,
+          "average_pnl": 442471,
+          "profit_factor": 1.4356,
+          "pnl_excluding_best_3": -3530000
+        },
+        "development": {
+          "count": 12,
+          "profitable": 6,
+          "losing": 6,
+          "total_pnl": 1260000,
+          "average_pnl": 105000,
+          "profit_factor": 1.0867,
+          "pnl_excluding_best_3": -7531500
+        },
+        "validation": {
+          "count": 5,
+          "profitable": 3,
+          "losing": 2,
+          "total_pnl": 6262000,
+          "average_pnl": 1252400,
+          "profit_factor": 3.2862,
+          "pnl_excluding_best_3": -2739000
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 27,
+          "profitable": 17,
+          "losing": 10,
+          "total_pnl": 19709500,
+          "average_pnl": 729981,
+          "profit_factor": 2.0297,
+          "pnl_excluding_best_3": 10076000
+        },
+        "development": {
+          "count": 19,
+          "profitable": 13,
+          "losing": 6,
+          "total_pnl": 20213000,
+          "average_pnl": 1063842,
+          "profit_factor": 3.1151,
+          "pnl_excluding_best_3": 11380000
+        },
+        "validation": {
+          "count": 8,
+          "profitable": 4,
+          "losing": 4,
+          "total_pnl": -503500,
+          "average_pnl": -62938,
+          "profit_factor": 0.9475,
+          "pnl_excluding_best_3": -8412500
+        }
+      }
+    ],
+    "volume_ratio_bucket": [
+      {
+        "group": "1.00_1.49",
+        "all": {
+          "count": 25,
+          "profitable": 14,
+          "losing": 11,
+          "total_pnl": 11735000,
+          "average_pnl": 469400,
+          "profit_factor": 1.4745,
+          "pnl_excluding_best_3": 1010000
+        },
+        "development": {
+          "count": 19,
+          "profitable": 11,
+          "losing": 8,
+          "total_pnl": 10642500,
+          "average_pnl": 560132,
+          "profit_factor": 1.6326,
+          "pnl_excluding_best_3": 1976500
+        },
+        "validation": {
+          "count": 6,
+          "profitable": 3,
+          "losing": 3,
+          "total_pnl": 1092500,
+          "average_pnl": 182083,
+          "profit_factor": 1.1382,
+          "pnl_excluding_best_3": -7908000
+        }
+      },
+      {
+        "group": "1.50_1.99",
+        "all": {
+          "count": 11,
+          "profitable": 7,
+          "losing": 4,
+          "total_pnl": 9127500,
+          "average_pnl": 829773,
+          "profit_factor": 2.2554,
+          "pnl_excluding_best_3": 650500
+        },
+        "development": {
+          "count": 8,
+          "profitable": 5,
+          "losing": 3,
+          "total_pnl": 6659000,
+          "average_pnl": 832375,
+          "profit_factor": 2.1903,
+          "pnl_excluding_best_3": -1257000
+        },
+        "validation": {
+          "count": 3,
+          "profitable": 2,
+          "losing": 1,
+          "total_pnl": 2468500,
+          "average_pnl": 822833,
+          "profit_factor": 2.4729,
+          "pnl_excluding_best_3": -1676000
+        }
+      },
+      {
+        "group": "2.00_2.99",
+        "all": {
+          "count": 4,
+          "profitable": 4,
+          "losing": 0,
+          "total_pnl": 7321500,
+          "average_pnl": 1830375,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 129000
+        },
+        "development": {
+          "count": 2,
+          "profitable": 2,
+          "losing": 0,
+          "total_pnl": 2385000,
+          "average_pnl": 1192500,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        },
+        "validation": {
+          "count": 2,
+          "profitable": 2,
+          "losing": 0,
+          "total_pnl": 4936500,
+          "average_pnl": 2468250,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      },
+      {
+        "group": "3.00_plus",
+        "all": {
+          "count": 4,
+          "profitable": 1,
+          "losing": 3,
+          "total_pnl": -952500,
+          "average_pnl": -238125,
+          "profit_factor": 0.7839,
+          "pnl_excluding_best_3": -4407000
+        },
+        "development": {
+          "count": 2,
+          "profitable": 1,
+          "losing": 1,
+          "total_pnl": 1786500,
+          "average_pnl": 893250,
+          "profit_factor": 2.071,
+          "pnl_excluding_best_3": -1668000
+        },
+        "validation": {
+          "count": 2,
+          "profitable": 0,
+          "losing": 2,
+          "total_pnl": -2739000,
+          "average_pnl": -1369500,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -2739000
+        }
+      }
+    ],
+    "price_bucket": [
+      {
+        "group": "2.50_3.24",
+        "all": {
+          "count": 22,
+          "profitable": 13,
+          "losing": 9,
+          "total_pnl": 11727500,
+          "average_pnl": 533068,
+          "profit_factor": 1.5679,
+          "pnl_excluding_best_3": 2458500
+        },
+        "development": {
+          "count": 21,
+          "profitable": 12,
+          "losing": 9,
+          "total_pnl": 10324000,
+          "average_pnl": 491619,
+          "profit_factor": 1.5,
+          "pnl_excluding_best_3": 1055000
+        },
+        "validation": {
+          "count": 1,
+          "profitable": 1,
+          "losing": 0,
+          "total_pnl": 1403500,
+          "average_pnl": 1403500,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      },
+      {
+        "group": "3.25_3.99",
+        "all": {
+          "count": 14,
+          "profitable": 6,
+          "losing": 8,
+          "total_pnl": -1112500,
+          "average_pnl": -79464,
+          "profit_factor": 0.9243,
+          "pnl_excluding_best_3": -9246500
+        },
+        "development": {
+          "count": 8,
+          "profitable": 5,
+          "losing": 3,
+          "total_pnl": 8752000,
+          "average_pnl": 1094000,
+          "profit_factor": 3.5471,
+          "pnl_excluding_best_3": 618000
+        },
+        "validation": {
+          "count": 6,
+          "profitable": 1,
+          "losing": 5,
+          "total_pnl": -9864500,
+          "average_pnl": -1644083,
+          "profit_factor": 0.1239,
+          "pnl_excluding_best_3": -11260000
+        }
+      },
+      {
+        "group": "4.00_5.00",
+        "all": {
+          "count": 8,
+          "profitable": 7,
+          "losing": 1,
+          "total_pnl": 16616500,
+          "average_pnl": 2077062,
+          "profit_factor": 16.6317,
+          "pnl_excluding_best_3": 5478500
+        },
+        "development": {
+          "count": 2,
+          "profitable": 2,
+          "losing": 0,
+          "total_pnl": 2397000,
+          "average_pnl": 1198500,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        },
+        "validation": {
+          "count": 6,
+          "profitable": 5,
+          "losing": 1,
+          "total_pnl": 14219500,
+          "average_pnl": 2369917,
+          "profit_factor": 14.3768,
+          "pnl_excluding_best_3": 3081500
+        }
+      }
+    ],
+    "entry_time_bucket": [
+      {
+        "group": "1000_1159",
+        "all": {
+          "count": 16,
+          "profitable": 10,
+          "losing": 6,
+          "total_pnl": 14995000,
+          "average_pnl": 937188,
+          "profit_factor": 2.2383,
+          "pnl_excluding_best_3": 4801500
+        },
+        "development": {
+          "count": 12,
+          "profitable": 7,
+          "losing": 5,
+          "total_pnl": 8987500,
+          "average_pnl": 748958,
+          "profit_factor": 1.9315,
+          "pnl_excluding_best_3": 269500
+        },
+        "validation": {
+          "count": 4,
+          "profitable": 3,
+          "losing": 1,
+          "total_pnl": 6007500,
+          "average_pnl": 1501875,
+          "profit_factor": 3.4406,
+          "pnl_excluding_best_3": -2461500
+        }
+      },
+      {
+        "group": "1200_onward",
+        "all": {
+          "count": 7,
+          "profitable": 5,
+          "losing": 2,
+          "total_pnl": 6765500,
+          "average_pnl": 966500,
+          "profit_factor": 2.5253,
+          "pnl_excluding_best_3": -568000
+        },
+        "development": {
+          "count": 7,
+          "profitable": 5,
+          "losing": 2,
+          "total_pnl": 6765500,
+          "average_pnl": 966500,
+          "profit_factor": 2.5253,
+          "pnl_excluding_best_3": -568000
+        },
+        "validation": {
+          "count": 0,
+          "profitable": 0,
+          "losing": 0,
+          "total_pnl": 0,
+          "average_pnl": 0,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 0
+        }
+      },
+      {
+        "group": "before_1000",
+        "all": {
+          "count": 21,
+          "profitable": 11,
+          "losing": 10,
+          "total_pnl": 5471000,
+          "average_pnl": 260524,
+          "profit_factor": 1.2754,
+          "pnl_excluding_best_3": -5021000
+        },
+        "development": {
+          "count": 12,
+          "profitable": 7,
+          "losing": 5,
+          "total_pnl": 5720000,
+          "average_pnl": 476667,
+          "profit_factor": 1.5719,
+          "pnl_excluding_best_3": -2879500
+        },
+        "validation": {
+          "count": 9,
+          "profitable": 4,
+          "losing": 5,
+          "total_pnl": -249000,
+          "average_pnl": -27667,
+          "profit_factor": 0.9748,
+          "pnl_excluding_best_3": -8690000
+        }
+      }
+    ],
+    "call_put": [
+      {
+        "group": "CALL",
+        "all": {
+          "count": 24,
+          "profitable": 12,
+          "losing": 12,
+          "total_pnl": 5377500,
+          "average_pnl": 224062,
+          "profit_factor": 1.2408,
+          "pnl_excluding_best_3": -4862500
+        },
+        "development": {
+          "count": 15,
+          "profitable": 7,
+          "losing": 8,
+          "total_pnl": 1770000,
+          "average_pnl": 118000,
+          "profit_factor": 1.1232,
+          "pnl_excluding_best_3": -5807000
+        },
+        "validation": {
+          "count": 9,
+          "profitable": 5,
+          "losing": 4,
+          "total_pnl": 3607500,
+          "average_pnl": 400833,
+          "profit_factor": 1.4532,
+          "pnl_excluding_best_3": -5393500
+        }
+      },
+      {
+        "group": "PUT",
+        "all": {
+          "count": 20,
+          "profitable": 14,
+          "losing": 6,
+          "total_pnl": 21854000,
+          "average_pnl": 1092700,
+          "profit_factor": 2.5521,
+          "pnl_excluding_best_3": 11739000
+        },
+        "development": {
+          "count": 16,
+          "profitable": 12,
+          "losing": 4,
+          "total_pnl": 19703000,
+          "average_pnl": 1231438,
+          "profit_factor": 3.0276,
+          "pnl_excluding_best_3": 10225000
+        },
+        "validation": {
+          "count": 4,
+          "profitable": 2,
+          "losing": 2,
+          "total_pnl": 2151000,
+          "average_pnl": 537750,
+          "profit_factor": 1.4931,
+          "pnl_excluding_best_3": -4362500
+        }
+      }
+    ],
+    "confirmed": [
+      {
+        "group": "False",
+        "all": {
+          "count": 29,
+          "profitable": 13,
+          "losing": 16,
+          "total_pnl": 4599500,
+          "average_pnl": 158603,
+          "profit_factor": 1.1616,
+          "pnl_excluding_best_3": -5928500
+        },
+        "development": {
+          "count": 21,
+          "profitable": 10,
+          "losing": 11,
+          "total_pnl": 5132000,
+          "average_pnl": 244381,
+          "profit_factor": 1.2606,
+          "pnl_excluding_best_3": -3826500
+        },
+        "validation": {
+          "count": 8,
+          "profitable": 3,
+          "losing": 5,
+          "total_pnl": -532500,
+          "average_pnl": -66562,
+          "profit_factor": 0.9393,
+          "pnl_excluding_best_3": -8777500
+        }
+      },
+      {
+        "group": "True",
+        "all": {
+          "count": 15,
+          "profitable": 13,
+          "losing": 2,
+          "total_pnl": 22632000,
+          "average_pnl": 1508800,
+          "profit_factor": 3.8507,
+          "pnl_excluding_best_3": 12474500
+        },
+        "development": {
+          "count": 10,
+          "profitable": 9,
+          "losing": 1,
+          "total_pnl": 16341000,
+          "average_pnl": 1634100,
+          "profit_factor": 4.7194,
+          "pnl_excluding_best_3": 7675000
+        },
+        "validation": {
+          "count": 5,
+          "profitable": 4,
+          "losing": 1,
+          "total_pnl": 6291000,
+          "average_pnl": 1258200,
+          "profit_factor": 2.7744,
+          "pnl_excluding_best_3": -2150000
+        }
+      }
+    ],
+    "exit_reason": [
+      {
+        "group": "TARGET_2X_INITIAL",
+        "all": {
+          "count": 26,
+          "profitable": 26,
+          "losing": 0,
+          "total_pnl": 63640500,
+          "average_pnl": 2447712,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 52502500
+        },
+        "development": {
+          "count": 19,
+          "profitable": 19,
+          "losing": 0,
+          "total_pnl": 45559000,
+          "average_pnl": 2397842,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 36081000
+        },
+        "validation": {
+          "count": 7,
+          "profitable": 7,
+          "losing": 0,
+          "total_pnl": 18081500,
+          "average_pnl": 2583071,
+          "profit_factor": null,
+          "pnl_excluding_best_3": 6943500
+        }
+      },
+      {
+        "group": "TIME",
+        "all": {
+          "count": 9,
+          "profitable": 0,
+          "losing": 9,
+          "total_pnl": -19389500,
+          "average_pnl": -2154389,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -19389500
+        },
+        "development": {
+          "count": 8,
+          "profitable": 0,
+          "losing": 8,
+          "total_pnl": -15844000,
+          "average_pnl": -1980500,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -15844000
+        },
+        "validation": {
+          "count": 1,
+          "profitable": 0,
+          "losing": 1,
+          "total_pnl": -3545500,
+          "average_pnl": -3545500,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -3545500
+        }
+      },
+      {
+        "group": "UNFILLED_ZERO_VALUE",
+        "all": {
+          "count": 9,
+          "profitable": 0,
+          "losing": 9,
+          "total_pnl": -17019500,
+          "average_pnl": -1891056,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -17019500
+        },
+        "development": {
+          "count": 4,
+          "profitable": 0,
+          "losing": 4,
+          "total_pnl": -8242000,
+          "average_pnl": -2060500,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -8242000
+        },
+        "validation": {
+          "count": 5,
+          "profitable": 0,
+          "losing": 5,
+          "total_pnl": -8777500,
+          "average_pnl": -1755500,
+          "profit_factor": 0.0,
+          "pnl_excluding_best_3": -8777500
+        }
+      }
+    ]
+  }
+}

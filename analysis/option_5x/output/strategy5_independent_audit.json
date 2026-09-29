@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 60,
+  "trade_rows": 191,
+  "ppt": {
+    "found": true,
+    "path": "docs\\의뢰_row\\위클리옵션_만기일_가격경로_연구결과_2026_최종보완본2.pptx",
+    "size": 84139,
+    "sha256": "8a6c20a6d60653307cb7da4c09838f362c596043e3cf2be77fdd145ad845fd50"
+  },
+  "checks": [
+    "cash chain and pnl equation",
+    "trade cash-flow reconciliation",
+    "closed quantity",
+    "one buy per day",
+    "5,000,000 won daily principal cap",
+    "09:00~09:10 signal time",
+    "30-minute confirmation then next-bar entry order",
+    "PPT period and forbidden external indicator fields"
+  ]
+}

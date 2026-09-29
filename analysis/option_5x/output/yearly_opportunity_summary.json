@@ -1,0 +1,437 @@
+{
+  "definition": {
+    "premium_min": 1.0,
+    "premium_max": 5.0,
+    "same_bar_low_high_allowed": false,
+    "unit": "expiry_date + option_code"
+  },
+  "years": [
+    {
+      "year": "2023",
+      "expiry_days": 38,
+      "eligible_contract_days": 228,
+      "success_5x_contract_days": 4,
+      "success_5x_contract_rate_pct": 1.7544,
+      "expiry_days_with_5x": 3,
+      "expiry_days_with_5x_rate_pct": 7.8947,
+      "success_10x_contract_days": 0,
+      "success_10x_contract_rate_pct": 0.0,
+      "expiry_days_with_10x": 0,
+      "expiry_days_with_10x_rate_pct": 0.0,
+      "best_premium_band": {
+        "premium_band": "1.00-1.49",
+        "eligible_contract_days": 121,
+        "success_5x_contract_days": 3,
+        "success_5x_rate_pct": 2.4793,
+        "expiry_days_with_5x": 3,
+        "success_10x_contract_days": 0,
+        "success_10x_rate_pct": 0.0,
+        "expiry_days_with_10x": 0
+      },
+      "premium_bands": [
+        {
+          "premium_band": "1.00-1.49",
+          "eligible_contract_days": 121,
+          "success_5x_contract_days": 3,
+          "success_5x_rate_pct": 2.4793,
+          "expiry_days_with_5x": 3,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "1.50-1.99",
+          "eligible_contract_days": 112,
+          "success_5x_contract_days": 1,
+          "success_5x_rate_pct": 0.8929,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "2.00-2.49",
+          "eligible_contract_days": 123,
+          "success_5x_contract_days": 1,
+          "success_5x_rate_pct": 0.813,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "2.50-2.99",
+          "eligible_contract_days": 115,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "3.00-3.49",
+          "eligible_contract_days": 109,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "3.50-3.99",
+          "eligible_contract_days": 112,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "4.00-4.49",
+          "eligible_contract_days": 108,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "4.50-5.00",
+          "eligible_contract_days": 108,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "expiry_days": 92,
+      "eligible_contract_days": 687,
+      "success_5x_contract_days": 36,
+      "success_5x_contract_rate_pct": 5.2402,
+      "expiry_days_with_5x": 16,
+      "expiry_days_with_5x_rate_pct": 17.3913,
+      "success_10x_contract_days": 10,
+      "success_10x_contract_rate_pct": 1.4556,
+      "expiry_days_with_10x": 1,
+      "expiry_days_with_10x_rate_pct": 1.087,
+      "best_premium_band": {
+        "premium_band": "1.00-1.49",
+        "eligible_contract_days": 409,
+        "success_5x_contract_days": 33,
+        "success_5x_rate_pct": 8.0685,
+        "expiry_days_with_5x": 16,
+        "success_10x_contract_days": 9,
+        "success_10x_rate_pct": 2.2005,
+        "expiry_days_with_10x": 1
+      },
+      "premium_bands": [
+        {
+          "premium_band": "1.00-1.49",
+          "eligible_contract_days": 409,
+          "success_5x_contract_days": 33,
+          "success_5x_rate_pct": 8.0685,
+          "expiry_days_with_5x": 16,
+          "success_10x_contract_days": 9,
+          "success_10x_rate_pct": 2.2005,
+          "expiry_days_with_10x": 1
+        },
+        {
+          "premium_band": "1.50-1.99",
+          "eligible_contract_days": 391,
+          "success_5x_contract_days": 15,
+          "success_5x_rate_pct": 3.8363,
+          "expiry_days_with_5x": 4,
+          "success_10x_contract_days": 7,
+          "success_10x_rate_pct": 1.7903,
+          "expiry_days_with_10x": 1
+        },
+        {
+          "premium_band": "2.00-2.49",
+          "eligible_contract_days": 376,
+          "success_5x_contract_days": 10,
+          "success_5x_rate_pct": 2.6596,
+          "expiry_days_with_5x": 2,
+          "success_10x_contract_days": 4,
+          "success_10x_rate_pct": 1.0638,
+          "expiry_days_with_10x": 1
+        },
+        {
+          "premium_band": "2.50-2.99",
+          "eligible_contract_days": 379,
+          "success_5x_contract_days": 9,
+          "success_5x_rate_pct": 2.3747,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 5,
+          "success_10x_rate_pct": 1.3193,
+          "expiry_days_with_10x": 1
+        },
+        {
+          "premium_band": "3.00-3.49",
+          "eligible_contract_days": 373,
+          "success_5x_contract_days": 9,
+          "success_5x_rate_pct": 2.4129,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 2,
+          "success_10x_rate_pct": 0.5362,
+          "expiry_days_with_10x": 1
+        },
+        {
+          "premium_band": "3.50-3.99",
+          "eligible_contract_days": 362,
+          "success_5x_contract_days": 7,
+          "success_5x_rate_pct": 1.9337,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "4.00-4.49",
+          "eligible_contract_days": 364,
+          "success_5x_contract_days": 7,
+          "success_5x_rate_pct": 1.9231,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "4.50-5.00",
+          "eligible_contract_days": 349,
+          "success_5x_contract_days": 5,
+          "success_5x_rate_pct": 1.4327,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "expiry_days": 92,
+      "eligible_contract_days": 869,
+      "success_5x_contract_days": 81,
+      "success_5x_contract_rate_pct": 9.3211,
+      "expiry_days_with_5x": 31,
+      "expiry_days_with_5x_rate_pct": 33.6957,
+      "success_10x_contract_days": 3,
+      "success_10x_contract_rate_pct": 0.3452,
+      "expiry_days_with_10x": 2,
+      "expiry_days_with_10x_rate_pct": 2.1739,
+      "best_premium_band": {
+        "premium_band": "1.00-1.49",
+        "eligible_contract_days": 560,
+        "success_5x_contract_days": 66,
+        "success_5x_rate_pct": 11.7857,
+        "expiry_days_with_5x": 31,
+        "success_10x_contract_days": 3,
+        "success_10x_rate_pct": 0.5357,
+        "expiry_days_with_10x": 2
+      },
+      "premium_bands": [
+        {
+          "premium_band": "1.00-1.49",
+          "eligible_contract_days": 560,
+          "success_5x_contract_days": 66,
+          "success_5x_rate_pct": 11.7857,
+          "expiry_days_with_5x": 31,
+          "success_10x_contract_days": 3,
+          "success_10x_rate_pct": 0.5357,
+          "expiry_days_with_10x": 2
+        },
+        {
+          "premium_band": "1.50-1.99",
+          "eligible_contract_days": 532,
+          "success_5x_contract_days": 33,
+          "success_5x_rate_pct": 6.203,
+          "expiry_days_with_5x": 16,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "2.00-2.49",
+          "eligible_contract_days": 523,
+          "success_5x_contract_days": 17,
+          "success_5x_rate_pct": 3.2505,
+          "expiry_days_with_5x": 10,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "2.50-2.99",
+          "eligible_contract_days": 510,
+          "success_5x_contract_days": 7,
+          "success_5x_rate_pct": 1.3725,
+          "expiry_days_with_5x": 5,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "3.00-3.49",
+          "eligible_contract_days": 496,
+          "success_5x_contract_days": 3,
+          "success_5x_rate_pct": 0.6048,
+          "expiry_days_with_5x": 2,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "3.50-3.99",
+          "eligible_contract_days": 493,
+          "success_5x_contract_days": 1,
+          "success_5x_rate_pct": 0.2028,
+          "expiry_days_with_5x": 1,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "4.00-4.49",
+          "eligible_contract_days": 473,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        },
+        {
+          "premium_band": "4.50-5.00",
+          "eligible_contract_days": 478,
+          "success_5x_contract_days": 0,
+          "success_5x_rate_pct": 0.0,
+          "expiry_days_with_5x": 0,
+          "success_10x_contract_days": 0,
+          "success_10x_rate_pct": 0.0,
+          "expiry_days_with_10x": 0
+        }
+      ]
+    },
+    {
+      "year": "2026",
+      "expiry_days": 60,
+      "eligible_contract_days": 3239,
+      "success_5x_contract_days": 1002,
+      "success_5x_contract_rate_pct": 30.9355,
+      "expiry_days_with_5x": 57,
+      "expiry_days_with_5x_rate_pct": 95.0,
+      "success_10x_contract_days": 405,
+      "success_10x_contract_rate_pct": 12.5039,
+      "expiry_days_with_10x": 38,
+      "expiry_days_with_10x_rate_pct": 63.3333,
+      "best_premium_band": {
+        "premium_band": "1.00-1.49",
+        "eligible_contract_days": 2828,
+        "success_5x_contract_days": 652,
+        "success_5x_rate_pct": 23.0552,
+        "expiry_days_with_5x": 57,
+        "success_10x_contract_days": 300,
+        "success_10x_rate_pct": 10.6082,
+        "expiry_days_with_10x": 37
+      },
+      "premium_bands": [
+        {
+          "premium_band": "1.00-1.49",
+          "eligible_contract_days": 2828,
+          "success_5x_contract_days": 652,
+          "success_5x_rate_pct": 23.0552,
+          "expiry_days_with_5x": 57,
+          "success_10x_contract_days": 300,
+          "success_10x_rate_pct": 10.6082,
+          "expiry_days_with_10x": 37
+        },
+        {
+          "premium_band": "1.50-1.99",
+          "eligible_contract_days": 2598,
+          "success_5x_contract_days": 562,
+          "success_5x_rate_pct": 21.632,
+          "expiry_days_with_5x": 54,
+          "success_10x_contract_days": 215,
+          "success_10x_rate_pct": 8.2756,
+          "expiry_days_with_10x": 30
+        },
+        {
+          "premium_band": "2.00-2.49",
+          "eligible_contract_days": 2418,
+          "success_5x_contract_days": 465,
+          "success_5x_rate_pct": 19.2308,
+          "expiry_days_with_5x": 51,
+          "success_10x_contract_days": 156,
+          "success_10x_rate_pct": 6.4516,
+          "expiry_days_with_10x": 24
+        },
+        {
+          "premium_band": "2.50-2.99",
+          "eligible_contract_days": 2271,
+          "success_5x_contract_days": 407,
+          "success_5x_rate_pct": 17.9216,
+          "expiry_days_with_5x": 47,
+          "success_10x_contract_days": 111,
+          "success_10x_rate_pct": 4.8877,
+          "expiry_days_with_10x": 18
+        },
+        {
+          "premium_band": "3.00-3.49",
+          "eligible_contract_days": 2134,
+          "success_5x_contract_days": 344,
+          "success_5x_rate_pct": 16.12,
+          "expiry_days_with_5x": 42,
+          "success_10x_contract_days": 80,
+          "success_10x_rate_pct": 3.7488,
+          "expiry_days_with_10x": 16
+        },
+        {
+          "premium_band": "3.50-3.99",
+          "eligible_contract_days": 2031,
+          "success_5x_contract_days": 288,
+          "success_5x_rate_pct": 14.1802,
+          "expiry_days_with_5x": 37,
+          "success_10x_contract_days": 56,
+          "success_10x_rate_pct": 2.7573,
+          "expiry_days_with_10x": 15
+        },
+        {
+          "premium_band": "4.00-4.49",
+          "eligible_contract_days": 1963,
+          "success_5x_contract_days": 234,
+          "success_5x_rate_pct": 11.9205,
+          "expiry_days_with_5x": 32,
+          "success_10x_contract_days": 36,
+          "success_10x_rate_pct": 1.8339,
+          "expiry_days_with_10x": 12
+        },
+        {
+          "premium_band": "4.50-5.00",
+          "eligible_contract_days": 1915,
+          "success_5x_contract_days": 199,
+          "success_5x_rate_pct": 10.3916,
+          "expiry_days_with_5x": 32,
+          "success_10x_contract_days": 29,
+          "success_10x_rate_pct": 1.5144,
+          "expiry_days_with_10x": 9
+        }
+      ]
+    }
+  ],
+  "reconciliation": {
+    "passed": true,
+    "eligible_contract_days": true,
+    "success_5x_contract_days": true,
+    "success_10x_contract_days": true,
+    "expiry_days": true
+  }
+}

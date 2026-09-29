@@ -1,0 +1,164 @@
+{
+  "status": "experimental_fixed_strategy_not_promoted",
+  "strategy_version": "S2-v0.3",
+  "parent_strategy": "S2-v0.2",
+  "selection_source": "two adaptive exits compared only on 2025-10 through 2026-04; validation was not used",
+  "rules": {
+    "entry": "same as S2-v0.2",
+    "probe_budget": 2500000,
+    "confirmation": "1.5x within 20 minutes then add",
+    "confirmed_exit": "2x initial entry price",
+    "unconfirmed_exit": "after 20 minutes, first 1.5x close exits all",
+    "daily_principal_limit": 5000000
+  },
+  "summary": {
+    "days": 282,
+    "trade_days": 42,
+    "profitable_days": 31,
+    "losing_days": 11,
+    "total_pnl": 38047500,
+    "average_trade_day_pnl": 905893,
+    "profit_factor": 2.7847,
+    "minimum_day_pnl": -3545500,
+    "maximum_day_pnl": 5213000,
+    "max_drawdown": -8566500,
+    "pnl_excluding_best_3_days": 25946000,
+    "pnl_excluding_best_5_days": 20060500,
+    "expired_contracts": 13,
+    "confirmed_days": 16,
+    "added_days": 13,
+    "total_buy_principal": 111332500,
+    "expiry_residual_days": 5,
+    "initial_cash": 80000000,
+    "ending_cash": 118047500
+  },
+  "historical_backcast": {
+    "days": 199,
+    "trade_days": 0,
+    "profitable_days": 0,
+    "losing_days": 0,
+    "total_pnl": 0,
+    "average_trade_day_pnl": 0,
+    "profit_factor": null,
+    "minimum_day_pnl": 0,
+    "maximum_day_pnl": 0,
+    "max_drawdown": 0,
+    "pnl_excluding_best_3_days": 0,
+    "pnl_excluding_best_5_days": 0,
+    "expired_contracts": 0,
+    "confirmed_days": 0,
+    "added_days": 0,
+    "total_buy_principal": 0,
+    "expiry_residual_days": 0
+  },
+  "development": {
+    "days": 52,
+    "trade_days": 30,
+    "profitable_days": 23,
+    "losing_days": 7,
+    "total_pnl": 28888500,
+    "average_trade_day_pnl": 962950,
+    "profit_factor": 3.4617,
+    "minimum_day_pnl": -2290500,
+    "maximum_day_pnl": 3120000,
+    "max_drawdown": -4249500,
+    "pnl_excluding_best_3_days": 19952500,
+    "pnl_excluding_best_5_days": 14440500,
+    "expired_contracts": 6,
+    "confirmed_days": 11,
+    "added_days": 10,
+    "total_buy_principal": 82870000,
+    "expiry_residual_days": 2
+  },
+  "validation": {
+    "days": 31,
+    "trade_days": 12,
+    "profitable_days": 8,
+    "losing_days": 4,
+    "total_pnl": 9159000,
+    "average_trade_day_pnl": 763250,
+    "profit_factor": 1.9557,
+    "minimum_day_pnl": -3545500,
+    "maximum_day_pnl": 5213000,
+    "max_drawdown": -7908000,
+    "pnl_excluding_best_3_days": -2795500,
+    "pnl_excluding_best_5_days": -6029000,
+    "expired_contracts": 7,
+    "confirmed_days": 5,
+    "added_days": 3,
+    "total_buy_principal": 28462500,
+    "expiry_residual_days": 3
+  },
+  "comparison_to_parent": {
+    "all_pnl_difference": -7830500,
+    "development_pnl_difference": -3065500,
+    "validation_pnl_difference": -4765000,
+    "promoted_over_parent": false
+  },
+  "analysis": {
+    "by_exit_reason": [
+      {
+        "group": "TIME",
+        "count": 6,
+        "profitable_count": 0,
+        "losing_count": 6,
+        "total_pnl": -11182500,
+        "average_pnl": -1863750
+      },
+      {
+        "group": "UNFILLED_ZERO_VALUE",
+        "count": 5,
+        "profitable_count": 0,
+        "losing_count": 5,
+        "total_pnl": -10136500,
+        "average_pnl": -2027300
+      },
+      {
+        "group": "LATE_1_5_ALL",
+        "count": 16,
+        "profitable_count": 16,
+        "losing_count": 0,
+        "total_pnl": 19500000,
+        "average_pnl": 1218750
+      },
+      {
+        "group": "TARGET_2X_INITIAL",
+        "count": 15,
+        "profitable_count": 15,
+        "losing_count": 0,
+        "total_pnl": 39866500,
+        "average_pnl": 2657767
+      }
+    ],
+    "by_confirmation": [
+      {
+        "group": "False",
+        "count": 26,
+        "profitable_count": 16,
+        "losing_count": 10,
+        "total_pnl": 1726500,
+        "average_pnl": 66404
+      },
+      {
+        "group": "True",
+        "count": 16,
+        "profitable_count": 15,
+        "losing_count": 1,
+        "total_pnl": 36321000,
+        "average_pnl": 2270062
+      }
+    ]
+  },
+  "audit": {
+    "passed": true,
+    "error_count": 0,
+    "error_samples": [],
+    "daily_rows": 282,
+    "trade_rows": 107
+  },
+  "limitations": [
+    "승률은 높아졌지만 S2-v0.2보다 개발·검증·전체 수익이 모두 낮았습니다.",
+    "따라서 버전명은 유지하되 권장 전략으로 승격하지 않습니다.",
+    "15:19까지 미체결된 잔량은 0원으로 평가했습니다."
+  ]
+}

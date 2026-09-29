@@ -8,10 +8,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-from inventory import DATASET_NAMES, DATE_RE, ROWDATA_DIR
+from inventory import (
+    ANALYSIS_START_DATE,
+    DATASET_NAMES,
+    DATE_RE,
+    ROWDATA_DIR,
+)
 
 
-START_DATE = "20251001"
+START_DATE = ANALYSIS_START_DATE
 DAY_MARKET_ID = "DRV"
 PROFILE_PATH = Path(__file__).resolve().parent / "output" / "data_profile.json"
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"

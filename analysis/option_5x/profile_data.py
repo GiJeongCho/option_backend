@@ -7,10 +7,15 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 
-from inventory import DATASET_NAMES, DATE_RE, ROWDATA_DIR
+from inventory import (
+    ANALYSIS_START_DATE,
+    DATASET_NAMES,
+    DATE_RE,
+    ROWDATA_DIR,
+)
 
 
-START_DATE = "20251001"
+START_DATE = ANALYSIS_START_DATE
 SERIES_RE = re.compile(r"\b(\d{4}W\d)\b")
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"
 

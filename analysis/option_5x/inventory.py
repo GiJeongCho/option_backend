@@ -15,6 +15,7 @@ DATASET_NAMES = (
     "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-2)",
 )
 DATE_RE = re.compile(r"_(\d{8})\.csv$")
+ANALYSIS_START_DATE = "20230801"
 
 
 def collect_inventory() -> dict[str, object]:
@@ -42,15 +43,19 @@ def collect_inventory() -> dict[str, object]:
                 "file_count": len(dates),
                 "min_date": dates[0] if dates else None,
                 "max_date": dates[-1] if dates else None,
-                "target_period_file_count": sum(date >= "20251001" for date in dates),
+                "target_period_file_count": sum(
+                    date >= ANALYSIS_START_DATE for date in dates
+                ),
             }
         )
 
-    target_dates = sorted(date for date in date_sources if date >= "20251001")
+    target_dates = sorted(
+        date for date in date_sources if date >= ANALYSIS_START_DATE
+    )
     duplicate_dates = {
         date: sources
         for date, sources in sorted(date_sources.items())
-        if date >= "20251001" and len(sources) > 1
+        if date >= ANALYSIS_START_DATE and len(sources) > 1
     }
 
     return {
