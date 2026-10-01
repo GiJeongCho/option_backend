@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "portfolios": {
+    "EV": {
+      "passed": true,
+      "error_count": 0,
+      "error_samples": [],
+      "daily_rows": 60,
+      "trade_rows": 1090
+    },
+    "STAGED": {
+      "passed": true,
+      "error_count": 0,
+      "error_samples": [],
+      "daily_rows": 60,
+      "trade_rows": 1276
+    }
+  }
+}

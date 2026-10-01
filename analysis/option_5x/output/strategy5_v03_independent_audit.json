@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "event_denominators": {
+    "eligible_contracts": 1219,
+    "ambiguous_initial_bar": 82,
+    "ordered_contracts": 1137,
+    "early": 476,
+    "early_reached_2x": 358,
+    "early_unconfirmed": 661,
+    "early_unconfirmed_reached_003": 619,
+    "late": 186,
+    "late_reached_2x": 142,
+    "late_reached_5x": 72,
+    "late_reached_10x": 40,
+    "never": 475,
+    "never_reached_003": 475
+  },
+  "branches": {
+    "EARLY": {
+      "passed": true,
+      "error_count": 0,
+      "error_samples": [],
+      "daily_rows": 60,
+      "trade_rows": 117
+    },
+    "LATE": {
+      "passed": true,
+      "error_count": 0,
+      "error_samples": [],
+      "daily_rows": 60,
+      "trade_rows": 69
+    }
+  },
+  "checks": [
+    "contract-event denominators recomputed from CSV",
+    "661 early-unconfirmed contracts kept as the late denominator",
+    "cash chain and trade cash-flow reconciliation",
+    "integer quantity closure and one buy per branch per day",
+    "5,000,000 won independent branch principal cap",
+    "contract multiplier, commission, and entry participation",
+    "P0 observation < confirmation < next-bar entry",
+    "EARLY <=09:30 and LATE 09:31~14:30",
+    "earliest confirmation per branch and expiry date"
+  ]
+}

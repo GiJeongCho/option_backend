@@ -1,0 +1,157 @@
+{
+  "status": "entry_event_denominator_research",
+  "scope": {
+    "start": "20260105",
+    "end": "20260831",
+    "expiry_days": 60
+  },
+  "rules": {
+    "observation_window": [
+      900,
+      910
+    ],
+    "early_window_end": 930,
+    "event_end": 1515,
+    "premium_range": [
+      0.4,
+      1.2
+    ],
+    "confirmation_multiple": 1.5,
+    "same_observation_bar_touch": "ambiguous and excluded",
+    "late_denominator": "all ordered early-unconfirmed contracts, without conditioning on 0.03 survival"
+  },
+  "modes": {
+    "first_window_trade_open": {
+      "eligible_contracts": 713,
+      "ambiguous_initial_bar": 61,
+      "ordered_contracts": 652,
+      "early": {
+        "count": 281,
+        "reached_2x_including_confirmation": 208,
+        "reached_2x_including_confirmation_pct": 74.02,
+        "reached_5x_including_confirmation": 91,
+        "reached_10x_including_confirmation": 46,
+        "reached_10x_including_confirmation_pct": 16.37,
+        "reached_2x_after_confirmation": 206,
+        "reached_2x_after_confirmation_pct": 73.31,
+        "reached_5x_after_confirmation": 91,
+        "reached_10x_after_confirmation": 46,
+        "reached_10x_after_confirmation_pct": 16.37
+      },
+      "early_unconfirmed": {
+        "count": 371,
+        "reached_003": 351,
+        "reached_003_pct": 94.61,
+        "eventual_10x": 20,
+        "eventual_10x_pct": 5.39
+      },
+      "late": {
+        "count": 106,
+        "reached_2x_including_confirmation": 70,
+        "reached_2x_including_confirmation_pct": 66.04,
+        "reached_5x_including_confirmation": 37,
+        "reached_10x_including_confirmation": 20,
+        "reached_10x_including_confirmation_pct": 18.87,
+        "reached_2x_after_confirmation": 70,
+        "reached_2x_after_confirmation_pct": 66.04,
+        "reached_5x_after_confirmation": 37,
+        "reached_10x_after_confirmation": 20,
+        "reached_10x_after_confirmation_pct": 18.87,
+        "strategy_eligible_count": 106
+      },
+      "never": {
+        "count": 265,
+        "reached_003": 265,
+        "reached_003_pct": 100.0
+      }
+    },
+    "first_qualifying_open": {
+      "eligible_contracts": 1219,
+      "ambiguous_initial_bar": 82,
+      "ordered_contracts": 1137,
+      "early": {
+        "count": 476,
+        "reached_2x_including_confirmation": 358,
+        "reached_2x_including_confirmation_pct": 75.21,
+        "reached_5x_including_confirmation": 157,
+        "reached_10x_including_confirmation": 92,
+        "reached_10x_including_confirmation_pct": 19.33,
+        "reached_2x_after_confirmation": 355,
+        "reached_2x_after_confirmation_pct": 74.58,
+        "reached_5x_after_confirmation": 157,
+        "reached_10x_after_confirmation": 92,
+        "reached_10x_after_confirmation_pct": 19.33
+      },
+      "early_unconfirmed": {
+        "count": 661,
+        "reached_003": 619,
+        "reached_003_pct": 93.65,
+        "eventual_10x": 40,
+        "eventual_10x_pct": 6.05
+      },
+      "late": {
+        "count": 186,
+        "reached_2x_including_confirmation": 142,
+        "reached_2x_including_confirmation_pct": 76.34,
+        "reached_5x_including_confirmation": 72,
+        "reached_10x_including_confirmation": 40,
+        "reached_10x_including_confirmation_pct": 21.51,
+        "reached_2x_after_confirmation": 142,
+        "reached_2x_after_confirmation_pct": 76.34,
+        "reached_5x_after_confirmation": 72,
+        "reached_10x_after_confirmation": 40,
+        "reached_10x_after_confirmation_pct": 21.51,
+        "strategy_eligible_count": 186
+      },
+      "never": {
+        "count": 475,
+        "reached_003": 475,
+        "reached_003_pct": 100.0
+      }
+    },
+    "legacy_qualifying_ohlc_max": {
+      "eligible_contracts": 1325,
+      "ambiguous_initial_bar": 99,
+      "ordered_contracts": 1226,
+      "early": {
+        "count": 456,
+        "reached_2x_including_confirmation": 322,
+        "reached_2x_including_confirmation_pct": 70.61,
+        "reached_5x_including_confirmation": 145,
+        "reached_10x_including_confirmation": 89,
+        "reached_10x_including_confirmation_pct": 19.52,
+        "reached_2x_after_confirmation": 321,
+        "reached_2x_after_confirmation_pct": 70.39,
+        "reached_5x_after_confirmation": 145,
+        "reached_10x_after_confirmation": 89,
+        "reached_10x_after_confirmation_pct": 19.52
+      },
+      "early_unconfirmed": {
+        "count": 770,
+        "reached_003": 726,
+        "reached_003_pct": 94.29,
+        "eventual_10x": 40,
+        "eventual_10x_pct": 5.19
+      },
+      "late": {
+        "count": 238,
+        "reached_2x_including_confirmation": 170,
+        "reached_2x_including_confirmation_pct": 71.43,
+        "reached_5x_including_confirmation": 95,
+        "reached_10x_including_confirmation": 40,
+        "reached_10x_including_confirmation_pct": 16.81,
+        "reached_2x_after_confirmation": 170,
+        "reached_2x_after_confirmation_pct": 71.43,
+        "reached_5x_after_confirmation": 95,
+        "reached_10x_after_confirmation": 40,
+        "reached_10x_after_confirmation_pct": 16.81,
+        "strategy_eligible_count": 238
+      },
+      "never": {
+        "count": 532,
+        "reached_003": 532,
+        "reached_003_pct": 100.0
+      }
+    }
+  }
+}

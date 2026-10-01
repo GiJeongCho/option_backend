@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "ppt_claim": {
+    "eligible": 1320,
+    "early_1_5x": 633,
+    "same_bar_ambiguous": 37,
+    "failed_1_5x": 650,
+    "early_peak_buckets": {
+      "1_5_TO_2": 153,
+      "2_TO_5": 262,
+      "5_TO_10": 92,
+      "10_PLUS": 126
+    }
+  },
+  "raw_recomputation": {
+    "definition": "first qualifying completed OHLC bar; maximum qualifying OHLC is P0",
+    "eligible": 1325,
+    "same_bar_ambiguous": 99,
+    "ordered_confirmed": 460,
+    "ordered_failed": 766,
+    "confirmed_peak_buckets": {
+      "1_5_TO_2": 135,
+      "2_TO_5": 178,
+      "5_TO_10": 57,
+      "10_PLUS": 90
+    },
+    "confirmed_peak_median": 3.3065,
+    "maximum_peak_multiple": 62.6126
+  },
+  "raw_matches_ppt": false,
+  "portfolios": {
+    "EV": {
+      "passed": true,
+      "error_count": 0,
+      "error_samples": [],
+      "daily_rows": 60,
+      "trade_rows": 1090,
+      "position_rows": 474
+    },
+    "STAGED": {
+      "passed": true,
+      "error_count": 0,
+      "error_samples": [],
+      "daily_rows": 60,
+      "trade_rows": 1276,
+      "position_rows": 474
+    }
+  },
+  "checks": [
+    "PPT arithmetic and weighted peak-floor expectation",
+    "independent current-raw event recomputation",
+    "cash chain and trade cash-flow reconciliation",
+    "5,000,000 won initial and simultaneous principal caps",
+    "realized-before-entry failed proceeds for late reentry",
+    "post-fill confirmation and post-09:30 reentry ordering",
+    "integer quantity closure, multiplier, fees, volume caps"
+  ]
+}

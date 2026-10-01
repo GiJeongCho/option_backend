@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 83,
+  "trade_rows": 313,
+  "checks": [
+    "cash chain and pnl equation",
+    "trade cash-flow reconciliation",
+    "integer quantity closure",
+    "four-stage maximum and stage order",
+    "5,000,000 won principal cap",
+    "contract multiplier and commission",
+    "2,000,000 won stop ledger consistency"
+  ]
+}

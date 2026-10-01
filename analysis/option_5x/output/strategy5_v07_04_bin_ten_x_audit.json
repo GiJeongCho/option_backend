@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 60,
+  "trade_rows": 179,
+  "position_rows": 78,
+  "checks": [
+    "cash continuity, 5,000,000 won entry cap, and closed quantity",
+    "post-entry 1.5x confirmation only through 09:29",
+    "full 09:30 liquidation for every unconfirmed position",
+    "10x all-sale or 15:15 time exit for confirmed positions",
+    "no reentry and normal-order 10% volume limits",
+    "every buy raw open is within the 0.40-0.49 premium bin",
+    "40,000,000 won initial cash and no borrowing"
+  ]
+}

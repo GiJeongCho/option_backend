@@ -27,6 +27,37 @@ def _boolean(value: str | bool | None) -> bool:
     return str(value).lower() == "true"
 
 
+def _trade_day_summary(
+    daily_rows: list[dict[str, str]],
+) -> dict[str, int | float]:
+    trade_days = [
+        row
+        for row in daily_rows
+        if _boolean(row.get("entry_filled"))
+        or _boolean(row.get("trade_day"))
+        or _integer(row.get("initial_positions")) > 0
+    ]
+    profitable_days = sum(
+        _integer(row.get("pnl")) > 0 for row in trade_days
+    )
+    losing_days = sum(
+        _integer(row.get("pnl")) < 0 for row in trade_days
+    )
+    break_even_days = len(trade_days) - profitable_days - losing_days
+    return {
+        "tradeDays": len(trade_days),
+        "profitableDays": profitable_days,
+        "losingDays": losing_days,
+        "breakEvenDays": break_even_days,
+        "winRatePct": (
+            round(profitable_days / len(trade_days) * 100, 2)
+            if trade_days
+            else 0.0
+        ),
+        "totalPnl": sum(_integer(row.get("pnl")) for row in daily_rows),
+    }
+
+
 class StrategyAnalysisService:
     def __init__(self, backend_dir: Path | None = None) -> None:
         self.backend_dir = backend_dir or Path(__file__).resolve().parents[1]
@@ -79,6 +110,18 @@ class StrategyAnalysisService:
         self.strategy_three_v03_trades_path = (
             self.output_dir / "strategy3_v03_trades.csv"
         )
+        self.strategy_three_v04_summary_path = (
+            self.output_dir / "strategy3_v04_summary.json"
+        )
+        self.strategy_three_v04_daily_path = (
+            self.output_dir / "strategy3_v04_daily.csv"
+        )
+        self.strategy_three_v04_trades_path = (
+            self.output_dir / "strategy3_v04_trades.csv"
+        )
+        self.strategy_three_v04_audit_path = (
+            self.output_dir / "strategy3_v04_independent_audit.json"
+        )
         self.futures_lsma_summary_path = (
             self.output_dir / "futures_lsma_summary.json"
         )
@@ -105,6 +148,79 @@ class StrategyAnalysisService:
         )
         self.strategy_five_trades_path = (
             self.output_dir / "strategy5_trades.csv"
+        )
+        self.strategy_five_v03_summary_path = (
+            self.output_dir / "strategy5_v03_summary.json"
+        )
+        self.strategy_five_v03_early_daily_path = (
+            self.output_dir / "strategy5_v03_early_daily.csv"
+        )
+        self.strategy_five_v03_early_trades_path = (
+            self.output_dir / "strategy5_v03_early_trades.csv"
+        )
+        self.strategy_five_v03_late_daily_path = (
+            self.output_dir / "strategy5_v03_late_daily.csv"
+        )
+        self.strategy_five_v03_late_trades_path = (
+            self.output_dir / "strategy5_v03_late_trades.csv"
+        )
+        self.strategy_five_v03_audit_path = (
+            self.output_dir / "strategy5_v03_independent_audit.json"
+        )
+        self.strategy_five_v04_summary_path = (
+            self.output_dir / "strategy5_v04_summary.json"
+        )
+        self.strategy_five_v04_ev_daily_path = (
+            self.output_dir / "strategy5_v04_ev_daily.csv"
+        )
+        self.strategy_five_v04_ev_trades_path = (
+            self.output_dir / "strategy5_v04_ev_trades.csv"
+        )
+        self.strategy_five_v04_ev_positions_path = (
+            self.output_dir / "strategy5_v04_ev_positions.csv"
+        )
+        self.strategy_five_v04_staged_daily_path = (
+            self.output_dir / "strategy5_v04_staged_daily.csv"
+        )
+        self.strategy_five_v04_staged_trades_path = (
+            self.output_dir / "strategy5_v04_staged_trades.csv"
+        )
+        self.strategy_five_v04_staged_positions_path = (
+            self.output_dir / "strategy5_v04_staged_positions.csv"
+        )
+        self.strategy_five_v04_audit_path = (
+            self.output_dir / "strategy5_v04_independent_audit.json"
+        )
+        self.strategy_five_v05_summary_path = (
+            self.output_dir / "strategy5_v05_summary.json"
+        )
+        self.strategy_five_v05_daily_path = (
+            self.output_dir / "strategy5_v05_daily.csv"
+        )
+        self.strategy_five_v05_trades_path = (
+            self.output_dir / "strategy5_v05_trades.csv"
+        )
+        self.strategy_five_v05_positions_path = (
+            self.output_dir / "strategy5_v05_positions.csv"
+        )
+        self.strategy_five_v05_audit_path = (
+            self.output_dir / "strategy5_v05_independent_audit.json"
+        )
+        self.strategy_five_v06_summary_path = (
+            self.output_dir / "strategy5_v06_ten_x_summary.json"
+        )
+        self.strategy_five_v06_daily_path = (
+            self.output_dir / "strategy5_v06_ten_x_daily.csv"
+        )
+        self.strategy_five_v06_trades_path = (
+            self.output_dir / "strategy5_v06_ten_x_trades.csv"
+        )
+        self.strategy_five_v06_positions_path = (
+            self.output_dir / "strategy5_v06_ten_x_positions.csv"
+        )
+        self.strategy_five_v06_audit_path = (
+            self.output_dir
+            / "strategy5_v06_ten_x_independent_audit.json"
         )
 
     def _require_outputs(self) -> None:
@@ -896,6 +1012,167 @@ class StrategyAnalysisService:
             ).isoformat(),
         }
 
+    def strategy_three_v04(self) -> dict[str, object]:
+        required = (
+            self.strategy_three_v04_summary_path,
+            self.strategy_three_v04_daily_path,
+            self.strategy_three_v04_audit_path,
+        )
+        if any(not path.exists() for path in required):
+            raise DataNotFoundError(
+                "S3-v0.4 분석 결과가 없습니다. "
+                "`python backend/analysis/option_5x/"
+                "strategy3_v04_backtest.py`와 "
+                "`audit_strategy3_v04.py`를 먼저 실행하세요."
+            )
+        document = json.loads(
+            self.strategy_three_v04_summary_path.read_text(
+                encoding="utf-8"
+            )
+        )
+        independent_audit = json.loads(
+            self.strategy_three_v04_audit_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        def period(raw: object) -> dict[str, object]:
+            row = dict(raw)  # type: ignore[arg-type]
+            result = self._strategy_three_period(row)
+            stage_counts = dict(row.get("stage_counts", {}))
+            result.update(
+                {
+                    "breakEvenDays": _integer(
+                        row.get("break_even_days")
+                    ),
+                    "averageTradeDayPnl": _integer(
+                        row.get("average_trade_day_pnl")
+                    ),
+                    "averageBuyPrincipal": _integer(
+                        row.get("average_buy_principal")
+                    ),
+                    "averageDeploymentPct": _number(
+                        row.get("average_deployment_pct")
+                    ),
+                    "fullyDeployedDays": _integer(
+                        row.get("fully_deployed_days")
+                    ),
+                    "stopExitDays": _integer(
+                        row.get("stop_exit_days")
+                    ),
+                    "targetExitDays": _integer(
+                        row.get("target_exit_days")
+                    ),
+                    "reached2xDays": _integer(
+                        row.get("target_exit_days")
+                    ),
+                    "oneStageDays": _integer(stage_counts.get("1")),
+                    "twoStageDays": _integer(stage_counts.get("2")),
+                    "threeStageDays": _integer(stage_counts.get("3")),
+                    "fourStageDays": _integer(stage_counts.get("4")),
+                }
+            )
+            return result
+
+        def groups(name: str) -> list[dict[str, object]]:
+            analysis = dict(document["analysis"])
+            return [
+                {
+                    "group": row["group"],
+                    "count": _integer(row["count"]),
+                    "profitableCount": _integer(
+                        row["profitable_count"]
+                    ),
+                    "losingCount": _integer(row["losing_count"]),
+                    "totalPnl": _integer(row["total_pnl"]),
+                    "averagePnl": _integer(row["average_pnl"]),
+                }
+                for row in analysis[name]
+            ]
+
+        raw_summary = dict(document["summary"])
+        summary = period(raw_summary)
+        summary.update(
+            {
+                "initialCash": _integer(raw_summary["initial_cash"]),
+                "endingCash": _integer(raw_summary["ending_cash"]),
+            }
+        )
+        daily = [
+            {
+                "date": row["date"],
+                "startCash": _integer(row["start_cash"]),
+                "endCash": _integer(row["end_cash"]),
+                "pnl": _integer(row["pnl"]),
+                "entryFilled": _boolean(row["entry_filled"]),
+                "code": row["code"],
+                "callPut": row["call_put"],
+                "signalMinute": (
+                    _integer(row["signal_minute"])
+                    if row["signal_minute"]
+                    else None
+                ),
+                "initialEntryMinute": (
+                    _integer(row["initial_entry_minute"])
+                    if row["initial_entry_minute"]
+                    else None
+                ),
+                "buyPrincipal": _integer(row["buy_principal"]),
+                "entryStages": _integer(row["entry_stages"]),
+                "lowerLowEntries": _integer(
+                    row["lower_low_entries"]
+                ),
+                "averageEntryPrice": _number(
+                    row["average_entry_price"]
+                ),
+                "deploymentPct": _number(row["deployment_pct"]),
+                "stopTriggered": _boolean(row["stop_triggered"]),
+                "reached2x": _boolean(row["reached_2x"]),
+                "exitReason": row["exit_reason"],
+                "exitSignalReason": row["exit_signal_reason"],
+                "expiredQuantity": _integer(
+                    row["expired_quantity"]
+                ),
+                "mfeMultiple": _number(row["mfe_multiple"]),
+                "maePct": _number(row["mae_pct"]),
+            }
+            for row in self._read_csv(self.strategy_three_v04_daily_path)
+        ]
+        internal_audit = dict(document["audit"])
+        return {
+            "status": document["status"],
+            "strategyVersion": document["strategy_version"],
+            "parentStrategy": document["parent_strategy"],
+            "scope": document["scope"],
+            "selection": document["selection"],
+            "rules": document["rules"],
+            "summary": summary,
+            "development": period(document["development"]),
+            "validation": period(document["validation"]),
+            "comparisonToParent": document["comparison_to_s3_v01"],
+            "analysis": {
+                "byEntryStages": groups("by_entry_stages"),
+                "byExitReason": groups("by_exit_reason"),
+                "byCallPut": groups("by_call_put"),
+            },
+            "daily": daily,
+            "audit": {
+                "passed": (
+                    bool(internal_audit["passed"])
+                    and bool(independent_audit["passed"])
+                ),
+                "errorCount": (
+                    _integer(internal_audit["error_count"])
+                    + _integer(independent_audit["error_count"])
+                ),
+            },
+            "limitations": document["limitations"],
+            "generatedAt": datetime.fromtimestamp(
+                self.strategy_three_v04_summary_path.stat().st_mtime,
+                tz=timezone.utc,
+            ).isoformat(),
+        }
+
     def strategy_four(self) -> dict[str, object]:
         required = (
             self.futures_lsma_summary_path,
@@ -1202,6 +1479,865 @@ class StrategyAnalysisService:
             ).isoformat(),
         }
 
+    @staticmethod
+    def _strategy_five_v03_period(raw: object) -> dict[str, object]:
+        period = dict(raw)  # type: ignore[arg-type]
+        result = StrategyAnalysisService._strategy_three_period(period)
+        result.update(
+            {
+                "breakEvenDays": _integer(
+                    period.get("break_even_days")
+                ),
+                "averageTradeDayPnl": _integer(
+                    period.get("average_trade_day_pnl")
+                ),
+                "averageBuyPrincipal": _integer(
+                    period.get("average_buy_principal")
+                ),
+                "earlyTradeDays": _integer(
+                    period.get("early_trade_days")
+                ),
+                "lateTradeDays": _integer(
+                    period.get("late_trade_days")
+                ),
+                "targetExitDays": _integer(
+                    period.get("target_exit_days")
+                ),
+                "stopExitDays": _integer(
+                    period.get("stop_exit_days")
+                ),
+                "initialCash": _integer(period.get("initial_cash")),
+                "endingCash": _integer(period.get("ending_cash")),
+            }
+        )
+        return result
+
+    @staticmethod
+    def _strategy_five_v03_daily_row(
+        row: dict[str, object] | dict[str, str],
+    ) -> dict[str, object]:
+        return {
+            "strategy": str(row.get("strategy", "")),
+            "date": str(row["date"]),
+            "startCash": _integer(row.get("start_cash")),
+            "endCash": _integer(row.get("end_cash")),
+            "pnl": _integer(row.get("pnl")),
+            "signalFound": _boolean(row.get("signal_found")),
+            "entryFilled": _boolean(row.get("entry_filled")),
+            "code": str(row.get("code", "")),
+            "callPut": str(row.get("call_put", "")),
+            "confirmationBranch": str(
+                row.get("confirmation_branch", "")
+            ),
+            "observationMinute": (
+                _integer(row.get("observation_minute"))
+                if row.get("observation_minute") not in (None, "")
+                else None
+            ),
+            "observationPrice": _number(
+                row.get("observation_price")
+            ),
+            "confirmationMinute": (
+                _integer(row.get("confirmation_minute"))
+                if row.get("confirmation_minute") not in (None, "")
+                else None
+            ),
+            "entryMinute": (
+                _integer(row.get("entry_minute"))
+                if row.get("entry_minute") not in (None, "")
+                else None
+            ),
+            "entryPrice": _number(row.get("entry_price")),
+            "entryQuantity": _integer(row.get("entry_quantity")),
+            "buyPrincipal": _integer(row.get("buy_principal")),
+            "buyFee": _integer(row.get("buy_fee")),
+            "reached2x": _boolean(row.get("reached_2x")),
+            "stopTriggered": _boolean(row.get("stop_triggered")),
+            "grossSales": _integer(row.get("gross_sales")),
+            "sellFee": _integer(row.get("sell_fee")),
+            "exitReason": str(row.get("exit_reason", "")),
+            "exitMinute": (
+                _integer(row.get("exit_minute"))
+                if row.get("exit_minute") not in (None, "")
+                else None
+            ),
+            "expiredQuantity": _integer(
+                row.get("expired_quantity")
+            ),
+            "mfeMultiple": _number(row.get("mfe_multiple")),
+            "maePct": _number(row.get("mae_pct")),
+        }
+
+    def strategy_five_v03(self) -> dict[str, object]:
+        required = (
+            self.strategy_five_v03_summary_path,
+            self.strategy_five_v03_early_daily_path,
+            self.strategy_five_v03_early_trades_path,
+            self.strategy_five_v03_late_daily_path,
+            self.strategy_five_v03_late_trades_path,
+            self.strategy_five_v03_audit_path,
+        )
+        if any(not path.exists() for path in required):
+            raise DataNotFoundError(
+                "S5-v0.3 조기·지연 분석 결과가 없습니다. "
+                "`strategy5_v03_dual_confirmation_backtest.py`와 "
+                "`audit_strategy5_v03.py`를 실행하세요."
+            )
+        document = json.loads(
+            self.strategy_five_v03_summary_path.read_text(
+                encoding="utf-8"
+            )
+        )
+        audit_document = json.loads(
+            self.strategy_five_v03_audit_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        def groups(rows: object) -> list[dict[str, object]]:
+            return [
+                {
+                    "group": str(row["group"]),
+                    "count": _integer(row["count"]),
+                    "profitableCount": _integer(
+                        row["profitable_count"]
+                    ),
+                    "losingCount": _integer(
+                        row["losing_count"]
+                    ),
+                    "totalPnl": _integer(row["total_pnl"]),
+                    "averagePnl": _integer(row["average_pnl"]),
+                }
+                for row in rows  # type: ignore[union-attr]
+            ]
+
+        def portfolio(
+            branch: str,
+            daily_path: Path,
+        ) -> dict[str, object]:
+            raw = dict(document["portfolios"][branch])
+            analysis = dict(raw["analysis"])
+            execution = dict(analysis["entry_execution"])
+            return {
+                "strategyVersion": raw["strategy_version"],
+                "summary": self._strategy_five_v03_period(
+                    raw["summary"]
+                ),
+                "development": self._strategy_five_v03_period(
+                    raw["development"]
+                ),
+                "validation": self._strategy_five_v03_period(
+                    raw["validation"]
+                ),
+                "analysis": {
+                    "byCallPut": groups(analysis["by_call_put"]),
+                    "byExitReason": groups(
+                        analysis["by_exit_reason"]
+                    ),
+                    "entryExecution": {
+                        "averageEntryToP0Multiple": _number(
+                            execution[
+                                "average_entry_to_p0_multiple"
+                            ]
+                        ),
+                        "medianEntryToP0Multiple": _number(
+                            execution[
+                                "median_entry_to_p0_multiple"
+                            ]
+                        ),
+                        "averagePremiumOver1_5xPct": _number(
+                            execution[
+                                "average_premium_over_1_5x_pct"
+                            ]
+                        ),
+                        "maximumPremiumOver1_5xPct": _number(
+                            execution[
+                                "maximum_premium_over_1_5x_pct"
+                            ]
+                        ),
+                    },
+                    "worstDays": [
+                        self._strategy_five_v03_daily_row(dict(row))
+                        for row in analysis["worst_days"]
+                    ],
+                },
+                "daily": [
+                    self._strategy_five_v03_daily_row(row)
+                    for row in self._read_csv(daily_path)
+                ],
+                "audit": {
+                    "passed": bool(raw["audit"]["passed"]),
+                    "errorCount": _integer(
+                        raw["audit"]["error_count"]
+                    ),
+                },
+            }
+
+        event = dict(document["event_study"])
+        early = dict(event["early"])
+        unconfirmed = dict(event["early_unconfirmed"])
+        late = dict(event["late"])
+        never = dict(event["never"])
+        comparison = dict(document["branch_comparison"])
+        return {
+            "status": document["status"],
+            "strategyVersion": document["strategy_version"],
+            "parentStrategy": document["parent_strategy"],
+            "scope": document["scope"],
+            "sourceIntent": document["source_intent"],
+            "rules": document["rules"],
+            "eventStudy": {
+                "eligibleContracts": _integer(
+                    event["eligible_contracts"]
+                ),
+                "ambiguousInitialBar": _integer(
+                    event["ambiguous_initial_bar"]
+                ),
+                "orderedContracts": _integer(
+                    event["ordered_contracts"]
+                ),
+                "early": {
+                    "count": _integer(early["count"]),
+                    "reached2x": _integer(
+                        early["reached_2x_including_confirmation"]
+                    ),
+                    "reached2xPct": _number(
+                        early[
+                            "reached_2x_including_confirmation_pct"
+                        ]
+                    ),
+                    "reached5x": _integer(
+                        early["reached_5x_including_confirmation"]
+                    ),
+                    "reached10x": _integer(
+                        early["reached_10x_including_confirmation"]
+                    ),
+                    "reached10xPct": _number(
+                        early[
+                            "reached_10x_including_confirmation_pct"
+                        ]
+                    ),
+                },
+                "earlyUnconfirmed": {
+                    "count": _integer(unconfirmed["count"]),
+                    "reached003": _integer(
+                        unconfirmed["reached_003"]
+                    ),
+                    "reached003Pct": _number(
+                        unconfirmed["reached_003_pct"]
+                    ),
+                    "eventual10x": _integer(
+                        unconfirmed["eventual_10x"]
+                    ),
+                    "eventual10xPct": _number(
+                        unconfirmed["eventual_10x_pct"]
+                    ),
+                },
+                "late": {
+                    "count": _integer(late["count"]),
+                    "reached2x": _integer(
+                        late["reached_2x_after_confirmation"]
+                    ),
+                    "reached2xPct": _number(
+                        late[
+                            "reached_2x_after_confirmation_pct"
+                        ]
+                    ),
+                    "reached5x": _integer(
+                        late["reached_5x_after_confirmation"]
+                    ),
+                    "reached10x": _integer(
+                        late["reached_10x_after_confirmation"]
+                    ),
+                    "reached10xPct": _number(
+                        late[
+                            "reached_10x_after_confirmation_pct"
+                        ]
+                    ),
+                },
+                "never": {
+                    "count": _integer(never["count"]),
+                    "reached003": _integer(
+                        never["reached_003"]
+                    ),
+                    "reached003Pct": _number(
+                        never["reached_003_pct"]
+                    ),
+                },
+            },
+            "portfolios": {
+                "early": portfolio(
+                    "EARLY",
+                    self.strategy_five_v03_early_daily_path,
+                ),
+                "late": portfolio(
+                    "LATE",
+                    self.strategy_five_v03_late_daily_path,
+                ),
+            },
+            "branchComparison": {
+                "lateMinusEarlyTotalPnl": _integer(
+                    comparison["late_minus_early_total_pnl"]
+                ),
+                "lateMinusEarlyMaxDrawdown": _integer(
+                    comparison["late_minus_early_max_drawdown"]
+                ),
+                "lateMinusEarlyTradeDays": _integer(
+                    comparison["late_minus_early_trade_days"]
+                ),
+            },
+            "audit": {
+                "passed": bool(audit_document["passed"]),
+                "errorCount": _integer(
+                    audit_document["error_count"]
+                ),
+            },
+            "limitations": document["limitations"],
+            "generatedAt": datetime.fromtimestamp(
+                self.strategy_five_v03_summary_path.stat().st_mtime,
+                tz=timezone.utc,
+            ).isoformat(),
+        }
+
+    @staticmethod
+    def _strategy_five_v04_period(raw: object) -> dict[str, object]:
+        period = dict(raw)  # type: ignore[arg-type]
+        return {
+            "days": _integer(period["days"]),
+            "tradeDays": _integer(period["trade_days"]),
+            "profitableDays": _integer(period["profitable_days"]),
+            "losingDays": _integer(period["losing_days"]),
+            "breakEvenDays": _integer(period["break_even_days"]),
+            "winRatePct": _number(period["win_rate_pct"]),
+            "totalPnl": _integer(period["total_pnl"]),
+            "profitFactor": _number(period["profit_factor"]),
+            "minimumDayPnl": _integer(period["minimum_day_pnl"]),
+            "maximumDayPnl": _integer(period["maximum_day_pnl"]),
+            "maxDrawdown": _integer(period["max_drawdown"]),
+            "pnlExcludingBest3Days": _integer(
+                period["pnl_excluding_best_3_days"]
+            ),
+            "pnlExcludingBest5Days": _integer(
+                period["pnl_excluding_best_5_days"]
+            ),
+            "initialBuyPrincipal": _integer(
+                period["initial_buy_principal"]
+            ),
+            "averageInitialBuyPrincipal": _integer(
+                period["average_initial_buy_principal"]
+            ),
+            "earlyConfirmedPositions": _integer(
+                period["early_confirmed_positions"]
+            ),
+            "earlyFailedPositions": _integer(
+                period["early_failed_positions"]
+            ),
+            "lateSignalDays": _integer(period["late_signal_days"]),
+            "lateReentryDays": _integer(
+                period["late_reentry_days"]
+            ),
+            "lateBuyPrincipal": _integer(
+                period["late_buy_principal"]
+            ),
+            "expiredQuantity": _integer(
+                period["expired_quantity"]
+            ),
+            "initialCash": _integer(period.get("initial_cash")),
+            "endingCash": _integer(period.get("ending_cash")),
+        }
+
+    @staticmethod
+    def _strategy_five_v04_daily_row(
+        row: dict[str, object] | dict[str, str],
+    ) -> dict[str, object]:
+        return {
+            "strategy": str(row.get("strategy", "")),
+            "date": str(row["date"]),
+            "startCash": _integer(row.get("start_cash")),
+            "endCash": _integer(row.get("end_cash")),
+            "pnl": _integer(row.get("pnl")),
+            "eligibleContracts": _integer(
+                row.get("eligible_contracts")
+            ),
+            "activePremiumBins": _integer(
+                row.get("active_premium_bins")
+            ),
+            "initialPositions": _integer(
+                row.get("initial_positions")
+            ),
+            "initialBuyPrincipal": _integer(
+                row.get("initial_buy_principal")
+            ),
+            "earlyConfirmedPositions": _integer(
+                row.get("early_confirmed_positions")
+            ),
+            "earlyFailedPositions": _integer(
+                row.get("early_failed_positions")
+            ),
+            "failedSaleProceeds": _integer(
+                row.get("failed_sale_proceeds")
+            ),
+            "lateSignalFound": _boolean(
+                row.get("late_signal_found")
+            ),
+            "lateReentryFilled": _boolean(
+                row.get("late_reentry_filled")
+            ),
+            "lateCode": str(row.get("late_code", "")),
+            "lateCallPut": str(row.get("late_call_put", "")),
+            "lateConfirmationMinute": (
+                _integer(row.get("late_confirmation_minute"))
+                if row.get("late_confirmation_minute")
+                not in (None, "")
+                else None
+            ),
+            "lateEntryMinute": (
+                _integer(row.get("late_entry_minute"))
+                if row.get("late_entry_minute") not in (None, "")
+                else None
+            ),
+            "lateBuyPrincipal": _integer(
+                row.get("late_buy_principal")
+            ),
+            "totalBuyPrincipal": _integer(
+                row.get("total_buy_principal")
+            ),
+            "maximumDeployedPrincipal": _integer(
+                row.get("maximum_deployed_principal")
+            ),
+            "totalFees": _integer(row.get("total_fees")),
+            "expiredQuantity": _integer(
+                row.get("expired_quantity")
+            ),
+        }
+
+    def strategy_five_v04(self) -> dict[str, object]:
+        required = (
+            self.strategy_five_v04_summary_path,
+            self.strategy_five_v04_ev_daily_path,
+            self.strategy_five_v04_ev_trades_path,
+            self.strategy_five_v04_staged_daily_path,
+            self.strategy_five_v04_staged_trades_path,
+            self.strategy_five_v04_audit_path,
+        )
+        if any(not path.exists() for path in required):
+            raise DataNotFoundError(
+                "S5-v0.4 09:10 바스켓 분석 결과가 없습니다. "
+                "`strategy5_v04_basket_backtest.py`와 "
+                "`audit_strategy5_v04.py`를 실행하세요."
+            )
+        document = json.loads(
+            self.strategy_five_v04_summary_path.read_text(
+                encoding="utf-8"
+            )
+        )
+        audit_document = json.loads(
+            self.strategy_five_v04_audit_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        def portfolio(
+            name: str,
+            daily_path: Path,
+        ) -> dict[str, object]:
+            raw = dict(document["portfolios"][name])
+            expectation = [
+                {
+                    "group": str(row["group"]),
+                    "count": _integer(row["count"]),
+                    "profitableCount": _integer(
+                        row["profitable_count"]
+                    ),
+                    "losingCount": _integer(row["losing_count"]),
+                    "totalBuyPrincipal": _integer(
+                        row["total_buy_principal"]
+                    ),
+                    "totalPnl": _integer(row["total_pnl"]),
+                    "expectedNetReturnPct": _number(
+                        row["expected_net_return_pct"]
+                    ),
+                    "averagePnl": _integer(row["average_pnl"]),
+                }
+                for row in raw["position_expectation"]
+            ]
+            return {
+                "strategyVersion": raw["strategy_version"],
+                "rules": raw["rules"],
+                "summary": self._strategy_five_v04_period(
+                    raw["summary"]
+                ),
+                "development": self._strategy_five_v04_period(
+                    raw["development"]
+                ),
+                "validation": self._strategy_five_v04_period(
+                    raw["validation"]
+                ),
+                "positionExpectation": expectation,
+                "worstDays": [
+                    self._strategy_five_v04_daily_row(dict(row))
+                    for row in raw["worst_days"]
+                ],
+                "daily": [
+                    self._strategy_five_v04_daily_row(row)
+                    for row in self._read_csv(daily_path)
+                ],
+                "audit": {
+                    "passed": bool(raw["audit"]["passed"]),
+                    "errorCount": _integer(
+                        raw["audit"]["error_count"]
+                    ),
+                },
+            }
+
+        ppt = dict(document["ppt_claim"])
+        expectation = dict(document["expectation"])
+        raw_validation = dict(document["raw_validation"])
+        targets = dict(
+            expectation[
+                "all_or_zero_target_multiples_on_ordered_1283"
+            ]
+        )
+        return {
+            "status": document["status"],
+            "strategyVersion": document["strategy_version"],
+            "scope": document["scope"],
+            "pptClaim": {
+                "eligible": _integer(ppt["eligible"]),
+                "early1_5x": _integer(ppt["early_1_5x"]),
+                "sameBarAmbiguous": _integer(
+                    ppt["same_bar_ambiguous"]
+                ),
+                "failed1_5x": _integer(ppt["failed_1_5x"]),
+                "earlyPeakBuckets": ppt["early_peak_buckets"],
+            },
+            "expectation": {
+                "warning": expectation["warning"],
+                "conditionalEarlyPeakFloorMultiple": _number(
+                    expectation[
+                        "conditional_early_peak_floor_multiple"
+                    ]
+                ),
+                "all1320OracleFloorMultiple": _number(
+                    expectation["all_1320_oracle_floor_multiple"]
+                ),
+                "ordered1283OracleFloorMultiple": _number(
+                    expectation[
+                        "ordered_1283_oracle_floor_multiple"
+                    ]
+                ),
+                "allOrZeroTargets": {
+                    "target1_5x": _number(targets["1_5x"]),
+                    "target2x": _number(targets["2x"]),
+                    "target5x": _number(targets["5x"]),
+                    "target10x": _number(targets["10x"]),
+                },
+            },
+            "rawValidation": {
+                "definition": raw_validation["definition"],
+                "eligible": _integer(raw_validation["eligible"]),
+                "sameBarAmbiguous": _integer(
+                    raw_validation["same_bar_ambiguous"]
+                ),
+                "orderedConfirmed": _integer(
+                    raw_validation["ordered_confirmed"]
+                ),
+                "orderedFailed": _integer(
+                    raw_validation["ordered_failed"]
+                ),
+                "confirmedPeakBuckets": raw_validation[
+                    "confirmed_peak_buckets"
+                ],
+                "confirmedPeakMedian": _number(
+                    raw_validation["confirmed_peak_median"]
+                ),
+                "maximumPeakMultiple": _number(
+                    raw_validation["maximum_peak_multiple"]
+                ),
+                "matchesPptExactly": bool(
+                    raw_validation["matches_ppt_exactly"]
+                ),
+            },
+            "rules": document["rules"],
+            "portfolios": {
+                "ev": portfolio(
+                    "EV",
+                    self.strategy_five_v04_ev_daily_path,
+                ),
+                "staged": portfolio(
+                    "STAGED",
+                    self.strategy_five_v04_staged_daily_path,
+                ),
+            },
+            "audit": {
+                "passed": bool(audit_document["passed"]),
+                "errorCount": _integer(
+                    audit_document["error_count"]
+                ),
+                "rawMatchesPpt": bool(
+                    audit_document["raw_matches_ppt"]
+                ),
+            },
+            "limitations": document["limitations"],
+            "generatedAt": datetime.fromtimestamp(
+                self.strategy_five_v04_summary_path.stat().st_mtime,
+                tz=timezone.utc,
+            ).isoformat(),
+        }
+
+    def strategy_five_v05(self) -> dict[str, object]:
+        required = (
+            self.strategy_five_v05_summary_path,
+            self.strategy_five_v05_daily_path,
+            self.strategy_five_v05_trades_path,
+            self.strategy_five_v05_positions_path,
+            self.strategy_five_v05_audit_path,
+        )
+        if any(not path.exists() for path in required):
+            raise DataNotFoundError(
+                "S5-v0.5 무재진입 분석 결과가 없습니다. "
+                "`strategy5_v05_no_reentry_backtest.py`와 "
+                "`audit_strategy5_v05.py`를 실행하세요."
+            )
+        document = json.loads(
+            self.strategy_five_v05_summary_path.read_text(
+                encoding="utf-8"
+            )
+        )
+        audit_document = json.loads(
+            self.strategy_five_v05_audit_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        def expectation_row(raw: object) -> dict[str, object]:
+            row = dict(raw)  # type: ignore[arg-type]
+            return {
+                "group": str(row["group"]),
+                "count": _integer(row["count"]),
+                "profitableCount": _integer(row["profitable_count"]),
+                "losingCount": _integer(row["losing_count"]),
+                "totalBuyPrincipal": _integer(
+                    row["total_buy_principal"]
+                ),
+                "totalPnl": _integer(row["total_pnl"]),
+                "expectedNetReturnPct": _number(
+                    row["expected_net_return_pct"]
+                ),
+                "averagePnl": _integer(row["average_pnl"]),
+            }
+
+        expectation = dict(document["expectation"])
+        forced_exit = dict(document.get("forced_exit", {}))
+        return {
+            "status": document["status"],
+            "strategyVersion": document["strategy_version"],
+            "scope": document["scope"],
+            "expectation": {
+                "source": expectation["source"],
+                "conditionalPeakFloorMultiple": _number(
+                    expectation["conditional_peak_floor_multiple"]
+                ),
+                "warning": expectation["warning"],
+            },
+            "rules": document["rules"],
+            "forcedExit": {
+                "minute": _integer(forced_exit.get("minute")),
+                "fullFillPositions": _integer(
+                    forced_exit.get("full_fill_positions")
+                ),
+                "fullFillQuantity": _integer(
+                    forced_exit.get("full_fill_quantity")
+                ),
+                "noTradeZeroPositions": _integer(
+                    forced_exit.get("no_trade_zero_positions")
+                ),
+                "noTradeZeroQuantity": _integer(
+                    forced_exit.get("no_trade_zero_quantity")
+                ),
+            },
+            "summary": self._strategy_five_v04_period(
+                document["summary"]
+            ),
+            "development": self._strategy_five_v04_period(
+                document["development"]
+            ),
+            "validation": self._strategy_five_v04_period(
+                document["validation"]
+            ),
+            "positionExpectation": [
+                expectation_row(row)
+                for row in document["position_expectation"]
+            ],
+            "worstDays": [
+                self._strategy_five_v04_daily_row(dict(row))
+                for row in document["worst_days"]
+            ],
+            "daily": [
+                self._strategy_five_v04_daily_row(row)
+                for row in self._read_csv(
+                    self.strategy_five_v05_daily_path
+                )
+            ],
+            "audit": {
+                "passed": bool(audit_document["passed"]),
+                "errorCount": _integer(
+                    audit_document["error_count"]
+                ),
+            },
+            "limitations": document["limitations"],
+            "generatedAt": datetime.fromtimestamp(
+                self.strategy_five_v05_summary_path.stat().st_mtime,
+                tz=timezone.utc,
+            ).isoformat(),
+        }
+
+    def strategy_five_v06(self) -> dict[str, object]:
+        required = (
+            self.strategy_five_v06_summary_path,
+            self.strategy_five_v06_daily_path,
+            self.strategy_five_v06_trades_path,
+            self.strategy_five_v06_positions_path,
+            self.strategy_five_v06_audit_path,
+        )
+        if any(not path.exists() for path in required):
+            raise DataNotFoundError(
+                "S5-v0.6 10배 전량보유 분석 결과가 없습니다. "
+                "`strategy5_v06_ten_x_backtest.py`와 "
+                "`audit_strategy5_v06_ten_x.py`를 실행하세요."
+            )
+        document = json.loads(
+            self.strategy_five_v06_summary_path.read_text(
+                encoding="utf-8"
+            )
+        )
+        audit_document = json.loads(
+            self.strategy_five_v06_audit_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        def expectation_row(raw: object) -> dict[str, object]:
+            row = dict(raw)  # type: ignore[arg-type]
+            return {
+                "group": str(row["group"]),
+                "count": _integer(row["count"]),
+                "profitableCount": _integer(row["profitable_count"]),
+                "losingCount": _integer(row["losing_count"]),
+                "totalBuyPrincipal": _integer(
+                    row["total_buy_principal"]
+                ),
+                "totalPnl": _integer(row["total_pnl"]),
+                "expectedNetReturnPct": _number(
+                    row["expected_net_return_pct"]
+                ),
+                "averagePnl": _integer(row["average_pnl"]),
+            }
+
+        claim = dict(document["ppt_claim"])
+        outcomes = dict(document["confirmed_outcomes"])
+        return {
+            "status": document["status"],
+            "strategyVersion": document["strategy_version"],
+            "scope": document["scope"],
+            "pptClaim": {
+                "total": _integer(claim["total"]),
+                "confirmed30m": _integer(claim["confirmed_30m"]),
+                "sameBarAmbiguous": _integer(
+                    claim["same_bar_ambiguous"]
+                ),
+                "strictUnconfirmed30m": _integer(
+                    claim["strict_unconfirmed_30m"]
+                ),
+                "confirmedReached2x": _integer(
+                    claim["confirmed_reached_2x"]
+                ),
+                "confirmedReached2xPct": _number(
+                    claim["confirmed_reached_2x_pct"]
+                ),
+                "strictUnconfirmedReached003": _integer(
+                    claim["strict_unconfirmed_reached_003"]
+                ),
+                "strictUnconfirmedReached003Pct": _number(
+                    claim["strict_unconfirmed_reached_003_pct"]
+                ),
+                "combinedUnconfirmedIncludingAmbiguous": _integer(
+                    claim[
+                        "combined_unconfirmed_including_ambiguous"
+                    ]
+                ),
+                "combinedReached003": _integer(
+                    claim["combined_reached_003"]
+                ),
+                "combinedReached003Pct": _number(
+                    claim["combined_reached_003_pct"]
+                ),
+                "combinedNotReached003": _integer(
+                    claim["combined_not_reached_003"]
+                ),
+                "non003Reached10x": _integer(
+                    claim["non_003_reached_10x"]
+                ),
+                "non003Reached10xPct": _number(
+                    claim["non_003_reached_10x_pct"]
+                ),
+                "interpretation": str(claim["interpretation"]),
+            },
+            "rules": document["rules"],
+            "confirmedOutcomes": {
+                "positions": _integer(outcomes["positions"]),
+                "reached10xSignalPositions": _integer(
+                    outcomes["reached_10x_signal_positions"]
+                ),
+                "targetSaleFilledPositions": _integer(
+                    outcomes["target_sale_filled_positions"]
+                ),
+                "timeExitSignalPositions": _integer(
+                    outcomes["time_exit_signal_positions"]
+                ),
+                "timeSaleFilledPositions": _integer(
+                    outcomes["time_sale_filled_positions"]
+                ),
+                "positionsWithExpiredQuantity": _integer(
+                    outcomes["positions_with_expired_quantity"]
+                ),
+            },
+            "summary": self._strategy_five_v04_period(
+                document["summary"]
+            ),
+            "development": self._strategy_five_v04_period(
+                document["development"]
+            ),
+            "validation": self._strategy_five_v04_period(
+                document["validation"]
+            ),
+            "positionExpectation": [
+                expectation_row(row)
+                for row in document["position_expectation"]
+            ],
+            "worstDays": [
+                self._strategy_five_v04_daily_row(dict(row))
+                for row in document["worst_days"]
+            ],
+            "daily": [
+                self._strategy_five_v04_daily_row(row)
+                for row in self._read_csv(
+                    self.strategy_five_v06_daily_path
+                )
+            ],
+            "audit": {
+                "passed": bool(audit_document["passed"]),
+                "errorCount": _integer(
+                    audit_document["error_count"]
+                ),
+            },
+            "limitations": document["limitations"],
+            "generatedAt": datetime.fromtimestamp(
+                self.strategy_five_v06_summary_path.stat().st_mtime,
+                tz=timezone.utc,
+            ).isoformat(),
+        }
+
     def _trade_sources(self) -> dict[str, tuple[str, Path, Path]]:
         return {
             "S1-v0.1": (
@@ -1239,6 +2375,11 @@ class StrategyAnalysisService:
                 self.strategy_three_v03_daily_path,
                 self.strategy_three_v03_trades_path,
             ),
+            "S3-v0.4": (
+                "S3-v0.4 저점갱신·200만원 손절",
+                self.strategy_three_v04_daily_path,
+                self.strategy_three_v04_trades_path,
+            ),
             "S4-v0.1": (
                 "S4-v0.1 LSMA 평균회귀 게이트",
                 self.strategy_four_v01_daily_path,
@@ -1254,6 +2395,157 @@ class StrategyAnalysisService:
                 self.strategy_five_daily_path,
                 self.strategy_five_trades_path,
             ),
+            "S5-v0.3-EARLY": (
+                "S5-v0.3 조기 1.5배 확인",
+                self.strategy_five_v03_early_daily_path,
+                self.strategy_five_v03_early_trades_path,
+            ),
+            "S5-v0.3-LATE": (
+                "S5-v0.3 지연 1.5배 재선별",
+                self.strategy_five_v03_late_daily_path,
+                self.strategy_five_v03_late_trades_path,
+            ),
+            "S5-v0.4-EV": (
+                "S5-v0.4 09:10 기대값 목표",
+                self.strategy_five_v04_ev_daily_path,
+                self.strategy_five_v04_ev_trades_path,
+            ),
+            "S5-v0.4-STAGED": (
+                "S5-v0.4 09:10 점진 청산",
+                self.strategy_five_v04_staged_daily_path,
+                self.strategy_five_v04_staged_trades_path,
+            ),
+            "S5-v0.5": (
+                "S5-v0.5 09:30 청산·무재진입",
+                self.strategy_five_v05_daily_path,
+                self.strategy_five_v05_trades_path,
+            ),
+            "S5-v0.6-10X": (
+                "S5-v0.6 1.5배 확인 후 10배 전량",
+                self.strategy_five_v06_daily_path,
+                self.strategy_five_v06_trades_path,
+            ),
+        }
+
+    def _trade_position_sources(self) -> dict[str, Path]:
+        return {
+            "S5-v0.4-EV": self.strategy_five_v04_ev_positions_path,
+            "S5-v0.4-STAGED": (
+                self.strategy_five_v04_staged_positions_path
+            ),
+            "S5-v0.5": self.strategy_five_v05_positions_path,
+            "S5-v0.6-10X": self.strategy_five_v06_positions_path,
+        }
+
+    @staticmethod
+    def _strategy_trade_context(
+        strategy_version: str,
+        position: dict[str, str] | None,
+    ) -> dict[str, object] | None:
+        if position is None or (
+            not strategy_version.startswith("S5-v0.4")
+            and strategy_version
+            not in {"S5-v0.5", "S5-v0.6-10X"}
+        ):
+            return None
+        p0 = _number(position.get("observation_price"))
+        if p0 <= 0:
+            return None
+        branch = position.get("branch", "")
+        levels: list[dict[str, object]] = [
+            {"key": "P0", "label": "P0 기준가", "price": p0},
+            {
+                "key": "CONFIRM_1_5X",
+                "label": "1.5배 확인",
+                "price": p0 * 1.5,
+            },
+        ]
+        if branch == "LATE_REENTRY":
+            levels.extend(
+                [
+                    {
+                        "key": "TARGET_2X",
+                        "label": "2배 절반청산",
+                        "price": p0 * 2.0,
+                    },
+                    {
+                        "key": "TARGET_5X",
+                        "label": "5배 잔량절반",
+                        "price": p0 * 5.0,
+                    },
+                    {
+                        "key": "TARGET_10X",
+                        "label": "10배 전량청산",
+                        "price": p0 * 10.0,
+                    },
+                ]
+            )
+        elif strategy_version == "S5-v0.6-10X":
+            levels.append(
+                {
+                    "key": "TARGET_10X",
+                    "label": "10배 전량청산",
+                    "price": p0 * 10.0,
+                }
+            )
+        elif strategy_version in {"S5-v0.4-EV", "S5-v0.5"}:
+            levels.append(
+                {
+                    "key": "TARGET_EV",
+                    "label": "EV 3.9076배",
+                    "price": p0 * 3.907583,
+                }
+            )
+        else:
+            half_stop = 0.15 if p0 < 0.8 else 0.20
+            final_stop = 0.03 if p0 < 0.8 else 0.04
+            levels.extend(
+                [
+                    {
+                        "key": "DECAY_HALF",
+                        "label": "확인 전 절반감축",
+                        "price": half_stop,
+                    },
+                    {
+                        "key": "DECAY_FINAL",
+                        "label": "확인 전 잔량청산",
+                        "price": final_stop,
+                    },
+                    {
+                        "key": "TARGET_2X",
+                        "label": "2배 누적 30%",
+                        "price": p0 * 2.0,
+                    },
+                    {
+                        "key": "TARGET_5X",
+                        "label": "5배 누적 60%",
+                        "price": p0 * 5.0,
+                    },
+                    {
+                        "key": "TARGET_10X",
+                        "label": "10배 전량청산",
+                        "price": p0 * 10.0,
+                    },
+                ]
+            )
+        return {
+            "branch": branch,
+            "observationMinute": _integer(
+                position.get("observation_minute")
+            ),
+            "observationPrice": p0,
+            "confirmationMinute": (
+                _integer(position.get("confirmation_minute"))
+                if position.get("confirmation_minute")
+                else None
+            ),
+            "levels": [
+                {
+                    **level,
+                    "price": round(_number(level["price"]), 4),
+                }
+                for level in levels
+            ],
         }
 
     def strategy_trade_records(
@@ -1268,25 +2560,28 @@ class StrategyAnalysisService:
                 f"{strategy_version} 거래 결과 파일이 없습니다."
             )
         daily_rows = self._read_csv(daily_path)
-        trade_days = [
-            row
-            for row in daily_rows
-            if _boolean(row.get("entry_filled"))
-            or _boolean(row.get("trade_day"))
-        ]
-        profitable_days = sum(
-            _integer(row.get("pnl")) > 0 for row in trade_days
-        )
-        losing_days = sum(
-            _integer(row.get("pnl")) < 0 for row in trade_days
-        )
-        break_even_days = len(trade_days) - profitable_days - losing_days
+        selected_summary = _trade_day_summary(daily_rows)
         call_put_by_key = {
             (row.get("date", ""), row.get("code", "")): row.get(
                 "call_put", ""
             )
             for row in daily_rows
         }
+        position_by_key: dict[
+            tuple[str, str, str], dict[str, str]
+        ] = {}
+        position_path = self._trade_position_sources().get(
+            strategy_version
+        )
+        if position_path is not None and position_path.exists():
+            position_by_key = {
+                (
+                    row["date"],
+                    row["code"],
+                    row.get("campaign", "1") or "1",
+                ): row
+                for row in self._read_csv(position_path)
+            }
         grouped: dict[
             tuple[str, str, str], list[dict[str, str]]
         ] = defaultdict(list)
@@ -1346,6 +2641,12 @@ class StrategyAnalysisService:
                     "lastMinute": max(
                         _integer(row["minute"]) for row in actionable
                     ),
+                    "strategyContext": self._strategy_trade_context(
+                        strategy_version,
+                        position_by_key.get(
+                            (date_value, code, campaign)
+                        ),
+                    ),
                     "trades": [
                         {
                             "minute": _integer(row["minute"]),
@@ -1374,20 +2675,14 @@ class StrategyAnalysisService:
             "strategyLabel": label,
             "lossesOnly": losses_only,
             "count": len(records),
-            "summary": {
-                "tradeDays": len(trade_days),
-                "profitableDays": profitable_days,
-                "losingDays": losing_days,
-                "breakEvenDays": break_even_days,
-                "winRatePct": round(
-                    profitable_days / len(trade_days) * 100, 2
-                )
-                if trade_days
-                else 0.0,
-            },
+            "summary": selected_summary,
             "records": records,
             "strategies": [
-                {"version": version, "label": source[0]}
+                {
+                    "version": version,
+                    "label": source[0],
+                    **_trade_day_summary(self._read_csv(source[1])),
+                }
                 for version, source in sources.items()
                 if source[1].exists() and source[2].exists()
             ],

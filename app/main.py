@@ -219,6 +219,14 @@ def strategy_three_v03_analysis() -> dict[str, object]:
         raise HTTPException(status_code=404, detail=str(error)) from error
 
 
+@app.get("/api/strategy-analysis/strategy-3-v04")
+def strategy_three_v04_analysis() -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_three_v04()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
 @app.get("/api/strategy-analysis/strategy-4")
 def strategy_four_analysis() -> dict[str, object]:
     try:
@@ -231,6 +239,38 @@ def strategy_four_analysis() -> dict[str, object]:
 def strategy_five_analysis() -> dict[str, object]:
     try:
         return strategy_analysis_service.strategy_five()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/strategy-5-v03")
+def strategy_five_v03_analysis() -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_five_v03()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/strategy-5-v04")
+def strategy_five_v04_analysis() -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_five_v04()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/strategy-5-v05")
+def strategy_five_v05_analysis() -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_five_v05()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/strategy-5-v06")
+def strategy_five_v06_analysis() -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_five_v06()
     except DataNotFoundError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
 

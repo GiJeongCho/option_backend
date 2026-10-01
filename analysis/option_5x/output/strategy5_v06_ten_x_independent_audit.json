@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 60,
+  "trade_rows": 917,
+  "position_rows": 443,
+  "checks": [
+    "independent P0 and actual entry-price reconstruction",
+    "post-entry 1.5x confirmation only through 09:29",
+    "no reentry state, trade, position, or recycled principal",
+    "full 09:30 open liquidation and 10x target ordering",
+    "cash, quantity, fees, and normal-order volume limits"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 60,
+  "trade_rows": 910,
+  "position_rows": 443,
+  "checks": [
+    "no late reentry signal, buy, position, or capital",
+    "post-fill confirmation through the completed 09:29 bar",
+    "full 09:30 open liquidation for every unconfirmed position",
+    "3.907583x P0 target only for confirmed positions",
+    "cash, quantity, fees, and normal-order volume limits"
+  ]
+}
