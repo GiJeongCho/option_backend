@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "buy_rows": 54,
+  "traded_days": 33,
+  "observed_entry_levels": [
+    "0.4",
+    "0.5",
+    "0.6",
+    "0.7",
+    "0.8",
+    "0.9",
+    "1.0",
+    "1.1",
+    "1.2"
+  ],
+  "checks": [
+    "every raw entry open is exactly 0.4, 0.5, ..., 1.2",
+    "daily buy principal does not exceed 5,000,000 won",
+    "cash is continuous, sufficient at entry, and never negative",
+    "eligible level count covers all executed exact quote levels"
+  ]
+}

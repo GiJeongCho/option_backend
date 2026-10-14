@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .data_service import DataNotFoundError
+from .performance_metrics import build_performance_report
+from .strategy_metadata import STRATEGY_METADATA
 
 
 def _integer(value: str | int | float | None) -> int:
@@ -221,6 +223,38 @@ class StrategyAnalysisService:
         self.strategy_five_v06_audit_path = (
             self.output_dir
             / "strategy5_v06_ten_x_independent_audit.json"
+        )
+        self.strategy_five_v07_ev_daily_path = (
+            self.output_dir / "strategy5_v07_04_bin_ev_daily.csv"
+        )
+        self.strategy_five_v07_ev_trades_path = (
+            self.output_dir / "strategy5_v07_04_bin_ev_trades.csv"
+        )
+        self.strategy_five_v07_ev_positions_path = (
+            self.output_dir / "strategy5_v07_04_bin_ev_positions.csv"
+        )
+        self.strategy_five_v07_ten_x_daily_path = (
+            self.output_dir / "strategy5_v07_04_bin_ten_x_daily.csv"
+        )
+        self.strategy_five_v07_ten_x_trades_path = (
+            self.output_dir / "strategy5_v07_04_bin_ten_x_trades.csv"
+        )
+        self.strategy_five_v07_ten_x_positions_path = (
+            self.output_dir / "strategy5_v07_04_bin_ten_x_positions.csv"
+        )
+        self.strategy_five_v08_daily_path = (
+            self.output_dir / "strategy5_v08_step10_ten_x_daily.csv"
+        )
+        self.strategy_five_v08_trades_path = (
+            self.output_dir / "strategy5_v08_step10_ten_x_trades.csv"
+        )
+        self.strategy_five_v08_positions_path = (
+            self.output_dir / "strategy5_v08_step10_ten_x_positions.csv"
+        )
+        self.performance_benchmark_path = (
+            self.backend_dir
+            / "rowdata"
+            / "코스피200 선물 (F) 선물 과거 데이터.csv"
         )
 
     def _require_outputs(self) -> None:
@@ -2338,6 +2372,539 @@ class StrategyAnalysisService:
             ).isoformat(),
         }
 
+    @staticmethod
+    def _version_row_has_trade(row: dict[str, str]) -> bool:
+        return (
+            _boolean(row.get("entry_filled"))
+            or _boolean(row.get("trade_day"))
+            or _integer(row.get("initial_positions")) > 0
+            or _integer(row.get("entry_quantity")) > 0
+            or _integer(row.get("campaign_count")) > 0
+        )
+
+    @staticmethod
+    def _first_row_number(
+        row: dict[str, str],
+        *keys: str,
+    ) -> float:
+        for key in keys:
+            if row.get(key) not in (None, ""):
+                return _number(row[key])
+        return 0.0
+
+    @classmethod
+    def _version_summary(
+        cls,
+        daily_rows: list[dict[str, str]],
+    ) -> dict[str, object]:
+        if not daily_rows:
+            raise ValueError("전략 일별 결과가 없습니다.")
+        rows = sorted(daily_rows, key=lambda row: row["date"])
+        trade_rows = [
+            row for row in rows if cls._version_row_has_trade(row)
+        ]
+        pnl_values = [_integer(row.get("pnl")) for row in rows]
+        trade_pnls = [_integer(row.get("pnl")) for row in trade_rows]
+        initial_cash = _integer(rows[0].get("start_cash"))
+        ending_cash = _integer(rows[-1].get("end_cash"))
+        total_pnl = sum(pnl_values)
+        positive_pnl = sum(value for value in trade_pnls if value > 0)
+        negative_pnl = sum(value for value in trade_pnls if value < 0)
+        profitable_days = sum(value > 0 for value in trade_pnls)
+        losing_days = sum(value < 0 for value in trade_pnls)
+        break_even_days = (
+            len(trade_rows) - profitable_days - losing_days
+        )
+
+        peak = float(initial_cash)
+        maximum_drawdown = 0.0
+        maximum_drawdown_pct = 0.0
+        for row in rows:
+            equity = _number(row.get("end_cash"))
+            peak = max(peak, equity)
+            drawdown = equity - peak
+            maximum_drawdown = min(maximum_drawdown, drawdown)
+            if peak > 0:
+                maximum_drawdown_pct = min(
+                    maximum_drawdown_pct,
+                    drawdown / peak * 100.0,
+                )
+
+        total_buy_principal = sum(
+            cls._first_row_number(
+                row,
+                "total_buy_principal",
+                "buy_principal",
+                "initial_buy_principal",
+            )
+            for row in rows
+        )
+        total_fees = sum(
+            cls._first_row_number(row, "total_fees", "fees")
+            or (
+                _number(row.get("buy_fee"))
+                + _number(row.get("sell_fee"))
+            )
+            for row in rows
+        )
+        expired_quantity = sum(
+            _integer(row.get("expired_quantity")) for row in rows
+        )
+        best_days = sorted(pnl_values, reverse=True)
+        return {
+            "period": {
+                "start": rows[0]["date"],
+                "end": rows[-1]["date"],
+            },
+            "expiryDays": len(rows),
+            "signalDays": sum(
+                _boolean(row.get("signal_found"))
+                or cls._version_row_has_trade(row)
+                for row in rows
+            ),
+            "tradeDays": len(trade_rows),
+            "profitableDays": profitable_days,
+            "losingDays": losing_days,
+            "breakEvenDays": break_even_days,
+            "noTradeDays": len(rows) - len(trade_rows),
+            "winRatePct": (
+                profitable_days / len(trade_rows) * 100.0
+                if trade_rows
+                else 0.0
+            ),
+            "initialCash": initial_cash,
+            "endingCash": ending_cash,
+            "totalPnl": total_pnl,
+            "totalReturnPct": (
+                total_pnl / initial_cash * 100.0
+                if initial_cash
+                else 0.0
+            ),
+            "profitFactor": (
+                positive_pnl / abs(negative_pnl)
+                if negative_pnl
+                else None
+            ),
+            "averageTradeDayPnl": (
+                total_pnl / len(trade_rows) if trade_rows else 0.0
+            ),
+            "minimumDayPnl": min(pnl_values, default=0),
+            "maximumDayPnl": max(pnl_values, default=0),
+            "maxDrawdown": round(maximum_drawdown),
+            "maxDrawdownPct": maximum_drawdown_pct,
+            "pnlExcludingBest3Days": total_pnl - sum(best_days[:3]),
+            "pnlExcludingBest5Days": total_pnl - sum(best_days[:5]),
+            "totalBuyPrincipal": round(total_buy_principal),
+            "totalFees": round(total_fees),
+            "expiredQuantity": expired_quantity,
+        }
+
+    @staticmethod
+    def _version_metadata(
+        strategy_version: str,
+        label: str,
+    ) -> dict[str, object]:
+        metadata = STRATEGY_METADATA.get(strategy_version)
+        if metadata is not None:
+            return metadata
+        family = strategy_version.split("-", 1)[0]
+        return {
+            "family": family,
+            "familyLabel": family.replace("S", "전략 "),
+            "title": label,
+            "summary": "저장된 백테스트 결과를 표시하는 전략 버전입니다.",
+            "status": "연구 버전",
+            "entry": ["백테스트 원본 규칙 참조"],
+            "exit": ["백테스트 원본 규칙 참조"],
+            "risk": ["실거래 전 별도 전진검증 필요"],
+        }
+
+    def strategy_version_catalog(self) -> dict[str, object]:
+        strategies: list[dict[str, object]] = []
+        for version, (label, daily_path, trades_path) in (
+            self._trade_sources().items()
+        ):
+            if not daily_path.exists() or not trades_path.exists():
+                continue
+            strategies.append(
+                {
+                    "version": version,
+                    "label": label,
+                    "metadata": self._version_metadata(version, label),
+                    "summary": self._version_summary(
+                        self._read_csv(daily_path)
+                    ),
+                }
+            )
+        if not strategies:
+            raise DataNotFoundError("표시할 전략 결과가 없습니다.")
+        ranked = sorted(
+            strategies,
+            key=lambda item: _number(
+                dict(item["summary"]).get("totalReturnPct")
+            ),
+            reverse=True,
+        )
+        rank_by_version = {
+            str(item["version"]): index
+            for index, item in enumerate(ranked, start=1)
+        }
+        for item in strategies:
+            item["returnRank"] = rank_by_version[str(item["version"])]
+        return {
+            "count": len(strategies),
+            "defaultStrategyVersion": ranked[0]["version"],
+            "rankingBasis": "누적수익률 = 누적 순손익 ÷ 시작자금",
+            "comparisonWarning": (
+                "전략별 시작자금과 분석기간이 다르므로 순위는 저장된 "
+                "백테스트 구간의 단순 누적수익률 비교입니다."
+            ),
+            "strategies": strategies,
+        }
+
+    @staticmethod
+    def _version_exit_reasons(
+        trade_rows: list[dict[str, str]],
+    ) -> list[dict[str, object]]:
+        campaigns: dict[
+            tuple[str, str, str],
+            list[dict[str, str]],
+        ] = defaultdict(list)
+        for row in trade_rows:
+            campaigns[
+                (
+                    row.get("date", ""),
+                    row.get("code", ""),
+                    row.get("campaign", "1") or "1",
+                )
+            ].append(row)
+        grouped: dict[str, list[int]] = defaultdict(list)
+        for rows in campaigns.values():
+            ordered = sorted(
+                rows,
+                key=lambda row: (
+                    _integer(row.get("minute")),
+                    0 if row.get("side") == "BUY" else 1,
+                ),
+            )
+            exits = [
+                row
+                for row in ordered
+                if row.get("side") in {"SELL", "EXPIRE"}
+            ]
+            reason = (
+                exits[-1].get("reason", "UNKNOWN")
+                if exits
+                else "OPEN_OR_UNRESOLVED"
+            )
+            grouped[reason].append(
+                sum(_integer(row.get("cash_flow")) for row in ordered)
+            )
+        result = []
+        for reason, values in grouped.items():
+            result.append(
+                {
+                    "reason": reason,
+                    "count": len(values),
+                    "profitableCount": sum(value > 0 for value in values),
+                    "losingCount": sum(value < 0 for value in values),
+                    "breakEvenCount": sum(value == 0 for value in values),
+                    "totalPnl": sum(values),
+                    "averagePnl": sum(values) / len(values),
+                }
+            )
+        return sorted(result, key=lambda row: _integer(row["totalPnl"]))
+
+    @staticmethod
+    def _version_monthly_losses(
+        daily_rows: list[dict[str, str]],
+    ) -> list[dict[str, object]]:
+        grouped: dict[str, list[int]] = defaultdict(list)
+        for row in daily_rows:
+            pnl = _integer(row.get("pnl"))
+            if pnl < 0:
+                date_value = row.get("date", "")
+                grouped[
+                    f"{date_value[:4]}-{date_value[4:6]}"
+                ].append(pnl)
+        return [
+            {
+                "month": month,
+                "lossDays": len(values),
+                "totalLoss": sum(values),
+                "averageLoss": sum(values) / len(values),
+                "worstLoss": min(values),
+            }
+            for month, values in sorted(grouped.items())
+        ]
+
+    def strategy_version_detail(
+        self,
+        strategy_version: str,
+    ) -> dict[str, object]:
+        sources = self._trade_sources()
+        if strategy_version not in sources:
+            raise ValueError(f"지원하지 않는 전략: {strategy_version}")
+        label, daily_path, trades_path = sources[strategy_version]
+        if not daily_path.exists() or not trades_path.exists():
+            raise DataNotFoundError(
+                f"{strategy_version} 거래 결과 파일이 없습니다."
+            )
+        daily_rows = sorted(
+            self._read_csv(daily_path),
+            key=lambda row: row["date"],
+        )
+        summary = self._version_summary(daily_rows)
+        catalog = self.strategy_version_catalog()
+        selected_catalog = next(
+            item
+            for item in list(catalog["strategies"])
+            if dict(item)["version"] == strategy_version
+        )
+        daily = [
+            {
+                "date": row["date"],
+                "startCash": _integer(row.get("start_cash")),
+                "endCash": _integer(row.get("end_cash")),
+                "pnl": _integer(row.get("pnl")),
+                "tradeDay": self._version_row_has_trade(row),
+            }
+            for row in daily_rows
+        ]
+        loss_days = sorted(
+            (row for row in daily if _integer(row["pnl"]) < 0),
+            key=lambda row: _integer(row["pnl"]),
+        )
+        profit_days = sorted(
+            (row for row in daily if _integer(row["pnl"]) > 0),
+            key=lambda row: _integer(row["pnl"]),
+            reverse=True,
+        )
+        return {
+            "strategyVersion": strategy_version,
+            "strategyLabel": label,
+            "metadata": self._version_metadata(strategy_version, label),
+            "summary": summary,
+            "ranking": {
+                "returnRank": dict(selected_catalog)["returnRank"],
+                "strategyCount": catalog["count"],
+                "isHighestReturn": (
+                    catalog["defaultStrategyVersion"] == strategy_version
+                ),
+                "basis": catalog["rankingBasis"],
+                "warning": catalog["comparisonWarning"],
+            },
+            "daily": daily,
+            "worstDays": loss_days[:15],
+            "bestDays": profit_days[:10],
+            "monthlyLosses": self._version_monthly_losses(daily_rows),
+            "exitReasons": self._version_exit_reasons(
+                self._read_csv(trades_path)
+            ),
+        }
+
+    def strategy_seed_backtest(
+        self,
+        strategy_version: str,
+        initial_cash: int,
+    ) -> dict[str, object]:
+        if initial_cash <= 0:
+            raise ValueError("시작 시드는 0원보다 커야 합니다.")
+        sources = self._trade_sources()
+        if strategy_version not in sources:
+            raise ValueError(f"지원하지 않는 전략: {strategy_version}")
+        label, daily_path, trades_path = sources[strategy_version]
+        if not daily_path.exists() or not trades_path.exists():
+            raise DataNotFoundError(
+                f"{strategy_version} 거래 결과 파일이 없습니다."
+            )
+
+        source_daily = sorted(
+            self._read_csv(daily_path),
+            key=lambda row: row["date"],
+        )
+        source_trades = self._read_csv(trades_path)
+        trades_by_date: dict[str, list[dict[str, str]]] = defaultdict(list)
+        for row in source_trades:
+            trades_by_date[row["date"]].append(row)
+
+        required_cash_by_date: dict[str, int] = {}
+        for date_value, rows in trades_by_date.items():
+            running_cash_flow = 0
+            lowest_cash_flow = 0
+            for row in sorted(
+                rows,
+                key=lambda item: (
+                    _integer(item.get("minute")),
+                    0 if item.get("side") == "BUY" else 1,
+                    item.get("code", ""),
+                    _integer(item.get("campaign")),
+                ),
+            ):
+                running_cash_flow += _integer(row.get("cash_flow"))
+                lowest_cash_flow = min(
+                    lowest_cash_flow,
+                    running_cash_flow,
+                )
+            required_cash_by_date[date_value] = abs(lowest_cash_flow)
+
+        boolean_trade_fields = (
+            "entry_filled",
+            "trade_day",
+            "late_reentry_filled",
+        )
+        numeric_trade_fields = (
+            "initial_positions",
+            "entry_quantity",
+            "campaign_count",
+            "entry_stages",
+            "entry_quantity",
+            "added_quantity",
+            "total_quantity",
+            "buy_principal",
+            "initial_buy_principal",
+            "late_buy_principal",
+            "total_buy_principal",
+            "maximum_deployed_principal",
+            "fees",
+            "total_fees",
+            "buy_fee",
+            "sell_fee",
+            "gross_sales",
+            "failed_sale_proceeds",
+            "expired_quantity",
+        )
+        cash = initial_cash
+        replay_rows: list[dict[str, str]] = []
+        daily: list[dict[str, object]] = []
+        executed_trade_dates: set[str] = set()
+        skipped_dates: list[dict[str, object]] = []
+        for source_row in source_daily:
+            row = dict(source_row)
+            date_value = row["date"]
+            source_trade_day = self._version_row_has_trade(row)
+            required_cash = required_cash_by_date.get(date_value, 0)
+            executable = (
+                not source_trade_day or required_cash <= cash
+            )
+            pnl = _integer(row.get("pnl")) if executable else 0
+            start_cash = cash
+            cash += pnl
+            row["start_cash"] = str(start_cash)
+            row["end_cash"] = str(cash)
+            row["pnl"] = str(pnl)
+            if source_trade_day and executable:
+                executed_trade_dates.add(date_value)
+            elif source_trade_day:
+                for field in boolean_trade_fields:
+                    if field in row:
+                        row[field] = "False"
+                for field in numeric_trade_fields:
+                    if field in row:
+                        row[field] = "0"
+                skipped_dates.append(
+                    {
+                        "date": date_value,
+                        "availableCash": start_cash,
+                        "requiredCash": required_cash,
+                    }
+                )
+            replay_rows.append(row)
+            daily.append(
+                {
+                    "date": date_value,
+                    "startCash": start_cash,
+                    "endCash": cash,
+                    "pnl": pnl,
+                    "tradeDay": source_trade_day and executable,
+                    "requiredCash": required_cash,
+                    "skippedForCash": source_trade_day and not executable,
+                }
+            )
+
+        summary = self._version_summary(replay_rows)
+        loss_days = sorted(
+            (row for row in daily if _integer(row["pnl"]) < 0),
+            key=lambda row: _integer(row["pnl"]),
+        )
+        profit_days = sorted(
+            (row for row in daily if _integer(row["pnl"]) > 0),
+            key=lambda row: _integer(row["pnl"]),
+            reverse=True,
+        )
+        executed_trades = [
+            row
+            for row in source_trades
+            if row["date"] in executed_trade_dates
+        ]
+        performance = build_performance_report(
+            strategy_version,
+            f"{label} · 시드 {initial_cash:,}원",
+            replay_rows,
+            self.performance_benchmark_path,
+        )
+        return {
+            "strategyVersion": strategy_version,
+            "strategyLabel": label,
+            "initialCash": initial_cash,
+            "originalInitialCash": _integer(
+                source_daily[0].get("start_cash")
+            ),
+            "rules": {
+                "changedParameter": "initial_cash",
+                "entryExitRules": "원본 전략과 동일",
+                "positionQuantities": "원본 전략과 동일",
+                "leverage": "사용하지 않음",
+                "insufficientCashAction": "해당 날짜 신규진입 전체 건너뜀",
+            },
+            "summary": summary,
+            "execution": {
+                "originalTradeDays": sum(
+                    self._version_row_has_trade(row)
+                    for row in source_daily
+                ),
+                "executedTradeDays": len(executed_trade_dates),
+                "skippedTradeDays": len(skipped_dates),
+                "skippedDates": skipped_dates,
+            },
+            "daily": daily,
+            "worstDays": loss_days[:15],
+            "bestDays": profit_days[:10],
+            "monthlyLosses": self._version_monthly_losses(replay_rows),
+            "exitReasons": self._version_exit_reasons(executed_trades),
+            "performanceMetrics": performance,
+        }
+
+    def strategy_performance_metrics(
+        self,
+        strategy_version: str,
+        risk_free_annual_pct: float = 0.0,
+        target_annual_pct: float = 0.0,
+    ) -> dict[str, object]:
+        sources = self._trade_sources()
+        if strategy_version not in sources:
+            raise ValueError(f"지원하지 않는 전략: {strategy_version}")
+        label, daily_path, _ = sources[strategy_version]
+        if not daily_path.exists():
+            raise DataNotFoundError(
+                f"{strategy_version} 일별 결과 파일이 없습니다."
+            )
+        if not self.performance_benchmark_path.exists():
+            raise DataNotFoundError(
+                "코스피200 선물 벤치마크 파일이 없습니다."
+            )
+        try:
+            return build_performance_report(
+                strategy_version,
+                label,
+                self._read_csv(daily_path),
+                self.performance_benchmark_path,
+                risk_free_annual_pct=risk_free_annual_pct,
+                target_annual_pct=target_annual_pct,
+            )
+        except FileNotFoundError as error:
+            raise DataNotFoundError(str(error)) from error
+
     def _trade_sources(self) -> dict[str, tuple[str, Path, Path]]:
         return {
             "S1-v0.1": (
@@ -2425,6 +2992,21 @@ class StrategyAnalysisService:
                 self.strategy_five_v06_daily_path,
                 self.strategy_five_v06_trades_path,
             ),
+            "S5-v0.7-04BIN-EV": (
+                "S5-v0.7 0.40대 단일구간·기대값 목표",
+                self.strategy_five_v07_ev_daily_path,
+                self.strategy_five_v07_ev_trades_path,
+            ),
+            "S5-v0.7-04BIN-10X": (
+                "S5-v0.7 0.40대 단일구간·10배 전량",
+                self.strategy_five_v07_ten_x_daily_path,
+                self.strategy_five_v07_ten_x_trades_path,
+            ),
+            "S5-v0.8-STEP10-10X": (
+                "S5-v0.8 정확한 0.1 호가·10배 전량",
+                self.strategy_five_v08_daily_path,
+                self.strategy_five_v08_trades_path,
+            ),
         }
 
     def _trade_position_sources(self) -> dict[str, Path]:
@@ -2435,6 +3017,13 @@ class StrategyAnalysisService:
             ),
             "S5-v0.5": self.strategy_five_v05_positions_path,
             "S5-v0.6-10X": self.strategy_five_v06_positions_path,
+            "S5-v0.7-04BIN-EV": self.strategy_five_v07_ev_positions_path,
+            "S5-v0.7-04BIN-10X": (
+                self.strategy_five_v07_ten_x_positions_path
+            ),
+            "S5-v0.8-STEP10-10X": (
+                self.strategy_five_v08_positions_path
+            ),
         }
 
     @staticmethod
@@ -2445,7 +3034,13 @@ class StrategyAnalysisService:
         if position is None or (
             not strategy_version.startswith("S5-v0.4")
             and strategy_version
-            not in {"S5-v0.5", "S5-v0.6-10X"}
+            not in {
+                "S5-v0.5",
+                "S5-v0.6-10X",
+                "S5-v0.7-04BIN-EV",
+                "S5-v0.7-04BIN-10X",
+                "S5-v0.8-STEP10-10X",
+            }
         ):
             return None
         p0 = _number(position.get("observation_price"))
@@ -2480,7 +3075,11 @@ class StrategyAnalysisService:
                     },
                 ]
             )
-        elif strategy_version == "S5-v0.6-10X":
+        elif strategy_version in {
+            "S5-v0.6-10X",
+            "S5-v0.7-04BIN-10X",
+            "S5-v0.8-STEP10-10X",
+        }:
             levels.append(
                 {
                     "key": "TARGET_10X",
@@ -2488,7 +3087,11 @@ class StrategyAnalysisService:
                     "price": p0 * 10.0,
                 }
             )
-        elif strategy_version in {"S5-v0.4-EV", "S5-v0.5"}:
+        elif strategy_version in {
+            "S5-v0.4-EV",
+            "S5-v0.5",
+            "S5-v0.7-04BIN-EV",
+        }:
             levels.append(
                 {
                     "key": "TARGET_EV",

@@ -275,6 +275,74 @@ def strategy_five_v06_analysis() -> dict[str, object]:
         raise HTTPException(status_code=404, detail=str(error)) from error
 
 
+@app.get("/api/strategy-analysis/catalog")
+def strategy_version_catalog() -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_version_catalog()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/version-detail")
+def strategy_version_detail(
+    strategy: str = Query(min_length=1, max_length=32),
+) -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_version_detail(strategy)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/seed-backtest")
+def strategy_seed_backtest(
+    strategy: str = Query(min_length=1, max_length=32),
+    initial_cash: int = Query(
+        alias="initialCash",
+        ge=100_000,
+        le=10_000_000_000,
+    ),
+) -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_seed_backtest(
+            strategy,
+            initial_cash,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/performance-metrics")
+def strategy_performance_metrics(
+    strategy: str = Query(min_length=1, max_length=32),
+    risk_free_annual_pct: float = Query(
+        default=0.0,
+        alias="riskFreeAnnualPct",
+        gt=-100.0,
+        le=1000.0,
+    ),
+    target_annual_pct: float = Query(
+        default=0.0,
+        alias="targetAnnualPct",
+        gt=-100.0,
+        le=1000.0,
+    ),
+) -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_performance_metrics(
+            strategy,
+            risk_free_annual_pct,
+            target_annual_pct,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
 @app.get("/api/strategy-analysis/trade-records")
 def strategy_trade_records(
     strategy: str = Query(min_length=1, max_length=32),
