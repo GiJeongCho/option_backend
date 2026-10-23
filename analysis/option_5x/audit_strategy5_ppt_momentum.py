@@ -19,7 +19,6 @@ DAILY_PRINCIPAL_LIMIT = 5_000_000
 MORNING_START = 900
 MORNING_END = 910
 PPT_START = "20260105"
-PPT_END = "20260831"
 
 
 def integer(value: object) -> int:
@@ -70,16 +69,14 @@ def run() -> dict[str, object]:
         errors.append("summary strategy version")
     if summary.get("scope", {}).get("start") != PPT_START:
         errors.append("summary start")
-    if summary.get("scope", {}).get("end") != PPT_END:
+    if not daily or summary.get("scope", {}).get("end") != daily[-1]["date"]:
         errors.append("summary end")
-    if len(daily) != 60:
-        errors.append(f"daily count {len(daily)}")
+    if integer(summary.get("scope", {}).get("expiry_days")) != len(daily):
+        errors.append("summary daily count")
     if len({row["date"] for row in daily}) != len(daily):
         errors.append("duplicate daily date")
-    if any(
-        not PPT_START <= row["date"] <= PPT_END for row in daily
-    ):
-        errors.append("daily outside PPT period")
+    if any(row["date"] < PPT_START for row in daily):
+        errors.append("daily before strategy start")
     forbidden = {"lsma", "moving_average", "ma5", "ma20", "vix"}
     headers = {key.lower() for key in daily[0]} if daily else set()
     if headers & forbidden:

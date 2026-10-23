@@ -2,8 +2,8 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 60,
-  "trade_rows": 191,
+  "daily_rows": 67,
+  "trade_rows": 210,
   "ppt": {
     "found": true,
     "path": "docs\\의뢰_row\\위클리옵션_만기일_가격경로_연구결과_2026_최종보완본2.pptx",

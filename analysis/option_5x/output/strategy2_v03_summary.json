@@ -12,25 +12,25 @@
     "daily_principal_limit": 5000000
   },
   "summary": {
-    "days": 282,
-    "trade_days": 42,
-    "profitable_days": 31,
-    "losing_days": 11,
-    "total_pnl": 38047500,
-    "average_trade_day_pnl": 905893,
-    "profit_factor": 2.7847,
+    "days": 289,
+    "trade_days": 47,
+    "profitable_days": 33,
+    "losing_days": 14,
+    "total_pnl": 34286000,
+    "average_trade_day_pnl": 729489,
+    "profit_factor": 2.2365,
     "minimum_day_pnl": -3545500,
     "maximum_day_pnl": 5213000,
     "max_drawdown": -8566500,
-    "pnl_excluding_best_3_days": 25946000,
-    "pnl_excluding_best_5_days": 20060500,
+    "pnl_excluding_best_3_days": 22184500,
+    "pnl_excluding_best_5_days": 16299000,
     "expired_contracts": 13,
-    "confirmed_days": 16,
-    "added_days": 13,
-    "total_buy_principal": 111332500,
+    "confirmed_days": 17,
+    "added_days": 14,
+    "total_buy_principal": 122040000,
     "expiry_residual_days": 5,
     "initial_cash": 80000000,
-    "ending_cash": 118047500
+    "ending_cash": 114286000
   },
   "historical_backcast": {
     "days": 199,
@@ -71,39 +71,39 @@
     "expiry_residual_days": 2
   },
   "validation": {
-    "days": 31,
-    "trade_days": 12,
-    "profitable_days": 8,
-    "losing_days": 4,
-    "total_pnl": 9159000,
-    "average_trade_day_pnl": 763250,
-    "profit_factor": 1.9557,
+    "days": 38,
+    "trade_days": 17,
+    "profitable_days": 10,
+    "losing_days": 7,
+    "total_pnl": 5397500,
+    "average_trade_day_pnl": 317500,
+    "profit_factor": 1.3375,
     "minimum_day_pnl": -3545500,
     "maximum_day_pnl": 5213000,
     "max_drawdown": -7908000,
-    "pnl_excluding_best_3_days": -2795500,
-    "pnl_excluding_best_5_days": -6029000,
+    "pnl_excluding_best_3_days": -6557000,
+    "pnl_excluding_best_5_days": -9790500,
     "expired_contracts": 7,
-    "confirmed_days": 5,
-    "added_days": 3,
-    "total_buy_principal": 28462500,
+    "confirmed_days": 6,
+    "added_days": 4,
+    "total_buy_principal": 39170000,
     "expiry_residual_days": 3
   },
   "comparison_to_parent": {
-    "all_pnl_difference": -7830500,
+    "all_pnl_difference": -5038000,
     "development_pnl_difference": -3065500,
-    "validation_pnl_difference": -4765000,
+    "validation_pnl_difference": -1972500,
     "promoted_over_parent": false
   },
   "analysis": {
     "by_exit_reason": [
       {
         "group": "TIME",
-        "count": 6,
+        "count": 9,
         "profitable_count": 0,
-        "losing_count": 6,
-        "total_pnl": -11182500,
-        "average_pnl": -1863750
+        "losing_count": 9,
+        "total_pnl": -17591500,
+        "average_pnl": -1954611
       },
       {
         "group": "UNFILLED_ZERO_VALUE",
@@ -115,11 +115,11 @@
       },
       {
         "group": "LATE_1_5_ALL",
-        "count": 16,
-        "profitable_count": 16,
+        "count": 18,
+        "profitable_count": 18,
         "losing_count": 0,
-        "total_pnl": 19500000,
-        "average_pnl": 1218750
+        "total_pnl": 22147500,
+        "average_pnl": 1230417
       },
       {
         "group": "TARGET_2X_INITIAL",
@@ -133,19 +133,19 @@
     "by_confirmation": [
       {
         "group": "False",
-        "count": 26,
-        "profitable_count": 16,
-        "losing_count": 10,
-        "total_pnl": 1726500,
-        "average_pnl": 66404
+        "count": 30,
+        "profitable_count": 18,
+        "losing_count": 12,
+        "total_pnl": 348000,
+        "average_pnl": 11600
       },
       {
         "group": "True",
-        "count": 16,
+        "count": 17,
         "profitable_count": 15,
-        "losing_count": 1,
-        "total_pnl": 36321000,
-        "average_pnl": 2270062
+        "losing_count": 2,
+        "total_pnl": 33938000,
+        "average_pnl": 1996353
       }
     ]
   },
@@ -153,8 +153,8 @@
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 282,
-    "trade_rows": 107
+    "daily_rows": 289,
+    "trade_rows": 118
   },
   "limitations": [
     "승률은 높아졌지만 S2-v0.2보다 개발·검증·전체 수익이 모두 낮았습니다.",

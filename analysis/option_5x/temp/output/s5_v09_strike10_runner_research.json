@@ -1,0 +1,128 @@
+{
+  "status": "descriptive_only_insufficient_sample",
+  "period": {
+    "start": "20230803",
+    "end": "20260928"
+  },
+  "definition": {
+    "entry_raw_open": "0.40-0.49",
+    "strike": "divisible by 10 points",
+    "confirmation": "post-fill 1.5x P0 through 09:29",
+    "peak_window": "confirmation through 15:15"
+  },
+  "totals": {
+    "expiry_days": 289,
+    "eligible": 50,
+    "confirmed_1_5x": 6,
+    "reached_2x": 6,
+    "reached_5x": 2,
+    "reached_10x": 1
+  },
+  "by_year": {
+    "2023": {
+      "expiry_days": 38,
+      "eligible": 1,
+      "confirmed_1_5x": 0,
+      "reached_2x": 0,
+      "reached_5x": 0,
+      "reached_10x": 0
+    },
+    "2024": {
+      "expiry_days": 92,
+      "eligible": 7,
+      "confirmed_1_5x": 1,
+      "reached_2x": 1,
+      "reached_5x": 0,
+      "reached_10x": 0
+    },
+    "2025": {
+      "expiry_days": 92,
+      "eligible": 10,
+      "confirmed_1_5x": 3,
+      "reached_2x": 3,
+      "reached_5x": 1,
+      "reached_10x": 0
+    },
+    "2026": {
+      "expiry_days": 67,
+      "eligible": 32,
+      "confirmed_1_5x": 2,
+      "reached_2x": 2,
+      "reached_5x": 1,
+      "reached_10x": 1
+    }
+  },
+  "cases": [
+    {
+      "date": "20240919",
+      "code": "KR43AF593405",
+      "call_put": "PUT",
+      "strike": 340.0,
+      "entry_minute": 911,
+      "entry_raw_price": 0.49,
+      "confirmation_minute": 911,
+      "peak_multiple": 3.814,
+      "peak_bucket": "2_TO_5"
+    },
+    {
+      "date": "20250306",
+      "code": "KR4209DL3406",
+      "call_put": "CALL",
+      "strike": 340.0,
+      "entry_minute": 911,
+      "entry_raw_price": 0.44,
+      "confirmation_minute": 915,
+      "peak_multiple": 2.2295,
+      "peak_bucket": "2_TO_5"
+    },
+    {
+      "date": "20250403",
+      "code": "KR4209DP3303",
+      "call_put": "CALL",
+      "strike": 330.0,
+      "entry_minute": 911,
+      "entry_raw_price": 0.46,
+      "confirmation_minute": 917,
+      "peak_multiple": 6.5,
+      "peak_bucket": "5_TO_10"
+    },
+    {
+      "date": "20250430",
+      "code": "KR4209DS3409",
+      "call_put": "CALL",
+      "strike": 340.0,
+      "entry_minute": 911,
+      "entry_raw_price": 0.47,
+      "confirmation_minute": 912,
+      "peak_multiple": 2.1136,
+      "peak_bucket": "2_TO_5"
+    },
+    {
+      "date": "20260818",
+      "code": "KR4BAFBSA651",
+      "call_put": "CALL",
+      "strike": 1160.0,
+      "entry_minute": 911,
+      "entry_raw_price": 0.43,
+      "confirmation_minute": 928,
+      "peak_multiple": 3.8689,
+      "peak_bucket": "2_TO_5"
+    },
+    {
+      "date": "20260820",
+      "code": "KR4B09FAA332",
+      "call_put": "CALL",
+      "strike": 1080.0,
+      "entry_minute": 911,
+      "entry_raw_price": 0.47,
+      "confirmation_minute": 919,
+      "peak_multiple": 12.9787,
+      "peak_bucket": "10_PLUS"
+    }
+  ],
+  "decision": {
+    "classifier_applied": false,
+    "reason": "Only six confirmed events and one 10x event exist across the full available period. Indicator fitting would be post-selection overfitting.",
+    "minimum_confirmed_sample": 30
+  }
+}

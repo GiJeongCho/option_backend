@@ -662,13 +662,7 @@ def write_csv(
 
 def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if legacy.PPT_START
-        <= group["expiry_date"]
-        <= legacy.PPT_END
-    ]
+    groups = legacy.backtest_groups(profile)
     files = base.target_file_map()
     cash = {branch: base.INITIAL_CASH for branch in BRANCHES}
     daily: dict[str, list[DayResult]] = {

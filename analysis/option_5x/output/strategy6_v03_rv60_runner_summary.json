@@ -1,0 +1,126 @@
+{
+  "status": "exploratory_post_selection_candidate",
+  "strategy_version": "S6-v0.3",
+  "generated_at": "2026-10-20T07:40:34.329635+00:00",
+  "rules": {
+    "initial_cash": 20000000,
+    "data_start": "20240924",
+    "entry_window": [
+      930,
+      1300
+    ],
+    "premium_bands": [
+      [
+        0.4,
+        0.5
+      ],
+      [
+        1.0,
+        2.5
+      ]
+    ],
+    "market_gate": "직전일까지 VIX 120일 정규화 기울기 > 0",
+    "direction": "PUT only",
+    "option_gate": "신호 완료봉까지 20분 로그수익률 표준편차 > 0.13",
+    "selection": "계약·가격대별 첫 적격 사건 중 가장 이른 하나; 당일 재진입 없음",
+    "risk": "당일 시작자금의 5%, 최대 500만원; 진입·청산봉 거래량 10%",
+    "exit": "계약수 절반 올림을 2배, 나머지를 10배에서 청산; 15:15 미도달 잔량 시간청산",
+    "costs": "매수 +0.01·매도 -0.01 슬리피지, 계약당 편도 수수료 500원",
+    "runner_filter": "첫 2배 확인봉 완료시 RV60 >= 0.14116165 AND 10분 정규화 기울기 >= 0.04306970이면 잔여 절반을 10배까지 보유, 아니면 다음 실제 거래봉에서 청산"
+  },
+  "summary": {
+    "period_start": "20240926",
+    "period_end": "20260928",
+    "days": 184,
+    "signal_days": 107,
+    "trade_days": 93,
+    "profitable_days": 50,
+    "losing_days": 43,
+    "break_even_days": 0,
+    "win_rate_pct": 53.76,
+    "initial_cash": 20000000,
+    "ending_cash": 30153000,
+    "total_pnl": 10153000,
+    "total_return_pct": 50.765,
+    "profit_factor": 1.2914,
+    "max_drawdown": -8017000,
+    "max_drawdown_pct": -33.4334,
+    "reached_2x_days": 52,
+    "reached_10x_days": 5,
+    "expired_quantity": 147,
+    "pnl_excluding_best_1_day": 4438000,
+    "pnl_excluding_best_3_days": -2834000,
+    "pnl_excluding_best_5_days": -6033500
+  },
+  "development": {
+    "period_start": "20240926",
+    "period_end": "20260430",
+    "days": 146,
+    "signal_days": 69,
+    "trade_days": 67,
+    "profitable_days": 36,
+    "losing_days": 31,
+    "break_even_days": 0,
+    "win_rate_pct": 53.73,
+    "initial_cash": 20000000,
+    "ending_cash": 24361500,
+    "total_pnl": 4361500,
+    "total_return_pct": 21.8075,
+    "profit_factor": 1.1604,
+    "max_drawdown": -8017000,
+    "max_drawdown_pct": -33.4334,
+    "reached_2x_days": 38,
+    "reached_10x_days": 3,
+    "expired_quantity": 111,
+    "pnl_excluding_best_1_day": -978500,
+    "pnl_excluding_best_3_days": -4426000,
+    "pnl_excluding_best_5_days": -6790500
+  },
+  "validation": {
+    "period_start": "20260504",
+    "period_end": "20260928",
+    "days": 38,
+    "signal_days": 38,
+    "trade_days": 26,
+    "profitable_days": 14,
+    "losing_days": 12,
+    "break_even_days": 0,
+    "win_rate_pct": 53.85,
+    "initial_cash": 24361500,
+    "ending_cash": 30153000,
+    "total_pnl": 5791500,
+    "total_return_pct": 23.7732,
+    "profit_factor": 1.7574,
+    "max_drawdown": -2034000,
+    "max_drawdown_pct": -7.7746,
+    "reached_2x_days": 14,
+    "reached_10x_days": 2,
+    "expired_quantity": 36,
+    "pnl_excluding_best_1_day": 76500,
+    "pnl_excluding_best_3_days": -3123000,
+    "pnl_excluding_best_5_days": -5164000
+  },
+  "audit": {
+    "passed": true,
+    "error_count": 0,
+    "error_samples": [],
+    "checks": [
+      "현금 연속성·비음수",
+      "일별 거래장부 손익 일치",
+      "하루 한 계약·한 번만 진입",
+      "당일 시작자금 5%·500만원 상한",
+      "BUY·SELL·EXPIRE 수량 보존"
+    ]
+  },
+  "limitations": [
+    "RV60·기울기 후보를 후반 단변량 결과 확인 뒤 선택했으므로 독립 검증이 아니다. S6-v0.3 연구 후보로 화면 비교는 허용하되 실거래 채택 전략으로 승격하지 않는다.",
+    "RV20 0.13은 개발구간에서 선택해 완전한 독립 검증이 아니다.",
+    "상위 수익일을 제거하면 누적손익이 음수인 꼬리수익 전략이다.",
+    "현물·선물 MA·RSI·basis·상관 지표는 후반 재현성이 낮아 최종 진입 규칙에서 제외했다.",
+    "실거래 전에 이후 만기일을 잠근 전진검증이 필요하다."
+  ],
+  "runner_diagnostics": {
+    "kept": 15,
+    "rejected": 34
+  }
+}

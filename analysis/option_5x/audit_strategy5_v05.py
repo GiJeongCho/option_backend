@@ -79,10 +79,7 @@ def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
     groups = {
         group["expiry_date"]: group
-        for group in base.derive_expiry_groups(profile)
-        if legacy.PPT_START
-        <= group["expiry_date"]
-        <= legacy.PPT_END
+        for group in legacy.backtest_groups(profile)
     }
     files = base.target_file_map()
     expected_cash = EXPECTED_INITIAL_CASH

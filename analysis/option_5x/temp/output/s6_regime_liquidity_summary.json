@@ -1,0 +1,1341 @@
+{
+  "status": "temporary_regime_liquidity_research",
+  "data": {
+    "event_rows": 5342,
+    "expiry_days": 184,
+    "reached_2x_rows": 2291,
+    "same_bar_2x_10x_ambiguous_rows": 0,
+    "actionable_after_2x_rows": 2291,
+    "strict_2_to_below5_vs_10x_rows": 1811,
+    "strict_10x_rows": 389,
+    "development_end": "20260430"
+  },
+  "definitions": {
+    "volatility_expanding": "직전 확정 VIX의 종가>SMA5·5일기울기>0·전일상승 중 2개 이상이고, 판단시점까지 현물·선물 RV5>RV20 또는 RV20>RV60 조건 중 1개 이상",
+    "liquidity_score": "0.10 실제 체결, 다음 1분 체결, 거래량10% 한 계약 이상, 최근20분 체결밀도 50% 이상, 0.10 체결량 비중 50% 이상",
+    "direct_comparison": "2배 확인봉 이후 미래 최고배수가 5배 미만인 사건과 10배 이상인 사건만 비교. 2배와 10배가 같은 분봉인 순서불명 사건은 제외",
+    "feature_cutoff": "진입모델은 신호 완료봉까지, 2배모델은 첫 2배 확인봉 완료시점까지의 정보만 사용"
+  },
+  "liquidity_profile": {
+    "data_limit": "옵션 원자료는 1분 OHLCV 체결자료이며 매수·매도 호가잔량과 스프레드는 없다. 아래 수치는 호가원장 깊이가 아니라 실제 체결 유동성 대용치다.",
+    "periods": [
+      {
+        "period": "PRE_2025Q4",
+        "events": 687,
+        "expiry_days": 94,
+        "fill_exact_010_pct": 16.3028,
+        "immediate_next_minute_pct": 100.0,
+        "median_fill_bar_volume": 839.0,
+        "p75_fill_bar_volume": 1357.0,
+        "median_fill_capacity_10pct": 83.0,
+        "median_recent20_round_volume_share": 0.0899,
+        "exact_010_median_fill_volume": 850.0,
+        "non_exact_median_fill_volume": 835.0,
+        "exact_010_reached_10x_pct": 0.0,
+        "non_exact_reached_10x_pct": 0.8696
+      },
+      {
+        "period": "2025Q4",
+        "events": 356,
+        "expiry_days": 23,
+        "fill_exact_010_pct": 11.236,
+        "immediate_next_minute_pct": 100.0,
+        "median_fill_bar_volume": 587.5,
+        "p75_fill_bar_volume": 898.75,
+        "median_fill_capacity_10pct": 58.0,
+        "median_recent20_round_volume_share": 0.0991,
+        "exact_010_median_fill_volume": 586.0,
+        "non_exact_median_fill_volume": 588.5,
+        "exact_010_reached_10x_pct": 2.5,
+        "non_exact_reached_10x_pct": 1.5823
+      },
+      {
+        "period": "2026_JAN_APR",
+        "events": 1188,
+        "expiry_days": 29,
+        "fill_exact_010_pct": 14.5623,
+        "immediate_next_minute_pct": 99.3266,
+        "median_fill_bar_volume": 144.0,
+        "p75_fill_bar_volume": 250.75,
+        "median_fill_capacity_10pct": 14.0,
+        "median_recent20_round_volume_share": 0.104,
+        "exact_010_median_fill_volume": 128.0,
+        "non_exact_median_fill_volume": 146.0,
+        "exact_010_reached_10x_pct": 9.2486,
+        "non_exact_reached_10x_pct": 10.5419
+      },
+      {
+        "period": "2026_MAY_SEP",
+        "events": 3111,
+        "expiry_days": 38,
+        "fill_exact_010_pct": 15.0755,
+        "immediate_next_minute_pct": 91.0318,
+        "median_fill_bar_volume": 15.0,
+        "p75_fill_bar_volume": 48.0,
+        "median_fill_capacity_10pct": 1.0,
+        "median_recent20_round_volume_share": 0.1026,
+        "exact_010_median_fill_volume": 12.0,
+        "non_exact_median_fill_volume": 16.0,
+        "exact_010_reached_10x_pct": 8.3156,
+        "non_exact_reached_10x_pct": 8.1756
+      }
+    ],
+    "late_vs_earlier": {
+      "earlier_events": 687,
+      "late_events": 4655,
+      "earlier_exact_010_pct": 16.3028,
+      "late_exact_010_pct": 14.6509,
+      "earlier_median_fill_volume": 839.0,
+      "late_median_fill_volume": 38.0,
+      "earlier_median_capacity_10pct": 83.0,
+      "late_median_capacity_10pct": 3.0
+    }
+  },
+  "entry_regime_outcomes": [
+    {
+      "entry_volatility_regime": "CONTRACTING",
+      "events": 627,
+      "expiry_days": 57,
+      "reached_2x_pct": 42.7432,
+      "reached_10x_pct": 7.815,
+      "ten_given_two_pct": 18.2836,
+      "median_fill_volume": 51.0,
+      "median_recent20_traded_ratio": 1.0
+    },
+    {
+      "entry_volatility_regime": "EXPANDING",
+      "events": 1609,
+      "expiry_days": 88,
+      "reached_2x_pct": 42.8216,
+      "reached_10x_pct": 6.9608,
+      "ten_given_two_pct": 16.2554,
+      "median_fill_volume": 64.0,
+      "median_recent20_traded_ratio": 1.0
+    },
+    {
+      "entry_volatility_regime": "HIGH_STABLE",
+      "events": 1518,
+      "expiry_days": 71,
+      "reached_2x_pct": 43.8735,
+      "reached_10x_pct": 7.7075,
+      "ten_given_two_pct": 17.5676,
+      "median_fill_volume": 34.0,
+      "median_recent20_traded_ratio": 1.0
+    },
+    {
+      "entry_volatility_regime": "NORMAL",
+      "events": 1588,
+      "expiry_days": 107,
+      "reached_2x_pct": 42.0655,
+      "reached_10x_pct": 6.9899,
+      "ten_given_two_pct": 16.6168,
+      "median_fill_volume": 64.5,
+      "median_recent20_traded_ratio": 1.0
+    }
+  ],
+  "at2x_group_outcomes": {
+    "by_volatility_regime": [
+      {
+        "at2x_volatility_regime": "CONTRACTING",
+        "events": 130,
+        "expiry_days": 29,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 21.5385,
+        "ten_given_two_pct": 21.5385,
+        "median_fill_volume": 45.5,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "at2x_volatility_regime": "EXPANDING",
+        "events": 716,
+        "expiry_days": 84,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 24.581,
+        "ten_given_two_pct": 24.581,
+        "median_fill_volume": 77.5,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "at2x_volatility_regime": "HIGH_STABLE",
+        "events": 443,
+        "expiry_days": 63,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 20.0903,
+        "ten_given_two_pct": 20.0903,
+        "median_fill_volume": 54.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "at2x_volatility_regime": "NORMAL",
+        "events": 522,
+        "expiry_days": 89,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 18.3908,
+        "ten_given_two_pct": 18.3908,
+        "median_fill_volume": 77.5,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ],
+    "by_time_to_2x": [
+      {
+        "time_to_2x_bucket": "00_15",
+        "events": 498,
+        "expiry_days": 90,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 23.2932,
+        "ten_given_two_pct": 23.2932,
+        "median_fill_volume": 57.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "time_to_2x_bucket": "16_30",
+        "events": 372,
+        "expiry_days": 106,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 24.4624,
+        "ten_given_two_pct": 24.4624,
+        "median_fill_volume": 63.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "time_to_2x_bucket": "31_60",
+        "events": 369,
+        "expiry_days": 108,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 20.3252,
+        "ten_given_two_pct": 20.3252,
+        "median_fill_volume": 77.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "time_to_2x_bucket": "61_120",
+        "events": 288,
+        "expiry_days": 97,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 19.4444,
+        "ten_given_two_pct": 19.4444,
+        "median_fill_volume": 67.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "time_to_2x_bucket": "121_PLUS",
+        "events": 284,
+        "expiry_days": 101,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 17.9577,
+        "ten_given_two_pct": 17.9577,
+        "median_fill_volume": 118.0,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ],
+    "by_expansion_score": [
+      {
+        "at2x_score_bucket": "0_1",
+        "events": 331,
+        "expiry_days": 69,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 20.2417,
+        "ten_given_two_pct": 20.2417,
+        "median_fill_volume": 48.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "at2x_score_bucket": "2_3",
+        "events": 742,
+        "expiry_days": 147,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 19.5418,
+        "ten_given_two_pct": 19.5418,
+        "median_fill_volume": 68.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "at2x_score_bucket": "4_5",
+        "events": 573,
+        "expiry_days": 104,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 22.8621,
+        "ten_given_two_pct": 22.8621,
+        "median_fill_volume": 76.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "at2x_score_bucket": "6_7",
+        "events": 165,
+        "expiry_days": 44,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 27.8788,
+        "ten_given_two_pct": 27.8788,
+        "median_fill_volume": 93.0,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ],
+    "by_period_and_regime": [
+      {
+        "period_regime": "DEVELOPMENT__CONTRACTING",
+        "events": 38,
+        "expiry_days": 17,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 2.6316,
+        "ten_given_two_pct": 2.6316,
+        "median_fill_volume": 385.5,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "DEVELOPMENT__EXPANDING",
+        "events": 391,
+        "expiry_days": 68,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 25.5754,
+        "ten_given_two_pct": 25.5754,
+        "median_fill_volume": 202.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "DEVELOPMENT__HIGH_STABLE",
+        "events": 190,
+        "expiry_days": 49,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 12.1053,
+        "ten_given_two_pct": 12.1053,
+        "median_fill_volume": 333.5,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "DEVELOPMENT__NORMAL",
+        "events": 211,
+        "expiry_days": 68,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 4.7393,
+        "ten_given_two_pct": 4.7393,
+        "median_fill_volume": 352.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "VALIDATION__CONTRACTING",
+        "events": 92,
+        "expiry_days": 12,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 29.3478,
+        "ten_given_two_pct": 29.3478,
+        "median_fill_volume": 18.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "VALIDATION__EXPANDING",
+        "events": 325,
+        "expiry_days": 16,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 23.3846,
+        "ten_given_two_pct": 23.3846,
+        "median_fill_volume": 17.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "VALIDATION__HIGH_STABLE",
+        "events": 253,
+        "expiry_days": 14,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 26.087,
+        "ten_given_two_pct": 26.087,
+        "median_fill_volume": 14.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_regime": "VALIDATION__NORMAL",
+        "events": 311,
+        "expiry_days": 21,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 27.6527,
+        "ten_given_two_pct": 27.6527,
+        "median_fill_volume": 27.0,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ],
+    "by_period_and_expansion_score": [
+      {
+        "period_score": "DEVELOPMENT__0_1",
+        "events": 117,
+        "expiry_days": 49,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 3.4188,
+        "ten_given_two_pct": 3.4188,
+        "median_fill_volume": 474.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "DEVELOPMENT__2_3",
+        "events": 320,
+        "expiry_days": 112,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 10.625,
+        "ten_given_two_pct": 10.625,
+        "median_fill_volume": 305.5,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "DEVELOPMENT__4_5",
+        "events": 291,
+        "expiry_days": 78,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 21.6495,
+        "ten_given_two_pct": 21.6495,
+        "median_fill_volume": 217.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "DEVELOPMENT__6_7",
+        "events": 102,
+        "expiry_days": 30,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 32.3529,
+        "ten_given_two_pct": 32.3529,
+        "median_fill_volume": 189.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "VALIDATION__0_1",
+        "events": 214,
+        "expiry_days": 20,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 29.4393,
+        "ten_given_two_pct": 29.4393,
+        "median_fill_volume": 17.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "VALIDATION__2_3",
+        "events": 422,
+        "expiry_days": 35,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 26.3033,
+        "ten_given_two_pct": 26.3033,
+        "median_fill_volume": 20.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "VALIDATION__4_5",
+        "events": 282,
+        "expiry_days": 26,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 24.1135,
+        "ten_given_two_pct": 24.1135,
+        "median_fill_volume": 20.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "period_score": "VALIDATION__6_7",
+        "events": 63,
+        "expiry_days": 14,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 20.6349,
+        "ten_given_two_pct": 20.6349,
+        "median_fill_volume": 11.0,
+        "median_recent20_traded_ratio": 0.9
+      }
+    ],
+    "by_call_put": [
+      {
+        "call_put": "CALL",
+        "events": 753,
+        "expiry_days": 151,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 11.5538,
+        "ten_given_two_pct": 11.5538,
+        "median_fill_volume": 92.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "call_put": "PUT",
+        "events": 1058,
+        "expiry_days": 148,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 28.5444,
+        "ten_given_two_pct": 28.5444,
+        "median_fill_volume": 56.0,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ],
+    "by_premium_band": [
+      {
+        "premium_band": "HIGH_100_250",
+        "events": 961,
+        "expiry_days": 158,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 17.6899,
+        "ten_given_two_pct": 17.6899,
+        "median_fill_volume": 64.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "premium_band": "LOW_040_050",
+        "events": 850,
+        "expiry_days": 162,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 25.7647,
+        "ten_given_two_pct": 25.7647,
+        "median_fill_volume": 75.0,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ],
+    "by_fill_exact_010": [
+      {
+        "fill_exact_010": "0",
+        "events": 1557,
+        "expiry_days": 177,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 21.3873,
+        "ten_given_two_pct": 21.3873,
+        "median_fill_volume": 71.0,
+        "median_recent20_traded_ratio": 1.0
+      },
+      {
+        "fill_exact_010": "1",
+        "events": 254,
+        "expiry_days": 101,
+        "reached_2x_pct": 100.0,
+        "reached_10x_pct": 22.0472,
+        "ten_given_two_pct": 22.0472,
+        "median_fill_volume": 61.0,
+        "median_recent20_traded_ratio": 1.0
+      }
+    ]
+  },
+  "models": {
+    "entry_information_only": {
+      "name": "ENTRY_INFORMATION_ONLY",
+      "features": [
+        "option_realized_volatility_20",
+        "option_realized_volatility_60",
+        "option_slope_acceleration_5",
+        "option_slope_5",
+        "option_slope_10",
+        "option_rsi_5",
+        "option_rsi_14",
+        "option_volume_ratio_20",
+        "option_recent20_traded_ratio",
+        "option_recent20_round_010_volume_share",
+        "option_recent20_max_no_trade_run",
+        "log_signal_bar_volume",
+        "entry_wait_minutes",
+        "fill_exact_010",
+        "intraday_futures_realized_volatility_5",
+        "intraday_futures_realized_volatility_20",
+        "intraday_spot_realized_volatility_5",
+        "intraday_spot_realized_volatility_20",
+        "intraday_basis_slope_10",
+        "intraday_spot_futures_corr_20",
+        "vix_slope_5",
+        "vix_slope_20",
+        "vix_slope_120",
+        "vix_ma5_distance",
+        "vix_ma20_distance",
+        "vix_return_1",
+        "entry_volatility_expansion_score",
+        "entry_liquidity_score",
+        "is_put",
+        "band_low",
+        "put_x_entry_expansion",
+        "entry_expansion_x_liquidity"
+      ],
+      "development": {
+        "rows": 830,
+        "positives": 134,
+        "prevalence_pct": 16.1446,
+        "auc": 0.8841,
+        "average_precision": 0.5365,
+        "top_20pct_lift": 3.2463,
+        "brier_score": 0.1439
+      },
+      "validation": {
+        "rows": 981,
+        "positives": 255,
+        "prevalence_pct": 25.9939,
+        "auc": 0.5402,
+        "average_precision": 0.274,
+        "top_20pct_lift": 1.035,
+        "brier_score": 0.2638
+      },
+      "validation_expiry_cluster_auc_ci": {
+        "low_95": 0.4393,
+        "median": 0.538,
+        "high_95": 0.651
+      },
+      "walk_forward": {
+        "folds": [
+          {
+            "train_end": "20251231",
+            "test_start": "20260101",
+            "test_end": "20260228",
+            "rows": 153,
+            "positives": 37,
+            "prevalence_pct": 24.183,
+            "auc": 0.6664,
+            "average_precision": 0.3387,
+            "top_20pct_lift": 1.2005,
+            "brier_score": 0.2002
+          },
+          {
+            "train_end": "20260228",
+            "test_start": "20260301",
+            "test_end": "20260430",
+            "rows": 308,
+            "positives": 86,
+            "prevalence_pct": 27.9221,
+            "auc": 0.7268,
+            "average_precision": 0.4443,
+            "top_20pct_lift": 1.8485,
+            "brier_score": 0.2432
+          },
+          {
+            "train_end": "20260430",
+            "test_start": "20260501",
+            "test_end": "20260630",
+            "rows": 419,
+            "positives": 97,
+            "prevalence_pct": 23.1504,
+            "auc": 0.5756,
+            "average_precision": 0.2582,
+            "top_20pct_lift": 1.0799,
+            "brier_score": 0.2713
+          },
+          {
+            "train_end": "20260630",
+            "test_start": "20260701",
+            "test_end": "20260831",
+            "rows": 466,
+            "positives": 133,
+            "prevalence_pct": 28.5408,
+            "auc": 0.5698,
+            "average_precision": 0.3482,
+            "top_20pct_lift": 1.3791,
+            "brier_score": 0.2318
+          },
+          {
+            "train_end": "20260831",
+            "test_start": "20260901",
+            "test_end": "20260930",
+            "rows": 96,
+            "positives": 25,
+            "prevalence_pct": 26.0417,
+            "auc": 0.9346,
+            "average_precision": 0.8612,
+            "top_20pct_lift": 3.264,
+            "brier_score": 0.1286
+          }
+        ],
+        "aggregate": {
+          "rows": 1442,
+          "positives": 378,
+          "prevalence_pct": 26.2136,
+          "auc": 0.6333,
+          "average_precision": 0.3443,
+          "top_20pct_lift": 1.3464,
+          "brier_score": 0.2355,
+          "expiry_cluster_auc_ci": {
+            "low_95": 0.5481,
+            "median": 0.6365,
+            "high_95": 0.7086
+          }
+        }
+      },
+      "largest_standardized_coefficients": [
+        {
+          "feature": "put_x_entry_expansion",
+          "standardized_coefficient": 0.9193
+        },
+        {
+          "feature": "vix_slope_120",
+          "standardized_coefficient": 0.8316
+        },
+        {
+          "feature": "vix_ma20_distance",
+          "standardized_coefficient": 0.63653
+        },
+        {
+          "feature": "intraday_futures_realized_volatility_5",
+          "standardized_coefficient": 0.52408
+        },
+        {
+          "feature": "option_volume_ratio_20",
+          "standardized_coefficient": -0.46681
+        },
+        {
+          "feature": "band_low",
+          "standardized_coefficient": 0.42309
+        },
+        {
+          "feature": "option_recent20_max_no_trade_run",
+          "standardized_coefficient": -0.37937
+        },
+        {
+          "feature": "vix_return_1",
+          "standardized_coefficient": -0.3434
+        },
+        {
+          "feature": "intraday_spot_realized_volatility_20",
+          "standardized_coefficient": -0.32606
+        },
+        {
+          "feature": "vix_ma5_distance",
+          "standardized_coefficient": 0.32565
+        },
+        {
+          "feature": "vix_slope_20",
+          "standardized_coefficient": -0.2885
+        },
+        {
+          "feature": "option_recent20_traded_ratio",
+          "standardized_coefficient": 0.27766
+        }
+      ]
+    },
+    "at_2x_confirmed_bar": {
+      "name": "AT_2X_CONFIRMED_BAR",
+      "features": [
+        "at2x_minutes_since_entry",
+        "at2x_minute_from_open",
+        "at2x_close_multiple",
+        "at2x_high_multiple",
+        "at2x_path_efficiency",
+        "at2x_path_min_multiple",
+        "at2x_path_traded_bars",
+        "at2x_option_realized_volatility_5",
+        "at2x_option_realized_volatility_20",
+        "at2x_option_realized_volatility_60",
+        "at2x_option_slope_acceleration_5",
+        "at2x_option_slope_5",
+        "at2x_option_slope_10",
+        "at2x_option_rsi_5",
+        "at2x_option_rsi_14",
+        "at2x_option_volume_ratio_5",
+        "at2x_option_volume_ratio_20",
+        "at2x_option_recent20_traded_ratio",
+        "at2x_option_recent20_round_010_volume_share",
+        "at2x_option_recent20_max_no_trade_run",
+        "at2x_option_recent20_mean_range_pct",
+        "log_at2x_bar_volume",
+        "at2x_intraday_futures_realized_volatility_5",
+        "at2x_intraday_futures_realized_volatility_20",
+        "at2x_intraday_futures_realized_volatility_60",
+        "at2x_intraday_spot_realized_volatility_5",
+        "at2x_intraday_spot_realized_volatility_20",
+        "at2x_intraday_spot_realized_volatility_60",
+        "at2x_intraday_basis_slope_10",
+        "at2x_intraday_spot_futures_corr_20",
+        "vix_slope_5",
+        "vix_slope_20",
+        "vix_slope_120",
+        "vix_ma5_distance",
+        "vix_ma20_distance",
+        "vix_return_1",
+        "at2x_volatility_expansion_score",
+        "at2x_liquidity_score",
+        "is_put",
+        "band_low",
+        "put_x_at2x_expansion",
+        "at2x_expansion_x_liquidity"
+      ],
+      "development": {
+        "rows": 830,
+        "positives": 134,
+        "prevalence_pct": 16.1446,
+        "auc": 0.9063,
+        "average_precision": 0.7049,
+        "top_20pct_lift": 3.5821,
+        "brier_score": 0.1306
+      },
+      "validation": {
+        "rows": 981,
+        "positives": 255,
+        "prevalence_pct": 25.9939,
+        "auc": 0.5225,
+        "average_precision": 0.266,
+        "top_20pct_lift": 1.035,
+        "brier_score": 0.2524
+      },
+      "validation_expiry_cluster_auc_ci": {
+        "low_95": 0.4246,
+        "median": 0.5199,
+        "high_95": 0.6343
+      },
+      "walk_forward": {
+        "folds": [
+          {
+            "train_end": "20251231",
+            "test_start": "20260101",
+            "test_end": "20260228",
+            "rows": 153,
+            "positives": 37,
+            "prevalence_pct": 24.183,
+            "auc": 0.592,
+            "average_precision": 0.3242,
+            "top_20pct_lift": 1.2005,
+            "brier_score": 0.2368
+          },
+          {
+            "train_end": "20260228",
+            "test_start": "20260301",
+            "test_end": "20260430",
+            "rows": 308,
+            "positives": 86,
+            "prevalence_pct": 27.9221,
+            "auc": 0.6859,
+            "average_precision": 0.4393,
+            "top_20pct_lift": 1.7907,
+            "brier_score": 0.2995
+          },
+          {
+            "train_end": "20260430",
+            "test_start": "20260501",
+            "test_end": "20260630",
+            "rows": 419,
+            "positives": 97,
+            "prevalence_pct": 23.1504,
+            "auc": 0.5752,
+            "average_precision": 0.2483,
+            "top_20pct_lift": 0.8228,
+            "brier_score": 0.248
+          },
+          {
+            "train_end": "20260630",
+            "test_start": "20260701",
+            "test_end": "20260831",
+            "rows": 466,
+            "positives": 133,
+            "prevalence_pct": 28.5408,
+            "auc": 0.563,
+            "average_precision": 0.3339,
+            "top_20pct_lift": 1.1928,
+            "brier_score": 0.2187
+          },
+          {
+            "train_end": "20260831",
+            "test_start": "20260901",
+            "test_end": "20260930",
+            "rows": 96,
+            "positives": 25,
+            "prevalence_pct": 26.0417,
+            "auc": 0.9425,
+            "average_precision": 0.8932,
+            "top_20pct_lift": 3.648,
+            "brier_score": 0.1101
+          }
+        ],
+        "aggregate": {
+          "rows": 1442,
+          "positives": 378,
+          "prevalence_pct": 26.2136,
+          "auc": 0.6098,
+          "average_precision": 0.3359,
+          "top_20pct_lift": 1.32,
+          "brier_score": 0.2392,
+          "expiry_cluster_auc_ci": {
+            "low_95": 0.5135,
+            "median": 0.6139,
+            "high_95": 0.6903
+          }
+        }
+      },
+      "largest_standardized_coefficients": [
+        {
+          "feature": "at2x_option_recent20_mean_range_pct",
+          "standardized_coefficient": 0.95041
+        },
+        {
+          "feature": "vix_slope_120",
+          "standardized_coefficient": 0.93294
+        },
+        {
+          "feature": "put_x_at2x_expansion",
+          "standardized_coefficient": 0.72188
+        },
+        {
+          "feature": "at2x_intraday_spot_futures_corr_20",
+          "standardized_coefficient": -0.60095
+        },
+        {
+          "feature": "vix_ma20_distance",
+          "standardized_coefficient": 0.57402
+        },
+        {
+          "feature": "at2x_minute_from_open",
+          "standardized_coefficient": -0.44304
+        },
+        {
+          "feature": "band_low",
+          "standardized_coefficient": 0.34958
+        },
+        {
+          "feature": "at2x_minutes_since_entry",
+          "standardized_coefficient": -0.33937
+        },
+        {
+          "feature": "at2x_option_slope_5",
+          "standardized_coefficient": 0.32893
+        },
+        {
+          "feature": "vix_return_1",
+          "standardized_coefficient": -0.32714
+        },
+        {
+          "feature": "at2x_path_traded_bars",
+          "standardized_coefficient": -0.32167
+        },
+        {
+          "feature": "at2x_path_efficiency",
+          "standardized_coefficient": -0.31361
+        }
+      ]
+    },
+    "at_2x_minimal_stable_features": {
+      "name": "AT_2X_MINIMAL_STABLE_FEATURES",
+      "features": [
+        "at2x_option_realized_volatility_60",
+        "at2x_option_realized_volatility_20",
+        "at2x_option_slope_10",
+        "vix_slope_120",
+        "is_put",
+        "band_low",
+        "at2x_minutes_since_entry"
+      ],
+      "development": {
+        "rows": 830,
+        "positives": 134,
+        "prevalence_pct": 16.1446,
+        "auc": 0.8206,
+        "average_precision": 0.4003,
+        "top_20pct_lift": 2.4627,
+        "brier_score": 0.18
+      },
+      "validation": {
+        "rows": 981,
+        "positives": 255,
+        "prevalence_pct": 25.9939,
+        "auc": 0.6401,
+        "average_precision": 0.3837,
+        "top_20pct_lift": 1.5037,
+        "brier_score": 0.2894
+      },
+      "validation_expiry_cluster_auc_ci": {
+        "low_95": 0.5036,
+        "median": 0.6388,
+        "high_95": 0.7362
+      },
+      "walk_forward": {
+        "folds": [
+          {
+            "train_end": "20251231",
+            "test_start": "20260101",
+            "test_end": "20260228",
+            "rows": 153,
+            "positives": 37,
+            "prevalence_pct": 24.183,
+            "auc": 0.7164,
+            "average_precision": 0.3905,
+            "top_20pct_lift": 2.0009,
+            "brier_score": 0.2329
+          },
+          {
+            "train_end": "20260228",
+            "test_start": "20260301",
+            "test_end": "20260430",
+            "rows": 308,
+            "positives": 86,
+            "prevalence_pct": 27.9221,
+            "auc": 0.6642,
+            "average_precision": 0.4324,
+            "top_20pct_lift": 1.5596,
+            "brier_score": 0.3304
+          },
+          {
+            "train_end": "20260430",
+            "test_start": "20260501",
+            "test_end": "20260630",
+            "rows": 419,
+            "positives": 97,
+            "prevalence_pct": 23.1504,
+            "auc": 0.5075,
+            "average_precision": 0.2864,
+            "top_20pct_lift": 0.8228,
+            "brier_score": 0.3191
+          },
+          {
+            "train_end": "20260630",
+            "test_start": "20260701",
+            "test_end": "20260831",
+            "rows": 466,
+            "positives": 133,
+            "prevalence_pct": 28.5408,
+            "auc": 0.71,
+            "average_precision": 0.4677,
+            "top_20pct_lift": 1.7892,
+            "brier_score": 0.2751
+          },
+          {
+            "train_end": "20260831",
+            "test_start": "20260901",
+            "test_end": "20260930",
+            "rows": 96,
+            "positives": 25,
+            "prevalence_pct": 26.0417,
+            "auc": 0.942,
+            "average_precision": 0.8746,
+            "top_20pct_lift": 3.072,
+            "brier_score": 0.1161
+          }
+        ],
+        "aggregate": {
+          "rows": 1442,
+          "positives": 378,
+          "prevalence_pct": 26.2136,
+          "auc": 0.6352,
+          "average_precision": 0.3669,
+          "top_20pct_lift": 1.4652,
+          "brier_score": 0.2846,
+          "expiry_cluster_auc_ci": {
+            "low_95": 0.5391,
+            "median": 0.6363,
+            "high_95": 0.7081
+          }
+        }
+      },
+      "largest_standardized_coefficients": [
+        {
+          "feature": "is_put",
+          "standardized_coefficient": 0.78868
+        },
+        {
+          "feature": "vix_slope_120",
+          "standardized_coefficient": 0.67936
+        },
+        {
+          "feature": "at2x_minutes_since_entry",
+          "standardized_coefficient": -0.42878
+        },
+        {
+          "feature": "band_low",
+          "standardized_coefficient": 0.35942
+        },
+        {
+          "feature": "at2x_option_realized_volatility_60",
+          "standardized_coefficient": 0.27605
+        },
+        {
+          "feature": "at2x_option_realized_volatility_20",
+          "standardized_coefficient": 0.1786
+        },
+        {
+          "feature": "at2x_option_slope_10",
+          "standardized_coefficient": 0.06192
+        }
+      ]
+    }
+  },
+  "stable_univariate_candidates": [
+    {
+      "feature": "at2x_option_realized_volatility_60",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.739,
+      "validation_oriented_auc": 0.6407,
+      "development_positive_median": 0.162705,
+      "development_negative_median": 0.119618,
+      "validation_positive_median": 0.172661,
+      "validation_negative_median": 0.152684
+    },
+    {
+      "feature": "vix_slope_120",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.6668,
+      "validation_oriented_auc": 0.6232,
+      "development_positive_median": 0.003644,
+      "development_negative_median": 0.003371,
+      "validation_positive_median": 0.004943,
+      "validation_negative_median": 0.004793
+    },
+    {
+      "feature": "at2x_option_realized_volatility_20",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7262,
+      "validation_oriented_auc": 0.6157,
+      "development_positive_median": 0.160543,
+      "development_negative_median": 0.116339,
+      "validation_positive_median": 0.178806,
+      "validation_negative_median": 0.155203
+    },
+    {
+      "feature": "at2x_option_slope_10",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.6265,
+      "validation_oriented_auc": 0.6043,
+      "development_positive_median": 0.048241,
+      "development_negative_median": 0.037899,
+      "validation_positive_median": 0.053453,
+      "validation_negative_median": 0.042391
+    },
+    {
+      "feature": "at2x_option_slope_5",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.6841,
+      "validation_oriented_auc": 0.592,
+      "development_positive_median": 0.096217,
+      "development_negative_median": 0.06694,
+      "validation_positive_median": 0.09898,
+      "validation_negative_median": 0.083301
+    },
+    {
+      "feature": "is_put",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.6823,
+      "validation_oriented_auc": 0.5859,
+      "development_positive_median": 1.0,
+      "development_negative_median": 1.0,
+      "validation_positive_median": 1.0,
+      "validation_negative_median": 1.0
+    },
+    {
+      "feature": "at2x_option_recent20_mean_range_pct",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7523,
+      "validation_oriented_auc": 0.5748,
+      "development_positive_median": 0.218959,
+      "development_negative_median": 0.16275,
+      "validation_positive_median": 0.176351,
+      "validation_negative_median": 0.15763
+    },
+    {
+      "feature": "at2x_option_realized_volatility_5",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7243,
+      "validation_oriented_auc": 0.5669,
+      "development_positive_median": 0.162315,
+      "development_negative_median": 0.096681,
+      "validation_positive_median": 0.166185,
+      "validation_negative_median": 0.144155
+    },
+    {
+      "feature": "at2x_high_multiple",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.5803,
+      "validation_oriented_auc": 0.5603,
+      "development_positive_median": 2.108848,
+      "development_negative_median": 2.07767,
+      "validation_positive_median": 2.167382,
+      "validation_negative_median": 2.134533
+    },
+    {
+      "feature": "band_low",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.5927,
+      "validation_oriented_auc": 0.5401,
+      "development_positive_median": 1.0,
+      "development_negative_median": 0.0,
+      "validation_positive_median": 1.0,
+      "validation_negative_median": 0.0
+    },
+    {
+      "feature": "at2x_minute_from_open",
+      "development_direction": "lower_for_10x",
+      "development_oriented_auc": 0.5708,
+      "validation_oriented_auc": 0.5379,
+      "development_positive_median": 116.5,
+      "development_negative_median": 128.0,
+      "validation_positive_median": 110.0,
+      "validation_negative_median": 122.0
+    },
+    {
+      "feature": "at2x_path_min_multiple",
+      "development_direction": "lower_for_10x",
+      "development_oriented_auc": 0.5836,
+      "validation_oriented_auc": 0.5337,
+      "development_positive_median": 0.595918,
+      "development_negative_median": 0.714286,
+      "validation_positive_median": 0.663366,
+      "validation_negative_median": 0.696371
+    },
+    {
+      "feature": "put_x_at2x_expansion",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7673,
+      "validation_oriented_auc": 0.5328,
+      "development_positive_median": 4.0,
+      "development_negative_median": 0.0,
+      "validation_positive_median": 2.0,
+      "validation_negative_median": 0.0
+    },
+    {
+      "feature": "at2x_option_rsi_5",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.4939,
+      "validation_oriented_auc": 0.5284,
+      "development_positive_median": 88.860688,
+      "development_negative_median": 88.856209,
+      "validation_positive_median": 91.176471,
+      "validation_negative_median": 89.712754
+    },
+    {
+      "feature": "at2x_intraday_spot_realized_volatility_5",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7067,
+      "validation_oriented_auc": 0.5246,
+      "development_positive_median": 0.000964,
+      "development_negative_median": 0.000537,
+      "validation_positive_median": 0.001255,
+      "validation_negative_median": 0.001266
+    },
+    {
+      "feature": "at2x_intraday_spot_realized_volatility_20",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7221,
+      "validation_oriented_auc": 0.5229,
+      "development_positive_median": 0.000984,
+      "development_negative_median": 0.000599,
+      "validation_positive_median": 0.001427,
+      "validation_negative_median": 0.001469
+    },
+    {
+      "feature": "at2x_intraday_futures_realized_volatility_20",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7194,
+      "validation_oriented_auc": 0.5221,
+      "development_positive_median": 0.001082,
+      "development_negative_median": 0.00065,
+      "validation_positive_median": 0.001444,
+      "validation_negative_median": 0.001592
+    },
+    {
+      "feature": "at2x_option_recent20_traded_ratio",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.5192,
+      "validation_oriented_auc": 0.5165,
+      "development_positive_median": 1.0,
+      "development_negative_median": 1.0,
+      "validation_positive_median": 1.0,
+      "validation_negative_median": 1.0
+    },
+    {
+      "feature": "at2x_intraday_futures_realized_volatility_5",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.7276,
+      "validation_oriented_auc": 0.5093,
+      "development_positive_median": 0.001079,
+      "development_negative_median": 0.000583,
+      "validation_positive_median": 0.001309,
+      "validation_negative_median": 0.001309
+    },
+    {
+      "feature": "vix_slope_20",
+      "development_direction": "higher_for_10x",
+      "development_oriented_auc": 0.4538,
+      "validation_oriented_auc": 0.5086,
+      "development_positive_median": 0.005816,
+      "development_negative_median": 0.005548,
+      "validation_positive_median": 0.000314,
+      "validation_negative_median": 0.00255
+    }
+  ],
+  "exploratory_simple_rules": {
+    "warning": "RV60 등 후보가 후반 단변량 결과를 확인한 뒤 선택됐으므로 독립 채택 근거가 아니라 다음 신규 만기 잠금검증 후보이다.",
+    "development_midpoint_thresholds": {
+      "at2x_option_realized_volatility_60": 0.14116165,
+      "at2x_option_realized_volatility_20": 0.13844076,
+      "at2x_option_slope_10": 0.0430697,
+      "vix_slope_120": 0.00350788
+    },
+    "rules": {
+      "RV60_HIGH": {
+        "development": {
+          "rows": 830,
+          "selected": 303,
+          "coverage_pct": 36.506,
+          "selected_10x": 90,
+          "selected_10x_rate_pct": 29.703,
+          "baseline_10x_rate_pct": 16.1446,
+          "lift": 1.8398
+        },
+        "validation": {
+          "rows": 981,
+          "selected": 615,
+          "coverage_pct": 62.6911,
+          "selected_10x": 192,
+          "selected_10x_rate_pct": 31.2195,
+          "baseline_10x_rate_pct": 25.9939,
+          "lift": 1.201
+        }
+      },
+      "RV60_AND_SLOPE10": {
+        "development": {
+          "rows": 830,
+          "selected": 199,
+          "coverage_pct": 23.9759,
+          "selected_10x": 62,
+          "selected_10x_rate_pct": 31.1558,
+          "baseline_10x_rate_pct": 16.1446,
+          "lift": 1.9298
+        },
+        "validation": {
+          "rows": 981,
+          "selected": 345,
+          "coverage_pct": 35.1682,
+          "selected_10x": 125,
+          "selected_10x_rate_pct": 36.2319,
+          "baseline_10x_rate_pct": 25.9939,
+          "lift": 1.3939
+        }
+      },
+      "RV60_AND_VIX120": {
+        "development": {
+          "rows": 830,
+          "selected": 195,
+          "coverage_pct": 23.494,
+          "selected_10x": 65,
+          "selected_10x_rate_pct": 33.3333,
+          "baseline_10x_rate_pct": 16.1446,
+          "lift": 2.0647
+        },
+        "validation": {
+          "rows": 981,
+          "selected": 537,
+          "coverage_pct": 54.7401,
+          "selected_10x": 171,
+          "selected_10x_rate_pct": 31.8436,
+          "baseline_10x_rate_pct": 25.9939,
+          "lift": 1.225
+        }
+      },
+      "RV60_AND_PUT": {
+        "development": {
+          "rows": 830,
+          "selected": 211,
+          "coverage_pct": 25.4217,
+          "selected_10x": 80,
+          "selected_10x_rate_pct": 37.9147,
+          "baseline_10x_rate_pct": 16.1446,
+          "lift": 2.3484
+        },
+        "validation": {
+          "rows": 981,
+          "selected": 428,
+          "coverage_pct": 43.629,
+          "selected_10x": 149,
+          "selected_10x_rate_pct": 34.8131,
+          "baseline_10x_rate_pct": 25.9939,
+          "lift": 1.3393
+        }
+      }
+    }
+  },
+  "promotion_gate": {
+    "requirements": {
+      "validation_auc_min": 0.6,
+      "validation_top20_lift_min": 1.5,
+      "validation_cluster_auc_low95_above": 0.5,
+      "walk_forward_auc_min": 0.58
+    },
+    "predeclared_full_model_metrics_passed": false,
+    "post_selection_minimal_model_metrics_passed": true,
+    "independent_validation_passed": false,
+    "passed": false,
+    "decision": "최소모델 수치는 기준을 넘었지만 후반 결과를 본 뒤 변수를 축소했으므로 정식 승격하지 않고 2026-09-28 이후 신규 만기 잠금검증 후보로 고정"
+  }
+}

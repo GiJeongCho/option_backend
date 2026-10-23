@@ -1,0 +1,54 @@
+{
+  "status": "ok",
+  "generated_at": "2026-10-19T19:45:22.766882+00:00",
+  "dataset_directories": [
+    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4437-1)",
+    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4571-1)",
+    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-1)",
+    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-2)",
+    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4949-1)"
+  ],
+  "raw_file_count": 769,
+  "raw_min_date": "20230801",
+  "raw_max_date": "20260930",
+  "expiry_group_count": 289,
+  "latest_completed_expiry": "20260928",
+  "strategy_count": 22,
+  "strategy_latest_dates": {
+    "strategy1_daily.csv": "20260928",
+    "strategy2_daily.csv": "20260928",
+    "strategy2_v02_daily.csv": "20260928",
+    "strategy2_v03_daily.csv": "20260928",
+    "strategy3_daily.csv": "20260928",
+    "strategy3_v02_daily.csv": "20260928",
+    "strategy3_v03_daily.csv": "20260928",
+    "strategy3_v04_daily.csv": "20260928",
+    "strategy4_v01_daily.csv": "20260928",
+    "strategy4_daily.csv": "20260928",
+    "strategy5_daily.csv": "20260928",
+    "strategy5_v03_early_daily.csv": "20260928",
+    "strategy5_v03_late_daily.csv": "20260928",
+    "strategy5_v04_ev_daily.csv": "20260928",
+    "strategy5_v04_staged_daily.csv": "20260928",
+    "strategy5_v05_daily.csv": "20260928",
+    "strategy5_v06_ten_x_daily.csv": "20260928",
+    "strategy5_v07_04_bin_ev_daily.csv": "20260928",
+    "strategy5_v07_04_bin_ten_x_daily.csv": "20260928",
+    "strategy5_v08_step10_ten_x_daily.csv": "20260928",
+    "strategy6_v01_daily.csv": "20260928",
+    "strategy6_v02_daily.csv": "20260928"
+  },
+  "steps": [
+    {
+      "script": "strategy6_v02_vix_ma5_rising_backtest.py",
+      "elapsed_seconds": 36.183,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy6_v02_vix_ma5_rising_backtest.log"
+    },
+    {
+      "script": "audit_strategy6_v02.py",
+      "elapsed_seconds": 10.62,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy6_v02.log"
+    }
+  ],
+  "elapsed_seconds": 46.876
+}

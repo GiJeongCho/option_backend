@@ -1408,5 +1408,40 @@
     "expiry_date": "20260831",
     "product_kind": "MONDAY",
     "series": "2608W5"
+  },
+  {
+    "expiry_date": "20260903",
+    "product_kind": "THURSDAY",
+    "series": "2609W1"
+  },
+  {
+    "expiry_date": "20260907",
+    "product_kind": "MONDAY",
+    "series": "2609W1"
+  },
+  {
+    "expiry_date": "20260914",
+    "product_kind": "MONDAY",
+    "series": "2609W2"
+  },
+  {
+    "expiry_date": "20260917",
+    "product_kind": "THURSDAY",
+    "series": "2609W3"
+  },
+  {
+    "expiry_date": "20260921",
+    "product_kind": "MONDAY",
+    "series": "2609W3"
+  },
+  {
+    "expiry_date": "20260923",
+    "product_kind": "THURSDAY",
+    "series": "2609W4"
+  },
+  {
+    "expiry_date": "20260928",
+    "product_kind": "MONDAY",
+    "series": "2609W4"
   }
 ]

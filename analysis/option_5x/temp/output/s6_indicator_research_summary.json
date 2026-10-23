@@ -1,0 +1,451 @@
+{
+  "status": "temporary_indicator_research",
+  "generated_at": "2026-10-20T15:08:49.923471+09:00",
+  "data": {
+    "common_period_start": "20240924",
+    "common_period_end": "20260928",
+    "expiry_groups": 184,
+    "event_rows": 5342,
+    "spot_minute_start": "2024-09-24T09:01:00",
+    "spot_minute_end": "2026-10-19T13:51:00",
+    "futures_minute_start": "2023-12-28T08:46:00",
+    "futures_minute_end": "2026-10-19T13:53:00",
+    "entry_window": [
+      930,
+      1300
+    ],
+    "outcome_end": 1515,
+    "definition": "09:30~12:59 첫 완료봉 종가가 구간에 들어오고, 5분 안의 다음 실거래봉 시가도 같은 구간일 때 시가+0.01 진입. 진입 다음 봉부터 15:15까지의 고가를 체결가와 비교."
+  },
+  "guardrails": {
+    "label": "실제 다음 봉 진입가 이후 15:15까지의 미래 고가 배수",
+    "same_entry_bar_excluded": true,
+    "features_end_at": "진입 신호 완료봉 또는 그 이전",
+    "development_end": "20260430",
+    "validation_is_independent": false,
+    "validation_note": "시간순 후반 안정성 확인용이며 연구자가 전체 기간의 맥락을 알고 있어 완전한 독립 전진검증은 아님",
+    "multiple_testing": "Mann-Whitney p에 BH-FDR q 적용",
+    "expiry_clustering": "분할은 만기일 기준이며, 동일 만기 계약 간 상관 때문에 행 단위 p값을 단독 채택 근거로 사용하지 않음"
+  },
+  "descriptive": {
+    "by_band": {
+      "HIGH_100_250": {
+        "events": 2820,
+        "expiry_days": 184,
+        "reached_2x": 1229,
+        "reached_2x_pct": 43.5816,
+        "reached_5x": 438,
+        "reached_5x_pct": 15.5319,
+        "reached_10x": 170,
+        "reached_10x_pct": 6.0284,
+        "median_max_multiple": 1.7711,
+        "p90_max_multiple": 6.9911,
+        "p99_max_multiple": 20.2485,
+        "median_mae_pct": -99.1111
+      },
+      "LOW_040_050": {
+        "events": 2522,
+        "expiry_days": 183,
+        "reached_2x": 1062,
+        "reached_2x_pct": 42.1094,
+        "reached_5x": 431,
+        "reached_5x_pct": 17.0896,
+        "reached_10x": 219,
+        "reached_10x_pct": 8.6836,
+        "median_max_multiple": 1.6969,
+        "p90_max_multiple": 8.434,
+        "p99_max_multiple": 45.773,
+        "median_mae_pct": -97.8261
+      }
+    },
+    "by_band_year": [
+      {
+        "premium_band": "HIGH_100_250",
+        "year": 2024,
+        "events": 106,
+        "expiry_days": 25,
+        "reached_2x": 31,
+        "reached_2x_pct": 29.2453,
+        "reached_5x": 1,
+        "reached_5x_pct": 0.9434,
+        "reached_10x": 0,
+        "reached_10x_pct": 0.0,
+        "median_max_multiple": 1.4915,
+        "p90_max_multiple": 2.9211,
+        "p99_max_multiple": 4.3311,
+        "median_mae_pct": -71.606
+      },
+      {
+        "premium_band": "HIGH_100_250",
+        "year": 2025,
+        "events": 482,
+        "expiry_days": 92,
+        "reached_2x": 187,
+        "reached_2x_pct": 38.7967,
+        "reached_5x": 12,
+        "reached_5x_pct": 2.4896,
+        "reached_10x": 0,
+        "reached_10x_pct": 0.0,
+        "median_max_multiple": 1.6952,
+        "p90_max_multiple": 3.5824,
+        "p99_max_multiple": 5.5909,
+        "median_mae_pct": -81.7602
+      },
+      {
+        "premium_band": "HIGH_100_250",
+        "year": 2026,
+        "events": 2232,
+        "expiry_days": 67,
+        "reached_2x": 1011,
+        "reached_2x_pct": 45.2957,
+        "reached_5x": 425,
+        "reached_5x_pct": 19.0412,
+        "reached_10x": 170,
+        "reached_10x_pct": 7.6165,
+        "median_max_multiple": 1.8175,
+        "p90_max_multiple": 8.2783,
+        "p99_max_multiple": 23.0008,
+        "median_mae_pct": -99.1952
+      },
+      {
+        "premium_band": "LOW_040_050",
+        "year": 2024,
+        "events": 80,
+        "expiry_days": 25,
+        "reached_2x": 39,
+        "reached_2x_pct": 48.75,
+        "reached_5x": 7,
+        "reached_5x_pct": 8.75,
+        "reached_10x": 0,
+        "reached_10x_pct": 0.0,
+        "median_max_multiple": 1.9024,
+        "p90_max_multiple": 4.7633,
+        "p99_max_multiple": 7.5559,
+        "median_mae_pct": -94.0588
+      },
+      {
+        "premium_band": "LOW_040_050",
+        "year": 2025,
+        "events": 375,
+        "expiry_days": 91,
+        "reached_2x": 171,
+        "reached_2x_pct": 45.6,
+        "reached_5x": 50,
+        "reached_5x_pct": 13.3333,
+        "reached_10x": 11,
+        "reached_10x_pct": 2.9333,
+        "median_max_multiple": 1.8444,
+        "p90_max_multiple": 6.0235,
+        "p99_max_multiple": 11.4648,
+        "median_mae_pct": -97.619
+      },
+      {
+        "premium_band": "LOW_040_050",
+        "year": 2026,
+        "events": 2067,
+        "expiry_days": 67,
+        "reached_2x": 852,
+        "reached_2x_pct": 41.2192,
+        "reached_5x": 374,
+        "reached_5x_pct": 18.0939,
+        "reached_10x": 208,
+        "reached_10x_pct": 10.0629,
+        "median_max_multiple": 1.66,
+        "p90_max_multiple": 10.0699,
+        "p99_max_multiple": 48.86,
+        "median_mae_pct": -97.8261
+      }
+    ],
+    "by_call_put": [
+      {
+        "premium_band": "HIGH_100_250",
+        "call_put": "CALL",
+        "events": 1357,
+        "expiry_days": 184,
+        "reached_2x": 545,
+        "reached_2x_pct": 40.1621,
+        "reached_5x": 161,
+        "reached_5x_pct": 11.8644,
+        "reached_10x": 30,
+        "reached_10x_pct": 2.2108,
+        "median_max_multiple": 1.7073,
+        "p90_max_multiple": 5.5241,
+        "p99_max_multiple": 11.4526,
+        "median_mae_pct": -99.1379
+      },
+      {
+        "premium_band": "HIGH_100_250",
+        "call_put": "PUT",
+        "events": 1463,
+        "expiry_days": 184,
+        "reached_2x": 684,
+        "reached_2x_pct": 46.7532,
+        "reached_5x": 277,
+        "reached_5x_pct": 18.9337,
+        "reached_10x": 140,
+        "reached_10x_pct": 9.5694,
+        "median_max_multiple": 1.8692,
+        "p90_max_multiple": 9.5695,
+        "p99_max_multiple": 31.4511,
+        "median_mae_pct": -99.0909
+      },
+      {
+        "premium_band": "LOW_040_050",
+        "call_put": "CALL",
+        "events": 1179,
+        "expiry_days": 182,
+        "reached_2x": 433,
+        "reached_2x_pct": 36.726,
+        "reached_5x": 151,
+        "reached_5x_pct": 12.8075,
+        "reached_10x": 57,
+        "reached_10x_pct": 4.8346,
+        "median_max_multiple": 1.5909,
+        "p90_max_multiple": 6.2588,
+        "p99_max_multiple": 19.7133,
+        "median_mae_pct": -97.8261
+      },
+      {
+        "premium_band": "LOW_040_050",
+        "call_put": "PUT",
+        "events": 1343,
+        "expiry_days": 181,
+        "reached_2x": 629,
+        "reached_2x_pct": 46.8354,
+        "reached_5x": 280,
+        "reached_5x_pct": 20.8488,
+        "reached_10x": 162,
+        "reached_10x_pct": 12.0625,
+        "median_max_multiple": 1.8372,
+        "p90_max_multiple": 12.1941,
+        "p99_max_multiple": 53.6416,
+        "median_mae_pct": -97.8261
+      }
+    ],
+    "expiry_oracle_upper_bound": {
+      "HIGH_100_250": {
+        "warning": "같은 만기일의 최종 최고배수 계약을 사후 선택한 상한이며 실행 전략 수익률이 아님",
+        "expiry_days": 184,
+        "days_2x_pct": 85.8696,
+        "days_5x_pct": 32.6087,
+        "days_10x_pct": 11.413
+      },
+      "LOW_040_050": {
+        "warning": "같은 만기일의 최종 최고배수 계약을 사후 선택한 상한이며 실행 전략 수익률이 아님",
+        "expiry_days": 183,
+        "days_2x_pct": 91.8033,
+        "days_5x_pct": 53.0055,
+        "days_10x_pct": 25.6831
+      }
+    }
+  },
+  "models": {
+    "TEN_PLUS_VS_TWO_TO_FIVE": {
+      "selected_features": [
+        "at2x_reached_5x_later",
+        "at2x_reached_10x_later",
+        "at2x_future_max_multiple",
+        "signed_futures_moneyness",
+        "signed_spot_moneyness",
+        "at2x_intraday_futures_ma120_distance",
+        "at2x_intraday_futures_ma60_distance",
+        "daily_spot_value",
+        "at2x_intraday_spot_ma120_distance",
+        "daily_futures_value",
+        "intraday_futures_value",
+        "at2x_intraday_spot_ma60_distance"
+      ],
+      "development_rows": 830,
+      "development_positives": 134,
+      "validation_rows": 981,
+      "validation_positives": 255,
+      "logistic_development": {
+        "rows": 830,
+        "positives": 134,
+        "prevalence_pct": 16.1446,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 5.0
+      },
+      "logistic_validation": {
+        "rows": 981,
+        "positives": 255,
+        "prevalence_pct": 25.9939,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 3.8471
+      },
+      "tree_rules": "|--- at2x_future_max_multiple <= 7.52\n|   |--- class: 0\n|--- at2x_future_max_multiple >  7.52\n|   |--- at2x_intraday_spot_ma120_distance <= -0.01\n|   |   |--- class: 1\n|   |--- at2x_intraday_spot_ma120_distance >  -0.01\n|   |   |--- class: 1\n",
+      "tree_development": {
+        "rows": 830,
+        "positives": 134,
+        "prevalence_pct": 16.1446,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 5.0
+      },
+      "tree_validation": {
+        "rows": 981,
+        "positives": 255,
+        "prevalence_pct": 25.9939,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 3.8471
+      },
+      "logistic_validation_best_event_per_expiry": {
+        "rows": 38,
+        "positives": 20,
+        "prevalence_pct": 52.6316,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 1.9
+      },
+      "meaningful_for_s6": true
+    },
+    "FIVE_PLUS_VS_TWO_TO_FIVE": {
+      "selected_features": [
+        "at2x_reached_5x_later",
+        "at2x_future_max_multiple",
+        "at2x_reached_10x_later",
+        "signed_futures_moneyness",
+        "signed_spot_moneyness",
+        "at2x_option_recent20_mean_range_pct",
+        "daily_spot_value",
+        "daily_futures_ma120_distance",
+        "daily_futures_value",
+        "intraday_futures_value",
+        "intraday_spot_value",
+        "at2x_intraday_futures_value"
+      ],
+      "development_rows": 1015,
+      "development_positives": 319,
+      "validation_rows": 1276,
+      "validation_positives": 550,
+      "logistic_development": {
+        "rows": 1015,
+        "positives": 319,
+        "prevalence_pct": 31.4286,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 3.1818
+      },
+      "logistic_validation": {
+        "rows": 1276,
+        "positives": 550,
+        "prevalence_pct": 43.1034,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 2.32
+      },
+      "tree_rules": "|--- at2x_reached_5x_later <= 0.50\n|   |--- class: 0\n|--- at2x_reached_5x_later >  0.50\n|   |--- daily_futures_value <= 516.82\n|   |   |--- class: 1\n|   |--- daily_futures_value >  516.82\n|   |   |--- class: 1\n",
+      "tree_development": {
+        "rows": 1015,
+        "positives": 319,
+        "prevalence_pct": 31.4286,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 3.1818
+      },
+      "tree_validation": {
+        "rows": 1276,
+        "positives": 550,
+        "prevalence_pct": 43.1034,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 2.32
+      },
+      "logistic_validation_best_event_per_expiry": {
+        "rows": 38,
+        "positives": 33,
+        "prevalence_pct": 86.8421,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 1.1515
+      },
+      "meaningful_for_s6": true
+    },
+    "TEN_PLUS_VS_ALL_LOWER": {
+      "selected_features": [
+        "at2x_reached_10x_later",
+        "at2x_future_max_multiple",
+        "at2x_reached_5x_later",
+        "signed_futures_moneyness",
+        "signed_spot_moneyness",
+        "weekly_futures_slope_120",
+        "at2x_intraday_futures_ma60_distance",
+        "at2x_intraday_spot_ma60_distance",
+        "daily_spot_value",
+        "daily_futures_value",
+        "at2x_intraday_futures_ma5_distance",
+        "intraday_futures_value"
+      ],
+      "development_rows": 2231,
+      "development_positives": 134,
+      "validation_rows": 3111,
+      "validation_positives": 255,
+      "logistic_development": {
+        "rows": 2231,
+        "positives": 134,
+        "prevalence_pct": 6.0063,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 4.9911
+      },
+      "logistic_validation": {
+        "rows": 3111,
+        "positives": 255,
+        "prevalence_pct": 8.1967,
+        "auc": 0.7705,
+        "average_precision": 0.539,
+        "balanced_accuracy": 0.7,
+        "top_20pct_lift": 2.6632
+      },
+      "tree_rules": "|--- at2x_future_max_multiple <= 9.99\n|   |--- class: 0\n|--- at2x_future_max_multiple >  9.99\n|   |--- class: 1\n",
+      "tree_development": {
+        "rows": 2231,
+        "positives": 134,
+        "prevalence_pct": 6.0063,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 4.9911
+      },
+      "tree_validation": {
+        "rows": 3111,
+        "positives": 255,
+        "prevalence_pct": 8.1967,
+        "auc": 1.0,
+        "average_precision": 1.0,
+        "balanced_accuracy": 1.0,
+        "top_20pct_lift": 4.9936
+      },
+      "logistic_validation_best_event_per_expiry": {
+        "rows": 38,
+        "positives": 20,
+        "prevalence_pct": 52.6316,
+        "auc": 0.8,
+        "average_precision": 0.8446,
+        "balanced_accuracy": 0.725,
+        "top_20pct_lift": 1.9
+      },
+      "meaningful_for_s6": true
+    }
+  },
+  "meaningful_tasks": [
+    "TEN_PLUS_VS_TWO_TO_FIVE",
+    "FIVE_PLUS_VS_TWO_TO_FIVE",
+    "TEN_PLUS_VS_ALL_LOWER"
+  ],
+  "s6_decision": "S6 후보 백테스트 진행"
+}

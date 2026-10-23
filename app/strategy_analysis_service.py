@@ -11,6 +11,36 @@ from .performance_metrics import build_performance_report
 from .strategy_metadata import STRATEGY_METADATA
 
 
+LOGIC_DOCUMENTS: dict[str, str] = {
+    "S1-v0.1": "S1_v0.1_전략_로직.md",
+    "S2-v0.1": "S2_v0.1-v0.3_전략_로직.md",
+    "S2-v0.2": "S2_v0.1-v0.3_전략_로직.md",
+    "S2-v0.3": "S2_v0.1-v0.3_전략_로직.md",
+    "S3-v0.1": "S3_v0.1-v0.4_전략_로직.md",
+    "S3-v0.2": "S3_v0.1-v0.4_전략_로직.md",
+    "S3-v0.3": "S3_v0.1-v0.4_전략_로직.md",
+    "S3-v0.4": "S3_v0.1-v0.4_전략_로직.md",
+    "S4-v0.1": "S4_v0.1-v0.2_전략_로직.md",
+    "S4-v0.2": "S4_v0.1-v0.2_전략_로직.md",
+    "S5-v0.2": "S5_v0.2-v0.3_전략_로직.md",
+    "S5-v0.3-EARLY": "S5_v0.2-v0.3_전략_로직.md",
+    "S5-v0.3-LATE": "S5_v0.2-v0.3_전략_로직.md",
+    "S5-v0.4-EV": "S5_v0.4_전략_로직.md",
+    "S5-v0.4-STAGED": "S5_v0.4_전략_로직.md",
+    "S5-v0.5": "S5_v0.5_무재진입_전략_로직.md",
+    "S5-v0.6-10X": "S5_v0.5_무재진입_전략_로직.md",
+    "S5-v0.7-04BIN-EV": "S5_v0.5_무재진입_전략_로직.md",
+    "S5-v0.7-04BIN-10X": "S5_v0.5_무재진입_전략_로직.md",
+    "S5-v0.8-STEP10-10X": "S5_v0.5_무재진입_전략_로직.md",
+    "S5-v0.9-STRIKE10-10X": (
+        "S5_v0.9_행사가10포인트_전략_로직.md"
+    ),
+    "S6-v0.1": "S6_v0.1_VIX_RV_PUT_전략_로직.md",
+    "S6-v0.2": "S6_v0.2_VIX_MA5_상승추세_비교_로직.md",
+    "S6-v0.3": "S6_v0.3_변동성레짐_RV60_연구결과.md",
+}
+
+
 def _integer(value: str | int | float | None) -> int:
     if value in (None, ""):
         return 0
@@ -250,6 +280,33 @@ class StrategyAnalysisService:
         )
         self.strategy_five_v08_positions_path = (
             self.output_dir / "strategy5_v08_step10_ten_x_positions.csv"
+        )
+        self.strategy_five_v09_daily_path = (
+            self.output_dir / "strategy5_v09_strike10_ten_x_daily.csv"
+        )
+        self.strategy_five_v09_trades_path = (
+            self.output_dir / "strategy5_v09_strike10_ten_x_trades.csv"
+        )
+        self.strategy_five_v09_positions_path = (
+            self.output_dir / "strategy5_v09_strike10_ten_x_positions.csv"
+        )
+        self.strategy_six_v01_daily_path = (
+            self.output_dir / "strategy6_v01_daily.csv"
+        )
+        self.strategy_six_v01_trades_path = (
+            self.output_dir / "strategy6_v01_trades.csv"
+        )
+        self.strategy_six_v02_daily_path = (
+            self.output_dir / "strategy6_v02_daily.csv"
+        )
+        self.strategy_six_v02_trades_path = (
+            self.output_dir / "strategy6_v02_trades.csv"
+        )
+        self.strategy_six_v03_daily_path = (
+            self.output_dir / "strategy6_v03_rv60_runner_daily.csv"
+        )
+        self.strategy_six_v03_trades_path = (
+            self.output_dir / "strategy6_v03_rv60_runner_trades.csv"
         )
         self.performance_benchmark_path = (
             self.backend_dir
@@ -2562,6 +2619,137 @@ class StrategyAnalysisService:
             "strategies": strategies,
         }
 
+    def strategy_version_comparison(
+        self,
+        strategy_versions: list[str],
+    ) -> dict[str, object]:
+        sources = self._trade_sources()
+        selected_versions = list(dict.fromkeys(strategy_versions))
+        if not selected_versions:
+            raise ValueError("비교할 전략을 하나 이상 선택하세요.")
+        if len(selected_versions) > 50:
+            raise ValueError("한 번에 비교할 수 있는 전략은 최대 50개입니다.")
+
+        unknown = [
+            version for version in selected_versions if version not in sources
+        ]
+        if unknown:
+            raise ValueError(
+                f"지원하지 않는 전략: {', '.join(unknown)}"
+            )
+
+        series: list[dict[str, object]] = []
+        all_dates: list[str] = []
+        for version in selected_versions:
+            label, daily_path, trades_path = sources[version]
+            if not daily_path.exists() or not trades_path.exists():
+                raise DataNotFoundError(
+                    f"{version} 거래 결과 파일이 없습니다."
+                )
+            daily_rows = sorted(
+                self._read_csv(daily_path),
+                key=lambda row: row["date"],
+            )
+            if not daily_rows:
+                continue
+            summary = self._version_summary(daily_rows)
+            initial_cash = _integer(summary["initialCash"])
+            if initial_cash <= 0:
+                raise ValueError(
+                    f"{version} 시작자금이 올바르지 않습니다."
+                )
+            points = [
+                {
+                    "date": row["date"],
+                    "endCash": _integer(row.get("end_cash")),
+                    "pnl": _integer(row.get("pnl")),
+                    "returnPct": round(
+                        (
+                            _integer(row.get("end_cash")) - initial_cash
+                        )
+                        / initial_cash
+                        * 100,
+                        6,
+                    ),
+                }
+                for row in daily_rows
+            ]
+            all_dates.extend(row["date"] for row in daily_rows)
+            metadata = self._version_metadata(version, label)
+            series.append(
+                {
+                    "version": version,
+                    "label": label,
+                    "family": metadata["family"],
+                    "title": metadata["title"],
+                    "period": summary["period"],
+                    "initialCash": initial_cash,
+                    "endingCash": summary["endingCash"],
+                    "totalPnl": summary["totalPnl"],
+                    "totalReturnPct": summary["totalReturnPct"],
+                    "winRatePct": summary["winRatePct"],
+                    "points": points,
+                }
+            )
+
+        if not series:
+            raise DataNotFoundError("비교할 전략의 일별 결과가 없습니다.")
+        return {
+            "period": {
+                "start": min(all_dates),
+                "end": max(all_dates),
+            },
+            "valueBasis": (
+                "각 전략의 자체 시작자금을 0%로 놓고 일별 종료자산의 "
+                "누적 변화율을 계산했습니다."
+            ),
+            "selectedCount": len(series),
+            "series": series,
+        }
+
+    def strategy_version_logic(
+        self,
+        strategy_version: str,
+    ) -> dict[str, object]:
+        sources = self._trade_sources()
+        if strategy_version not in sources:
+            raise ValueError(f"지원하지 않는 전략: {strategy_version}")
+        label, daily_path, trades_path = sources[strategy_version]
+        if not daily_path.exists() or not trades_path.exists():
+            raise DataNotFoundError(
+                f"{strategy_version} 거래 결과 파일이 없습니다."
+            )
+        metadata = self._version_metadata(strategy_version, label)
+        summary = self._version_summary(self._read_csv(daily_path))
+        document_name = LOGIC_DOCUMENTS.get(strategy_version)
+        document_path = (
+            self.backend_dir / "docs" / document_name
+            if document_name
+            else None
+        )
+        document_content = None
+        if document_path is not None and document_path.exists():
+            document_content = document_path.read_text(encoding="utf-8")
+        return {
+            "strategyVersion": strategy_version,
+            "strategyLabel": label,
+            "metadata": metadata,
+            "summary": summary,
+            "document": {
+                "available": document_content is not None,
+                "name": document_name,
+                "content": document_content,
+                "note": (
+                    "연결된 상세 Markdown 문서를 함께 표시합니다."
+                    if document_content is not None
+                    else (
+                        "이 버전의 전용 Markdown 문서는 아직 없습니다. "
+                        "진입·청산·위험관리 메타데이터를 표시합니다."
+                    )
+                ),
+            },
+        }
+
     @staticmethod
     def _version_exit_reasons(
         trade_rows: list[dict[str, str]],
@@ -3007,6 +3195,26 @@ class StrategyAnalysisService:
                 self.strategy_five_v08_daily_path,
                 self.strategy_five_v08_trades_path,
             ),
+            "S5-v0.9-STRIKE10-10X": (
+                "S5-v0.9 행사가 10포인트·저가 우선",
+                self.strategy_five_v09_daily_path,
+                self.strategy_five_v09_trades_path,
+            ),
+            "S6-v0.1": (
+                "S6-v0.1 VIX·RV PUT 2배/10배",
+                self.strategy_six_v01_daily_path,
+                self.strategy_six_v01_trades_path,
+            ),
+            "S6-v0.2": (
+                "S6-v0.2 VIX MA5 단기 상승추세 비교안",
+                self.strategy_six_v02_daily_path,
+                self.strategy_six_v02_trades_path,
+            ),
+            "S6-v0.3": (
+                "S6-v0.3 RV60·10분 기울기 러너 연구 후보",
+                self.strategy_six_v03_daily_path,
+                self.strategy_six_v03_trades_path,
+            ),
         }
 
     def _trade_position_sources(self) -> dict[str, Path]:
@@ -3024,6 +3232,9 @@ class StrategyAnalysisService:
             "S5-v0.8-STEP10-10X": (
                 self.strategy_five_v08_positions_path
             ),
+            "S5-v0.9-STRIKE10-10X": (
+                self.strategy_five_v09_positions_path
+            ),
         }
 
     @staticmethod
@@ -3040,6 +3251,7 @@ class StrategyAnalysisService:
                 "S5-v0.7-04BIN-EV",
                 "S5-v0.7-04BIN-10X",
                 "S5-v0.8-STEP10-10X",
+                "S5-v0.9-STRIKE10-10X",
             }
         ):
             return None
@@ -3079,6 +3291,7 @@ class StrategyAnalysisService:
             "S5-v0.6-10X",
             "S5-v0.7-04BIN-10X",
             "S5-v0.8-STEP10-10X",
+            "S5-v0.9-STRIKE10-10X",
         }:
             levels.append(
                 {
@@ -3263,6 +3476,7 @@ class StrategyAnalysisService:
                             "cashFlow": _integer(row["cash_flow"]),
                         }
                         for row in ordered
+                        if row["side"] in {"BUY", "SELL", "EXPIRE"}
                     ],
                 }
             )

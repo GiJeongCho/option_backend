@@ -2,9 +2,9 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 60,
-  "trade_rows": 166,
-  "position_rows": 78,
+  "daily_rows": 67,
+  "trade_rows": 194,
+  "position_rows": 92,
   "checks": [
     "no late reentry signal, buy, position, or capital",
     "post-fill confirmation through the completed 09:29 bar",

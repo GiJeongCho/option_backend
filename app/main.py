@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Query
@@ -30,14 +31,34 @@ strategy_analysis_service = StrategyAnalysisService()
 @app.get("/api/health")
 def health() -> dict[str, object]:
     dates = service.list_option_dates()
+    refresh_path = (
+        strategy_analysis_service.output_dir
+        / "refresh_all_backtests_summary.json"
+    )
+    refresh: dict[str, object] = {}
+    if refresh_path.exists():
+        try:
+            refresh = json.loads(refresh_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            refresh = {}
+    raw_max_date = dates[-1] if dates else None
+    refreshed_raw_max_date = refresh.get("raw_max_date")
     return {
         "status": "ok",
         "rowdataDirectory": str(service.rowdata_dir),
         "optionFileCount": len(dates),
         "optionMinDate": dates[0] if dates else None,
-        "optionMaxDate": dates[-1] if dates else None,
+        "optionMaxDate": raw_max_date,
         "volatilityFile": str(service.volatility_path),
         "volatilityFileFound": service.volatility_path.exists(),
+        "strategyRefreshCurrent": (
+            raw_max_date is not None
+            and refreshed_raw_max_date == raw_max_date
+        ),
+        "strategyRefreshRawMaxDate": refreshed_raw_max_date,
+        "strategyLatestCompletedExpiry": refresh.get(
+            "latest_completed_expiry"
+        ),
     }
 
 
@@ -121,6 +142,19 @@ def volatility(
         "count": len(bars),
         "bars": bars,
     }
+
+
+@app.get("/api/market-context")
+def market_context(
+    date: str = Query(pattern=r"^\d{8}$"),
+    minute: int = Query(default=930, ge=845, le=1520),
+) -> dict[str, object]:
+    try:
+        return service.market_context(date, minute)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
 
 
 @app.get("/api/backtest/options")
@@ -279,6 +313,35 @@ def strategy_five_v06_analysis() -> dict[str, object]:
 def strategy_version_catalog() -> dict[str, object]:
     try:
         return strategy_analysis_service.strategy_version_catalog()
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/comparison")
+def strategy_version_comparison(
+    strategies: str = Query(min_length=1, max_length=4096),
+) -> dict[str, object]:
+    try:
+        versions = [
+            version.strip()
+            for version in strategies.split(",")
+            if version.strip()
+        ]
+        return strategy_analysis_service.strategy_version_comparison(versions)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-analysis/logic")
+def strategy_version_logic(
+    strategy: str = Query(min_length=1, max_length=32),
+) -> dict[str, object]:
+    try:
+        return strategy_analysis_service.strategy_version_logic(strategy)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
     except DataNotFoundError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
 

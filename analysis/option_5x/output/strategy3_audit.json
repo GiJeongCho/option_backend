@@ -4,13 +4,13 @@
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 83,
-    "trade_rows": 174
+    "daily_rows": 90,
+    "trade_rows": 193
   },
   "same_entries_across_exit_candidates": {
     "passed": true,
     "reference_exit_mode": "two_x_all",
-    "entry_days": 71,
+    "entry_days": 78,
     "mismatches": [],
     "excluded_controls": [
       {

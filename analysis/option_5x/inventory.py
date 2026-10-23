@@ -8,14 +8,58 @@ from pathlib import Path
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 ROWDATA_DIR = BACKEND_DIR / "rowdata"
-DATASET_NAMES = (
-    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-1)",
-    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4437-1)",
-    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4571-1)",
-    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-2)",
-)
+DATASET_MARKER = "[파생 옵션 코스피200 위클리]일중 매매정보(1분)"
 DATE_RE = re.compile(r"_(\d{8})\.csv$")
 ANALYSIS_START_DATE = "20230801"
+
+
+def dataset_directories(
+    rowdata_dir: Path = ROWDATA_DIR,
+) -> tuple[Path, ...]:
+    if not rowdata_dir.exists():
+        return ()
+    return tuple(
+        sorted(
+            (
+                path
+                for path in rowdata_dir.iterdir()
+                if path.is_dir() and DATASET_MARKER in path.name
+            ),
+            key=lambda path: path.name,
+        )
+    )
+
+
+def option_file_index(
+    rowdata_dir: Path = ROWDATA_DIR,
+    start_date: str = ANALYSIS_START_DATE,
+) -> dict[str, Path]:
+    by_date: dict[str, list[Path]] = defaultdict(list)
+    for dataset_dir in dataset_directories(rowdata_dir):
+        for path in dataset_dir.glob("*.csv"):
+            match = DATE_RE.search(path.name)
+            if match is None or match.group(1) < start_date:
+                continue
+            by_date[match.group(1)].append(path)
+
+    duplicates = {
+        date: paths
+        for date, paths in sorted(by_date.items())
+        if len(paths) > 1
+    }
+    if duplicates:
+        detail = "; ".join(
+            f"{date}: {', '.join(path.parent.name for path in paths)}"
+            for date, paths in duplicates.items()
+        )
+        raise ValueError(f"중복 거래일 옵션 파일: {detail}")
+    return {
+        date: paths[0]
+        for date, paths in sorted(by_date.items())
+    }
+
+
+DATASET_NAMES = tuple(path.name for path in dataset_directories())
 
 
 def collect_inventory() -> dict[str, object]:
@@ -23,8 +67,8 @@ def collect_inventory() -> dict[str, object]:
     date_sources: dict[str, list[str]] = defaultdict(list)
     invalid_names: list[str] = []
 
-    for dataset_name in DATASET_NAMES:
-        dataset_dir = ROWDATA_DIR / dataset_name
+    for dataset_dir in dataset_directories():
+        dataset_name = dataset_dir.name
         dates: list[str] = []
 
         for path in dataset_dir.glob("*.csv"):

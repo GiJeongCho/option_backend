@@ -10,9 +10,7 @@ from typing import Iterable
 
 from inventory import (
     ANALYSIS_START_DATE,
-    DATASET_NAMES,
-    DATE_RE,
-    ROWDATA_DIR,
+    option_file_index,
 )
 
 
@@ -58,17 +56,7 @@ def reaches_multiple(high: float, base: float, multiple: float) -> bool:
 
 
 def target_file_map() -> dict[str, Path]:
-    result: dict[str, Path] = {}
-    for dataset_name in DATASET_NAMES:
-        for path in (ROWDATA_DIR / dataset_name).glob("*.csv"):
-            match = DATE_RE.search(path.name)
-            if match is None or match.group(1) < START_DATE:
-                continue
-            date = match.group(1)
-            if date in result:
-                raise ValueError(f"중복 거래일 파일: {date}")
-            result[date] = path
-    return result
+    return option_file_index(start_date=START_DATE)
 
 
 def derive_expiry_groups(

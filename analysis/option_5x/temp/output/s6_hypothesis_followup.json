@@ -1,0 +1,409 @@
+{
+  "status": "temporary_hypothesis_followup",
+  "features_are_predeclared_from_recording": true,
+  "feature_policy": "절대 지수 수준·연도·행사가격을 제외하고 옵션 기울기/변동성, MA·RSI, VIX 장기기울기, 현선물 단기방향·상관·basis, 분기선물 만기거리만 사용",
+  "band_paired_comparison": {
+    "rate_2x": {
+      "matched_expiry_days": 183,
+      "low_mean": 0.440455,
+      "high_mean": 0.373527,
+      "low_minus_high_mean": 0.066928,
+      "low_minus_high_median": 0.0,
+      "wilcoxon_p": 0.07410480724365266
+    },
+    "rate_5x": {
+      "matched_expiry_days": 183,
+      "low_mean": 0.125774,
+      "high_mean": 0.069122,
+      "low_minus_high_mean": 0.056652,
+      "low_minus_high_median": 0.0,
+      "wilcoxon_p": 1.103824551765931e-07
+    },
+    "rate_10x": {
+      "matched_expiry_days": 183,
+      "low_mean": 0.04354,
+      "high_mean": 0.019884,
+      "low_minus_high_mean": 0.023656,
+      "low_minus_high_median": 0.0,
+      "wilcoxon_p": 8.034307941501007e-08
+    },
+    "max_multiple": {
+      "matched_expiry_days": 183,
+      "low_mean": 9.305132,
+      "high_mean": 5.388253,
+      "low_minus_high_mean": 3.916878,
+      "low_minus_high_median": 1.671895,
+      "wilcoxon_p": 4.897313723218048e-25
+    }
+  },
+  "tasks": {
+    "TEN_PLUS_VS_ALL": {
+      "features": [
+        "option_realized_volatility_20",
+        "option_realized_volatility_60",
+        "option_slope_acceleration_5",
+        "option_slope_5",
+        "option_slope_10",
+        "option_rsi_5",
+        "option_rsi_14",
+        "option_volume_ratio_20",
+        "signed_intraday_futures_slope_5",
+        "signed_intraday_spot_slope_5",
+        "signed_intraday_futures_return_5",
+        "signed_intraday_spot_return_5",
+        "intraday_spot_futures_corr_20",
+        "intraday_basis_slope_10",
+        "vix_slope_120",
+        "vix_ma20_distance",
+        "vix_rsi_14",
+        "weekly_futures_slope_20",
+        "daily_futures_slope_20",
+        "quarterly_futures_dte",
+        "is_call",
+        "band_low"
+      ],
+      "fixed_split": {
+        "development": {
+          "rows": 2231,
+          "positives": 134,
+          "prevalence_pct": 6.0063,
+          "auc": 0.864,
+          "average_precision": 0.2252,
+          "top_20pct_lift": 3.6874
+        },
+        "validation": {
+          "rows": 3111,
+          "positives": 255,
+          "prevalence_pct": 8.1967,
+          "auc": 0.6121,
+          "average_precision": 0.1121,
+          "top_20pct_lift": 1.547
+        },
+        "validation_expiry_cluster_auc_ci": {
+          "low_95": 0.4866,
+          "median": 0.613,
+          "high_95": 0.733
+        }
+      },
+      "walk_forward": {
+        "folds": [
+          {
+            "train_end": "20251231",
+            "test_start": "20260101",
+            "test_end": "20260228",
+            "rows": 398,
+            "positives": 37,
+            "prevalence_pct": 9.2965,
+            "auc": 0.7146,
+            "average_precision": 0.1785,
+            "top_20pct_lift": 1.8824
+          },
+          {
+            "train_end": "20260228",
+            "test_start": "20260301",
+            "test_end": "20260430",
+            "rows": 790,
+            "positives": 86,
+            "prevalence_pct": 10.8861,
+            "auc": 0.6969,
+            "average_precision": 0.1861,
+            "top_20pct_lift": 1.9767
+          },
+          {
+            "train_end": "20260430",
+            "test_start": "20260501",
+            "test_end": "20260630",
+            "rows": 1352,
+            "positives": 97,
+            "prevalence_pct": 7.1746,
+            "auc": 0.5302,
+            "average_precision": 0.0838,
+            "top_20pct_lift": 1.1315
+          },
+          {
+            "train_end": "20260630",
+            "test_start": "20260701",
+            "test_end": "20260831",
+            "rows": 1475,
+            "positives": 133,
+            "prevalence_pct": 9.0169,
+            "auc": 0.7342,
+            "average_precision": 0.2094,
+            "top_20pct_lift": 2.5188
+          },
+          {
+            "train_end": "20260831",
+            "test_start": "20260901",
+            "test_end": "20260930",
+            "rows": 284,
+            "positives": 25,
+            "prevalence_pct": 8.8028,
+            "auc": 0.9302,
+            "average_precision": 0.6524,
+            "top_20pct_lift": 3.986
+          }
+        ],
+        "aggregate": {
+          "rows": 4299,
+          "positives": 378,
+          "prevalence_pct": 8.7927,
+          "auc": 0.6547,
+          "average_precision": 0.1323,
+          "top_20pct_lift": 1.4944,
+          "expiry_cluster_auc_ci": {
+            "low_95": 0.5657,
+            "median": 0.6615,
+            "high_95": 0.7249
+          }
+        }
+      },
+      "tree": {
+        "rules": "|--- vix_slope_120 <= 0.00\n|   |--- band_low <= 0.50\n|   |   |--- class: 0\n|   |--- band_low >  0.50\n|   |   |--- class: 0\n|--- vix_slope_120 >  0.00\n|   |--- is_call <= 0.50\n|   |   |--- class: 1\n|   |--- is_call >  0.50\n|   |   |--- class: 0\n",
+        "development": {
+          "rows": 2231,
+          "positives": 134,
+          "prevalence_pct": 6.0063,
+          "auc": 0.8111,
+          "average_precision": 0.1635,
+          "top_20pct_lift": 2.57
+        },
+        "validation": {
+          "rows": 3111,
+          "positives": 255,
+          "prevalence_pct": 8.1967,
+          "auc": 0.6023,
+          "average_precision": 0.1042,
+          "top_20pct_lift": 1.2141
+        }
+      },
+      "first_passing_diagnostic": {
+        "warning": "후반 구간을 처음 확인한 뒤 작성한 진단이므로 독립 검증이 아니며 S6 채택 근거로 단독 사용하지 않음",
+        "development_score_80pct_threshold": 0.6267246670826726,
+        "baseline_first_event_each_expiry": {
+          "selected_expiry_days": 38,
+          "10x_days": 5,
+          "10x_rate_pct": 13.1579,
+          "5x_days": 9,
+          "5x_rate_pct": 23.6842,
+          "2x_days": 19,
+          "2x_rate_pct": 50.0,
+          "low_band_days": 30,
+          "put_days": 36
+        },
+        "first_event_passing_threshold": {
+          "selected_expiry_days": 28,
+          "10x_days": 3,
+          "10x_rate_pct": 10.7143,
+          "5x_days": 5,
+          "5x_rate_pct": 17.8571,
+          "2x_days": 13,
+          "2x_rate_pct": 46.4286,
+          "low_band_days": 25,
+          "put_days": 25
+        },
+        "target_column": "reached_10x"
+      }
+    },
+    "FIVE_PLUS_VS_ALL": {
+      "features": [
+        "option_realized_volatility_20",
+        "option_realized_volatility_60",
+        "option_slope_acceleration_5",
+        "option_slope_5",
+        "option_slope_10",
+        "option_rsi_5",
+        "option_rsi_14",
+        "option_volume_ratio_20",
+        "signed_intraday_futures_slope_5",
+        "signed_intraday_spot_slope_5",
+        "signed_intraday_futures_return_5",
+        "signed_intraday_spot_return_5",
+        "intraday_spot_futures_corr_20",
+        "intraday_basis_slope_10",
+        "vix_slope_120",
+        "vix_ma20_distance",
+        "vix_rsi_14",
+        "weekly_futures_slope_20",
+        "daily_futures_slope_20",
+        "quarterly_futures_dte",
+        "is_call",
+        "band_low"
+      ],
+      "fixed_split": {
+        "development": {
+          "rows": 2231,
+          "positives": 319,
+          "prevalence_pct": 14.2985,
+          "auc": 0.7462,
+          "average_precision": 0.3009,
+          "top_20pct_lift": 2.2061
+        },
+        "validation": {
+          "rows": 3111,
+          "positives": 550,
+          "prevalence_pct": 17.6792,
+          "auc": 0.5513,
+          "average_precision": 0.1897,
+          "top_20pct_lift": 1.0078
+        },
+        "validation_expiry_cluster_auc_ci": {
+          "low_95": 0.4661,
+          "median": 0.552,
+          "high_95": 0.639
+        }
+      },
+      "walk_forward": {
+        "folds": [
+          {
+            "train_end": "20251231",
+            "test_start": "20260101",
+            "test_end": "20260228",
+            "rows": 398,
+            "positives": 88,
+            "prevalence_pct": 22.1106,
+            "auc": 0.5198,
+            "average_precision": 0.2542,
+            "top_20pct_lift": 1.1307
+          },
+          {
+            "train_end": "20260228",
+            "test_start": "20260301",
+            "test_end": "20260430",
+            "rows": 790,
+            "positives": 161,
+            "prevalence_pct": 20.3797,
+            "auc": 0.5988,
+            "average_precision": 0.273,
+            "top_20pct_lift": 1.4596
+          },
+          {
+            "train_end": "20260430",
+            "test_start": "20260501",
+            "test_end": "20260630",
+            "rows": 1352,
+            "positives": 209,
+            "prevalence_pct": 15.4586,
+            "auc": 0.4691,
+            "average_precision": 0.1473,
+            "top_20pct_lift": 0.9787
+          },
+          {
+            "train_end": "20260630",
+            "test_start": "20260701",
+            "test_end": "20260831",
+            "rows": 1475,
+            "positives": 295,
+            "prevalence_pct": 20.0,
+            "auc": 0.627,
+            "average_precision": 0.2587,
+            "top_20pct_lift": 1.339
+          },
+          {
+            "train_end": "20260831",
+            "test_start": "20260901",
+            "test_end": "20260930",
+            "rows": 284,
+            "positives": 46,
+            "prevalence_pct": 16.1972,
+            "auc": 0.7813,
+            "average_precision": 0.5035,
+            "top_20pct_lift": 2.5995
+          }
+        ],
+        "aggregate": {
+          "rows": 4299,
+          "positives": 799,
+          "prevalence_pct": 18.5857,
+          "auc": 0.5453,
+          "average_precision": 0.2054,
+          "top_20pct_lift": 1.0573,
+          "expiry_cluster_auc_ci": {
+            "low_95": 0.4822,
+            "median": 0.5497,
+            "high_95": 0.6155
+          }
+        }
+      },
+      "tree": {
+        "rules": "|--- daily_futures_slope_20 <= 0.01\n|   |--- weekly_futures_slope_20 <= 0.02\n|   |   |--- class: 0\n|   |--- weekly_futures_slope_20 >  0.02\n|   |   |--- class: 1\n|--- daily_futures_slope_20 >  0.01\n|   |--- option_realized_volatility_60 <= 0.12\n|   |   |--- class: 0\n|   |--- option_realized_volatility_60 >  0.12\n|   |   |--- class: 1\n",
+        "development": {
+          "rows": 2231,
+          "positives": 319,
+          "prevalence_pct": 14.2985,
+          "auc": 0.7198,
+          "average_precision": 0.2635,
+          "top_20pct_lift": 2.1904
+        },
+        "validation": {
+          "rows": 3111,
+          "positives": 550,
+          "prevalence_pct": 17.6792,
+          "auc": 0.5868,
+          "average_precision": 0.2112,
+          "top_20pct_lift": 1.371
+        }
+      },
+      "first_passing_diagnostic": {
+        "warning": "후반 구간을 처음 확인한 뒤 작성한 진단이므로 독립 검증이 아니며 S6 채택 근거로 단독 사용하지 않음",
+        "development_score_80pct_threshold": 0.6323042373404988,
+        "baseline_first_event_each_expiry": {
+          "selected_expiry_days": 38,
+          "10x_days": 5,
+          "10x_rate_pct": 13.1579,
+          "5x_days": 11,
+          "5x_rate_pct": 28.9474,
+          "2x_days": 19,
+          "2x_rate_pct": 50.0,
+          "low_band_days": 30,
+          "put_days": 32
+        },
+        "first_event_passing_threshold": {
+          "selected_expiry_days": 24,
+          "10x_days": 2,
+          "10x_rate_pct": 8.3333,
+          "5x_days": 6,
+          "5x_rate_pct": 25.0,
+          "2x_days": 10,
+          "2x_rate_pct": 41.6667,
+          "low_band_days": 19,
+          "put_days": 19
+        },
+        "target_column": "reached_5x"
+      }
+    }
+  },
+  "s6_gate": {
+    "scope": "복합 분류 모델을 실행 신호로 직접 쓰는 경우",
+    "ten_validation": {
+      "rows": 3111,
+      "positives": 255,
+      "prevalence_pct": 8.1967,
+      "auc": 0.6121,
+      "average_precision": 0.1121,
+      "top_20pct_lift": 1.547
+    },
+    "ten_walk_forward": {
+      "rows": 4299,
+      "positives": 378,
+      "prevalence_pct": 8.7927,
+      "auc": 0.6547,
+      "average_precision": 0.1323,
+      "top_20pct_lift": 1.4944,
+      "expiry_cluster_auc_ci": {
+        "low_95": 0.5657,
+        "median": 0.6615,
+        "high_95": 0.7249
+      }
+    },
+    "five_validation": {
+      "rows": 3111,
+      "positives": 550,
+      "prevalence_pct": 17.6792,
+      "auc": 0.5513,
+      "average_precision": 0.1897,
+      "top_20pct_lift": 1.0078
+    },
+    "passed": false,
+    "decision": "복합 모델 직접 승격은 보류. 별도로 발견한 VIX상승+PUT+RV20 단순 규칙은 비용 포함 백테스트와 독립 원자료 감사로 판정"
+  }
+}

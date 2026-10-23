@@ -331,13 +331,7 @@ def audit_confirmation_entry(
 
 def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if strategy.PPT_START
-        <= group["expiry_date"]
-        <= strategy.PPT_END
-    ]
+    groups = strategy.backtest_groups(profile)
     files = base.target_file_map()
     cash = base.INITIAL_CASH
     daily: list[strategy.DayResult] = []

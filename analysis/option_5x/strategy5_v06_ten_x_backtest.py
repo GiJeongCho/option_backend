@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 from collections import defaultdict
+from collections.abc import Callable
 from dataclasses import asdict
 
 import minimal_baseline_backtest as base
@@ -181,12 +182,16 @@ def simulate_day(
     contracts: dict[str, base.ContractGrid],
     setups: list[v04.Setup],
     start_cash: int,
+    entry_allocator: Callable[
+        [dict[str, base.ContractGrid], list[v04.Setup]],
+        list[v04.PlannedEntry],
+    ] = v04.allocate_entries,
 ) -> tuple[
     v04.DayResult,
     list[dict[str, object]],
     list[v04.PositionRecord],
 ]:
-    entries = v04.allocate_entries(contracts, setups)
+    entries = entry_allocator(contracts, setups)
     used_capacity: dict[str, dict[int, int]] = defaultdict(dict)
     outcomes: list[v04.PositionOutcome] = []
     trades: list[dict[str, object]] = []
@@ -414,13 +419,7 @@ def audit(
 
 def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if legacy.PPT_START
-        <= group["expiry_date"]
-        <= legacy.PPT_END
-    ]
+    groups = legacy.backtest_groups(profile)
     files = base.target_file_map()
     cash = base.INITIAL_CASH
     daily: list[v04.DayResult] = []

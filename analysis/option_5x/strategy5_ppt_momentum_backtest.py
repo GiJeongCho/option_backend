@@ -13,6 +13,7 @@ import minimal_baseline_backtest as base
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"
 STRATEGY_VERSION = "S5-v0.1"
 PPT_START = "20260105"
+# Original presentation sample end; backtests continue through latest expiry.
 PPT_END = "20260831"
 DEVELOPMENT_END = "20260430"
 
@@ -24,6 +25,17 @@ CONFIRMATION_MULTIPLE = 1.5
 CONFIRMATION_WINDOW_MINUTES = 30
 TARGET_MULTIPLES = (2.0, 5.0, 10.0)
 FORCE_EXIT_TIME = 1515
+
+
+def backtest_groups(
+    profile: dict[str, object],
+) -> list[dict[str, str]]:
+    """Use every completed expiry from the original study start onward."""
+    return [
+        group
+        for group in base.derive_expiry_groups(profile)
+        if group["expiry_date"] >= PPT_START
+    ]
 
 
 @dataclass(frozen=True)
@@ -717,11 +729,7 @@ def write_csv(
 
 def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if PPT_START <= group["expiry_date"] <= PPT_END
-    ]
+    groups = backtest_groups(profile)
     if not groups:
         raise RuntimeError("PPT 기간 만기일을 찾을 수 없습니다.")
     files = base.target_file_map()

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 67,
+  "trade_rows": 72,
+  "position_rows": 32,
+  "checks": [
+    "cash continuity, 5,000,000 won entry cap, and closed quantity",
+    "post-entry 1.5x confirmation only through 09:29",
+    "full 09:30 liquidation for every unconfirmed position",
+    "10x all-sale or 15:15 time exit for confirmed positions",
+    "no reentry and normal-order 10% volume limits",
+    "every buy raw open is within the 0.40-0.49 premium bin",
+    "40,000,000 won initial cash and no borrowing",
+    "every bought contract has a strike divisible by 10 points",
+    "campaign allocation follows raw premium 0.40 through 0.49",
+    "daily new-buy principal does not exceed 5,000,000 won"
+  ]
+}

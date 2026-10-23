@@ -4,8 +4,8 @@
   "parent_strategy": "S3-v0.1",
   "scope": {
     "start": "20251010",
-    "end": "20260831",
-    "expiry_days": 83,
+    "end": "20260928",
+    "expiry_days": 90,
     "development_end": "20260430",
     "historical_low_volatility_backcast": false
   },
@@ -25,29 +25,29 @@
     "exit_execution": "later actual bars, 10% volume participation, 0.01 slippage"
   },
   "summary": {
-    "days": 83,
-    "signal_days": 83,
-    "trade_days": 66,
+    "days": 90,
+    "signal_days": 90,
+    "trade_days": 71,
     "profitable_days": 18,
-    "losing_days": 48,
-    "total_pnl": -24486500,
-    "average_trade_day_pnl": -371008,
-    "profit_factor": 0.5573,
+    "losing_days": 53,
+    "total_pnl": -31413500,
+    "average_trade_day_pnl": -442444,
+    "profit_factor": 0.4953,
     "minimum_day_pnl": -2874500,
     "maximum_day_pnl": 8296000,
-    "max_drawdown": -25357500,
-    "pnl_excluding_best_3_days": -42431500,
-    "pnl_excluding_best_5_days": -48674000,
-    "total_buy_principal": 202112500,
-    "expired_contracts": 9,
-    "one_stage_days": 11,
-    "two_stage_days": 21,
-    "three_stage_days": 34,
-    "lower_low_days": 56,
-    "second_golden_cross_days": 56,
-    "second_death_cross_exit_days": 56,
+    "max_drawdown": -31736500,
+    "pnl_excluding_best_3_days": -49358500,
+    "pnl_excluding_best_5_days": -55601000,
+    "total_buy_principal": 210962500,
+    "expired_contracts": 12,
+    "one_stage_days": 13,
+    "two_stage_days": 23,
+    "three_stage_days": 35,
+    "lower_low_days": 59,
+    "second_golden_cross_days": 58,
+    "second_death_cross_exit_days": 58,
     "initial_cash": 80000000,
-    "ending_cash": 55513500
+    "ending_cash": 48586500
   },
   "development": {
     "days": 52,
@@ -73,106 +73,106 @@
     "second_death_cross_exit_days": 42
   },
   "validation": {
-    "days": 31,
-    "signal_days": 31,
-    "trade_days": 16,
+    "days": 38,
+    "signal_days": 38,
+    "trade_days": 21,
     "profitable_days": 3,
-    "losing_days": 13,
-    "total_pnl": -4921000,
-    "average_trade_day_pnl": -307562,
-    "profit_factor": 0.6524,
-    "minimum_day_pnl": -2349000,
+    "losing_days": 18,
+    "total_pnl": -11848000,
+    "average_trade_day_pnl": -564190,
+    "profit_factor": 0.438,
+    "minimum_day_pnl": -2869000,
     "maximum_day_pnl": 8296000,
-    "max_drawdown": -8444500,
-    "pnl_excluding_best_3_days": -14156500,
-    "pnl_excluding_best_5_days": -13760000,
-    "total_buy_principal": 35597500,
-    "expired_contracts": 5,
-    "one_stage_days": 3,
-    "two_stage_days": 8,
-    "three_stage_days": 5,
-    "lower_low_days": 14,
-    "second_golden_cross_days": 14,
-    "second_death_cross_exit_days": 14
+    "max_drawdown": -15225500,
+    "pnl_excluding_best_3_days": -21083500,
+    "pnl_excluding_best_5_days": -20687000,
+    "total_buy_principal": 44447500,
+    "expired_contracts": 8,
+    "one_stage_days": 5,
+    "two_stage_days": 10,
+    "three_stage_days": 6,
+    "lower_low_days": 17,
+    "second_golden_cross_days": 16,
+    "second_death_cross_exit_days": 16
   },
   "comparison_to_s3_v01": {
-    "total_pnl_difference": -76888500,
+    "total_pnl_difference": -83407000,
     "development_pnl_difference": -65659500,
-    "validation_pnl_difference": -11229000
+    "validation_pnl_difference": -17747500
   },
   "analysis": {
     "by_entry_stages": [
       {
         "group": "1",
-        "count": 11,
+        "count": 13,
         "profitable_count": 4,
-        "losing_count": 7,
-        "total_pnl": 1413000,
-        "average_pnl": 128455
+        "losing_count": 9,
+        "total_pnl": -1194000,
+        "average_pnl": -91846
       },
       {
         "group": "2",
-        "count": 21,
+        "count": 23,
         "profitable_count": 2,
-        "losing_count": 19,
-        "total_pnl": -23015000,
-        "average_pnl": -1095952
+        "losing_count": 21,
+        "total_pnl": -26994500,
+        "average_pnl": -1173674
       },
       {
         "group": "3",
-        "count": 34,
+        "count": 35,
         "profitable_count": 12,
-        "losing_count": 22,
-        "total_pnl": -2884500,
-        "average_pnl": -84838
+        "losing_count": 23,
+        "total_pnl": -3225000,
+        "average_pnl": -92143
       }
     ],
     "by_exit_reason": [
       {
         "group": "SECOND_DEATH_CROSS",
-        "count": 56,
+        "count": 58,
         "profitable_count": 14,
-        "losing_count": 42,
-        "total_pnl": -26053000,
-        "average_pnl": -465232
+        "losing_count": 44,
+        "total_pnl": -27504000,
+        "average_pnl": -474207
       },
       {
         "group": "TIME",
-        "count": 4,
+        "count": 5,
         "profitable_count": 3,
-        "losing_count": 1,
-        "total_pnl": 7474500,
-        "average_pnl": 1868625
+        "losing_count": 2,
+        "total_pnl": 4605500,
+        "average_pnl": 921100
       },
       {
         "group": "UNFILLED_ZERO_VALUE",
-        "count": 6,
+        "count": 8,
         "profitable_count": 1,
-        "losing_count": 5,
-        "total_pnl": -5908000,
-        "average_pnl": -984667
+        "losing_count": 7,
+        "total_pnl": -8515000,
+        "average_pnl": -1064375
       }
     ],
     "by_call_put": [
       {
         "group": "CALL",
-        "count": 30,
+        "count": 32,
         "profitable_count": 6,
-        "losing_count": 24,
-        "total_pnl": -19282000,
-        "average_pnl": -642733
+        "losing_count": 26,
+        "total_pnl": -21620500,
+        "average_pnl": -675641
       },
       {
         "group": "PUT",
-        "count": 36,
+        "count": 39,
         "profitable_count": 12,
-        "losing_count": 24,
-        "total_pnl": -5204500,
-        "average_pnl": -144569
+        "losing_count": 27,
+        "total_pnl": -9793000,
+        "average_pnl": -251103
       }
     ],
-    "losing_days_mfe_at_least_1_5x": 39,
-    "losing_days_mfe_at_least_2x": 30,
+    "losing_days_mfe_at_least_1_5x": 42,
+    "losing_days_mfe_at_least_2x": 32,
     "worst_days": [
       {
         "strategy": "S3-v0.2",
@@ -204,6 +204,37 @@
         "expired_quantity": 0,
         "mfe_multiple": 2.00565,
         "mae_pct": -99.435
+      },
+      {
+        "strategy": "S3-v0.2",
+        "date": "20260903",
+        "previous_vix": 43.37,
+        "start_cash": 55513500,
+        "end_cash": 52644500,
+        "pnl": -2869000,
+        "signal_found": true,
+        "entry_filled": true,
+        "code": "KR4C09FCA112",
+        "call_put": "PUT",
+        "first_low": 1.0,
+        "second_low": 0.61,
+        "first_golden_cross_minute": 956,
+        "lower_low_minute": 1411,
+        "second_golden_cross_minute": null,
+        "first_death_cross_minute": 1002,
+        "second_death_cross_minute": null,
+        "entry_stages": 2,
+        "entry_quantity": 9,
+        "average_entry_price": 1.341111,
+        "buy_principal": 3017500,
+        "buy_fee": 4500,
+        "gross_sales": 157500,
+        "sell_fee": 4500,
+        "exit_reason": "TIME",
+        "exit_minute": 1516,
+        "expired_quantity": 0,
+        "mfe_multiple": 13.794532,
+        "mae_pct": -98.5087
       },
       {
         "strategy": "S3-v0.2",
@@ -607,37 +638,6 @@
         "expired_quantity": 4,
         "mfe_multiple": 1.080745,
         "mae_pct": -99.3789
-      },
-      {
-        "strategy": "S3-v0.2",
-        "date": "20251030",
-        "previous_vix": 32.63,
-        "start_cash": 74065500,
-        "end_cash": 72475500,
-        "pnl": -1590000,
-        "signal_found": true,
-        "entry_filled": true,
-        "code": "KR4209EC5773",
-        "call_put": "CALL",
-        "first_low": 2.47,
-        "second_low": 2.44,
-        "first_golden_cross_minute": 951,
-        "lower_low_minute": 1004,
-        "second_golden_cross_minute": 1010,
-        "first_death_cross_minute": 954,
-        "second_death_cross_minute": 1012,
-        "entry_stages": 3,
-        "entry_quantity": 5,
-        "average_entry_price": 3.048,
-        "buy_principal": 3810000,
-        "buy_fee": 2500,
-        "gross_sales": 2225000,
-        "sell_fee": 2500,
-        "exit_reason": "SECOND_DEATH_CROSS",
-        "exit_minute": 1014,
-        "expired_quantity": 0,
-        "mfe_multiple": 1.604331,
-        "mae_pct": -99.6719
       }
     ]
   },
@@ -645,8 +645,8 @@
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 83,
-    "trade_rows": 256
+    "daily_rows": 90,
+    "trade_rows": 272
   },
   "limitations": [
     "쌍바닥·쌍고점은 가격 모양을 사후 판독하지 않고 확정된 MA 교차와 더 낮은 저점으로 근사했습니다.",

@@ -35,8 +35,7 @@ def run() -> dict[str, object]:
     profile = json.loads(raw.PROFILE_PATH.read_text(encoding="utf-8"))
     groups = {
         group["expiry_date"]: group
-        for group in raw.derive_expiry_groups(profile)
-        if legacy.PPT_START <= group["expiry_date"] <= legacy.PPT_END
+        for group in legacy.backtest_groups(profile)
     }
     files = raw.target_file_map()
     contracts_by_date: dict[str, dict[str, raw.ContractGrid]] = {}

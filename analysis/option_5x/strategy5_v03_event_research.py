@@ -470,13 +470,7 @@ def write_csv(
 
 def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if legacy.PPT_START
-        <= group["expiry_date"]
-        <= legacy.PPT_END
-    ]
+    groups = legacy.backtest_groups(profile)
     files = base.target_file_map()
     rows_by_mode: dict[str, list[ContractEvent]] = {
         mode: [] for mode in OBSERVATION_MODES

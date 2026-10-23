@@ -1446,13 +1446,7 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 def run() -> dict[str, object]:
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if legacy.PPT_START
-        <= group["expiry_date"]
-        <= legacy.PPT_END
-    ]
+    groups = legacy.backtest_groups(profile)
     files = base.target_file_map()
     cash = {name: base.INITIAL_CASH for name in CONFIGS}
     daily: dict[str, list[DayResult]] = {

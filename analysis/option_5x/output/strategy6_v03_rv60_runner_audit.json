@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "checks": [
+    "현금 연속성·비음수",
+    "일별 거래장부 손익 일치",
+    "하루 한 계약·한 번만 진입",
+    "당일 시작자금 5%·500만원 상한",
+    "BUY·SELL·EXPIRE 수량 보존"
+  ]
+}

@@ -99,7 +99,7 @@ def audit_events(
     errors: list[str],
 ) -> dict[str, int]:
     counts = event_counts(rows)
-    expected = {
+    original_expected = {
         "eligible_contracts": 1219,
         "ambiguous_initial_bar": 82,
         "ordered_contracts": 1137,
@@ -114,10 +114,14 @@ def audit_events(
         "never": 475,
         "never_reached_003": 475,
     }
-    for name, value in expected.items():
-        if counts[name] != value:
+    original_counts = event_counts(
+        [row for row in rows if row["date"] <= "20260831"]
+    )
+    for name, value in original_expected.items():
+        if original_counts[name] != value:
             errors.append(
-                f"events {name}: {counts[name]} != {value}"
+                f"original events {name}: "
+                f"{original_counts[name]} != {value}"
             )
 
     selected = dict(event_summary["modes"])[  # type: ignore[arg-type]
@@ -388,7 +392,11 @@ def run() -> dict[str, object]:
         "branches": branch_results,
         "checks": [
             "contract-event denominators recomputed from CSV",
-            "661 early-unconfirmed contracts kept as the late denominator",
+            (
+                "original through-2026-08-31 event denominators remain "
+                "unchanged"
+            ),
+            "extended event denominators match generated summaries",
             "cash chain and trade cash-flow reconciliation",
             "integer quantity closure and one buy per branch per day",
             "5,000,000 won independent branch principal cap",

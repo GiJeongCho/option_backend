@@ -1,8 +1,8 @@
 {
   "strategy": "S1-v0.1",
-  "losing_day_count": 47,
-  "losing_campaign_count": 92,
-  "total_losing_day_loss": -21199000,
+  "losing_day_count": 51,
+  "losing_campaign_count": 101,
+  "total_losing_day_loss": -23348000,
   "worst_days": [
     {
       "date": "20260402",
@@ -69,6 +69,28 @@
       "exit_reasons": "STOP_30_PERCENT,STOP_MA_REVERSAL",
       "mfe_pct": 46.25850340136055,
       "mae_pct": -32.35800344234079
+    },
+    {
+      "date": "20260917",
+      "previous_vix": 46.28,
+      "high_volatility": true,
+      "start_cash": 72357500,
+      "end_cash": 70931500,
+      "pnl": -1426000,
+      "signal_found": true,
+      "trade_day": true,
+      "campaign_count": 2,
+      "profitable_campaigns": 0,
+      "losing_campaigns": 2,
+      "buy_principal": 3740000,
+      "fees": 11000,
+      "gross_sales": 2325000,
+      "expired_quantity": 0,
+      "first_entry_minute": 914,
+      "call_put": "PUT",
+      "exit_reasons": "STOP_30_PERCENT,STOP_30_PERCENT",
+      "mfe_pct": 50.90909090909088,
+      "mae_pct": -33.82352941176471
     },
     {
       "date": "20260406",
@@ -311,75 +333,53 @@
       "exit_reasons": "STOP_MA_REVERSAL,STOP_30_PERCENT",
       "mfe_pct": 11.678832116788307,
       "mae_pct": -31.386861313868618
-    },
-    {
-      "date": "20260723",
-      "previous_vix": 82.79,
-      "high_volatility": true,
-      "start_cash": 74517500,
-      "end_cash": 74027500,
-      "pnl": -490000,
-      "signal_found": true,
-      "trade_day": true,
-      "campaign_count": 2,
-      "profitable_campaigns": 0,
-      "losing_campaigns": 2,
-      "buy_principal": 1507500,
-      "fees": 5000,
-      "gross_sales": 1022500,
-      "expired_quantity": 0,
-      "first_entry_minute": 917,
-      "call_put": "CALL",
-      "exit_reasons": "STOP_30_PERCENT,STOP_SETUP_LOW",
-      "mfe_pct": 20.168067226890752,
-      "mae_pct": -36.36363636363637
     }
   ],
   "by_exit_reason": [
     {
       "group": "STOP_30_PERCENT",
-      "loss_count": 27,
-      "total_loss": -16375500,
-      "average_loss": -606500.0,
+      "loss_count": 30,
+      "total_loss": -18059500,
+      "average_loss": -601983.33,
       "worst_loss": -2032000
     },
     {
       "group": "STOP_MA_REVERSAL",
-      "loss_count": 57,
-      "total_loss": -7202500,
-      "average_loss": -126359.65,
+      "loss_count": 62,
+      "total_loss": -7760500,
+      "average_loss": -125169.35,
       "worst_loss": -721500
     },
     {
       "group": "STOP_SETUP_LOW",
-      "loss_count": 8,
-      "total_loss": -1309000,
-      "average_loss": -163625.0,
+      "loss_count": 9,
+      "total_loss": -1559500,
+      "average_loss": -173277.78,
       "worst_loss": -295500
     }
   ],
   "by_call_put": [
     {
       "group": "CALL",
-      "loss_count": 55,
-      "total_loss": -15862000,
-      "average_loss": -288400.0,
+      "loss_count": 59,
+      "total_loss": -16342000,
+      "average_loss": -276983.05,
       "worst_loss": -1668000
     },
     {
       "group": "PUT",
-      "loss_count": 37,
-      "total_loss": -9025000,
-      "average_loss": -243918.92,
+      "loss_count": 42,
+      "total_loss": -11037500,
+      "average_loss": -262797.62,
       "worst_loss": -2032000
     }
   ],
   "by_entry_time": [
     {
       "group": "08:45-09:59",
-      "loss_count": 84,
-      "total_loss": -22515000,
-      "average_loss": -268035.71,
+      "loss_count": 93,
+      "total_loss": -25007500,
+      "average_loss": -268897.85,
       "worst_loss": -2032000
     },
     {
@@ -414,18 +414,18 @@
     },
     {
       "group": "40-49.99",
-      "loss_count": 8,
-      "total_loss": -1946500,
-      "average_loss": -243312.5,
-      "worst_loss": -922000
+      "loss_count": 17,
+      "total_loss": -4439000,
+      "average_loss": -261117.65,
+      "worst_loss": -1108000
     }
   ],
   "by_tranche_count": [
     {
       "group": "1",
-      "loss_count": 79,
-      "total_loss": -13287500,
-      "average_loss": -168196.2,
+      "loss_count": 87,
+      "total_loss": -14672000,
+      "average_loss": -168643.68,
       "worst_loss": -541500
     },
     {
@@ -437,10 +437,10 @@
     },
     {
       "group": "2",
-      "loss_count": 8,
-      "total_loss": -4781000,
-      "average_loss": -597625.0,
-      "worst_loss": -1037000
+      "loss_count": 9,
+      "total_loss": -5889000,
+      "average_loss": -654333.33,
+      "worst_loss": -1108000
     }
   ],
   "by_month": [
@@ -471,6 +471,13 @@
       "total_loss": -2708000,
       "average_loss": -193428.57,
       "worst_loss": -454000
+    },
+    {
+      "group": "202609",
+      "loss_count": 9,
+      "total_loss": -2492500,
+      "average_loss": -276944.44,
+      "worst_loss": -1108000
     },
     {
       "group": "202602",

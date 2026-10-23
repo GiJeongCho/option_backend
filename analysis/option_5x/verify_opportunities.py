@@ -6,7 +6,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from inventory import DATASET_NAMES, DATE_RE, ROWDATA_DIR
+from inventory import option_file_index
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -30,13 +30,7 @@ def as_bool(value: str) -> bool:
 
 
 def file_map() -> dict[str, Path]:
-    result: dict[str, Path] = {}
-    for dataset_name in DATASET_NAMES:
-        for path in (ROWDATA_DIR / dataset_name).glob("*.csv"):
-            match = DATE_RE.search(path.name)
-            if match:
-                result[match.group(1)] = path
-    return result
+    return option_file_index()
 
 
 def load_expected() -> tuple[

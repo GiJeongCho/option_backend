@@ -16,17 +16,17 @@
   },
   "raw_recomputation": {
     "definition": "first qualifying completed OHLC bar; maximum qualifying OHLC is P0",
-    "eligible": 1325,
-    "same_bar_ambiguous": 99,
-    "ordered_confirmed": 460,
-    "ordered_failed": 766,
+    "eligible": 1449,
+    "same_bar_ambiguous": 103,
+    "ordered_confirmed": 478,
+    "ordered_failed": 868,
     "confirmed_peak_buckets": {
-      "1_5_TO_2": 135,
-      "2_TO_5": 178,
-      "5_TO_10": 57,
-      "10_PLUS": 90
+      "1_5_TO_2": 139,
+      "2_TO_5": 188,
+      "5_TO_10": 58,
+      "10_PLUS": 93
     },
-    "confirmed_peak_median": 3.3065,
+    "confirmed_peak_median": 3.257,
     "maximum_peak_multiple": 62.6126
   },
   "raw_matches_ppt": false,
@@ -35,17 +35,17 @@
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 60,
-      "trade_rows": 1090,
-      "position_rows": 474
+      "daily_rows": 67,
+      "trade_rows": 1221,
+      "position_rows": 529
     },
     "STAGED": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 60,
-      "trade_rows": 1276,
-      "position_rows": 474
+      "daily_rows": 67,
+      "trade_rows": 1410,
+      "position_rows": 529
     }
   },
   "checks": [

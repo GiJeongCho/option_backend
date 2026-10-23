@@ -9,9 +9,7 @@ from pathlib import Path
 
 from inventory import (
     ANALYSIS_START_DATE,
-    DATASET_NAMES,
-    DATE_RE,
-    ROWDATA_DIR,
+    option_file_index,
 )
 
 
@@ -36,13 +34,7 @@ def time_bucket(value: str) -> str:
 
 
 def target_files() -> list[tuple[str, Path]]:
-    result: list[tuple[str, Path]] = []
-    for dataset_name in DATASET_NAMES:
-        for path in (ROWDATA_DIR / dataset_name).glob("*.csv"):
-            match = DATE_RE.search(path.name)
-            if match and match.group(1) >= START_DATE:
-                result.append((match.group(1), path))
-    return sorted(result)
+    return list(option_file_index(start_date=START_DATE).items())
 
 
 def profile() -> dict[str, object]:

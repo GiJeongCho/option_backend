@@ -1,0 +1,114 @@
+{
+  "status": "rejected_time_split_comparison",
+  "strategy_version": "S6-v0.2",
+  "generated_at": "2026-10-19T19:45:12.030731+00:00",
+  "rules": {
+    "initial_cash": 20000000,
+    "data_start": "20240924",
+    "date_gate": "직전 VIX 종가 > 직전 VIX SMA5, VIX 5일 정규화 회귀기울기 > 0, 직전 VIX 종가 > 그 전 VIX 종가",
+    "date_gate_lookahead": "거래일보다 이전 VIX 값만 사용",
+    "direction": "PUT only",
+    "premium_bands": [
+      [
+        0.4,
+        0.5
+      ],
+      [
+        1.0,
+        2.5
+      ]
+    ],
+    "option_gate": "신호 완료봉까지 옵션 RV20 > 0.13",
+    "risk": "당일 시작자금의 5%, 최대 500만원; 진입·청산봉 거래량 10%",
+    "exit": "계약수 절반 올림을 2배, 나머지를 10배에서 청산; 15:15 시간청산"
+  },
+  "summary": {
+    "period_start": "20240926",
+    "period_end": "20260928",
+    "days": 184,
+    "signal_days": 46,
+    "trade_days": 44,
+    "profitable_days": 19,
+    "losing_days": 25,
+    "break_even_days": 0,
+    "win_rate_pct": 43.18,
+    "initial_cash": 20000000,
+    "ending_cash": 21374500,
+    "total_pnl": 1374500,
+    "total_return_pct": 6.8725,
+    "profit_factor": 1.0973,
+    "max_drawdown": -8487500,
+    "max_drawdown_pct": -42.4375,
+    "reached_2x_days": 23,
+    "reached_10x_days": 4,
+    "expired_quantity": 65,
+    "pnl_excluding_best_1_day": -2121500,
+    "pnl_excluding_best_3_days": -8365500,
+    "pnl_excluding_best_5_days": -11239500
+  },
+  "development": {
+    "period_start": "20240926",
+    "period_end": "20260430",
+    "days": 146,
+    "signal_days": 36,
+    "trade_days": 35,
+    "profitable_days": 14,
+    "losing_days": 21,
+    "break_even_days": 0,
+    "win_rate_pct": 40.0,
+    "initial_cash": 20000000,
+    "ending_cash": 22540500,
+    "total_pnl": 2540500,
+    "total_return_pct": 12.7025,
+    "profit_factor": 1.2127,
+    "max_drawdown": -8487500,
+    "max_drawdown_pct": -42.4375,
+    "reached_2x_days": 18,
+    "reached_10x_days": 4,
+    "expired_quantity": 42,
+    "pnl_excluding_best_1_day": -955500,
+    "pnl_excluding_best_3_days": -7199500,
+    "pnl_excluding_best_5_days": -10073500
+  },
+  "validation": {
+    "period_start": "20260504",
+    "period_end": "20260928",
+    "days": 38,
+    "signal_days": 10,
+    "trade_days": 9,
+    "profitable_days": 5,
+    "losing_days": 4,
+    "break_even_days": 0,
+    "win_rate_pct": 55.56,
+    "initial_cash": 22540500,
+    "ending_cash": 21374500,
+    "total_pnl": -1166000,
+    "total_return_pct": -5.1729,
+    "profit_factor": 0.4644,
+    "max_drawdown": -1826000,
+    "max_drawdown_pct": -8.0236,
+    "reached_2x_days": 5,
+    "reached_10x_days": 0,
+    "expired_quantity": 23,
+    "pnl_excluding_best_1_day": -1666000,
+    "pnl_excluding_best_3_days": -2023500,
+    "pnl_excluding_best_5_days": -2177000
+  },
+  "audit": {
+    "passed": true,
+    "error_count": 0,
+    "error_samples": [],
+    "checks": [
+      "현금 연속성·비음수",
+      "일별 거래장부 손익 일치",
+      "하루 한 계약·한 번만 진입",
+      "당일 시작자금 5%·500만원 상한",
+      "BUY·SELL·EXPIRE 수량 보존"
+    ]
+  },
+  "decision": "요청한 단기 상승추세 일자 필터를 정확히 적용했지만 시간순 후반 손익이 음수여서 S6-v0.1을 대체하지 않음",
+  "limitations": [
+    "후반 실제 거래일이 적어 추가 만기일 잠금 검증이 필요하다.",
+    "최고 수익일 의존도가 높고 최고 3일 제외 손익이 음수다."
+  ]
+}

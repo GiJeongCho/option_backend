@@ -57,7 +57,7 @@ def run() -> dict[str, object]:
         != 2_000_000
     ):
         errors.append("fixed stop amount")
-    if len(daily) != 83:
+    if len(daily) != integer(summary.get("scope", {}).get("expiry_days")):
         errors.append(f"daily rows {len(daily)}")
     if len({row["date"] for row in daily}) != len(daily):
         errors.append("duplicate daily dates")

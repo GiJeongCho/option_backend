@@ -114,13 +114,7 @@ def preserve_literal_outputs() -> dict[str, object] | None:
 def run() -> dict[str, object]:
     literal_document = preserve_literal_outputs()
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
-    groups = [
-        group
-        for group in base.derive_expiry_groups(profile)
-        if literal.PPT_START
-        <= group["expiry_date"]
-        <= literal.PPT_END
-    ]
+    groups = literal.backtest_groups(profile)
     if not groups:
         raise RuntimeError("PPT 기간 만기일을 찾을 수 없습니다.")
     files = base.target_file_map()

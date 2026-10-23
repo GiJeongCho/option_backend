@@ -1,0 +1,17 @@
+{
+  "status": "independent_ledger_and_raw_replay_audit",
+  "strategy_version": "S6-v0.2",
+  "passed": true,
+  "error_count": 0,
+  "error_samples": [],
+  "daily_rows": 184,
+  "trade_rows": 132,
+  "position_rows": 44,
+  "checks": [
+    "현금 연속성·일별 손익·거래장부 현금흐름",
+    "하루 한 번 진입·위험예산·수량 보존",
+    "거래일 이전 VIX 종가·SMA5·5일 기울기·전일 상승 원자료 재계산",
+    "PUT·옵션 RV20·가격대·다음 실제 거래봉 원자료 재계산",
+    "거래량 10%·슬리피지·2배/10배 수량과 목표 선행 고가"
+  ]
+}

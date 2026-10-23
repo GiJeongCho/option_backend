@@ -2,14 +2,18 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 60,
-  "trade_rows": 124,
-  "position_rows": 54,
+  "daily_rows": 67,
+  "trade_rows": 138,
+  "position_rows": 61,
   "checks": [
     "cash continuity, 5,000,000 won entry cap, and closed quantity",
     "post-entry 1.5x confirmation only through 09:29",
     "full 09:30 liquidation for every unconfirmed position",
     "10x all-sale or 15:15 time exit for confirmed positions",
-    "no reentry and normal-order 10% volume limits"
+    "no reentry and normal-order 10% volume limits",
+    "every raw entry open is exactly 0.4, 0.5, ..., 1.2",
+    "daily buy principal does not exceed 5,000,000 won",
+    "cash is continuous, sufficient at entry, and never negative",
+    "eligible level count covers all executed exact quote levels"
   ]
 }

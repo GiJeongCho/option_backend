@@ -6,15 +6,15 @@
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 60,
-      "trade_rows": 117
+      "daily_rows": 67,
+      "trade_rows": 129
     },
     "LATE": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 60,
-      "trade_rows": 69
+      "daily_rows": 67,
+      "trade_rows": 77
     }
   }
 }
