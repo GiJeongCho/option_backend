@@ -1,0 +1,379 @@
+{
+  "n_contracts": 5277,
+  "n_with_vix_slope": 5111,
+  "rate_2x_pct": 64.85,
+  "rate_5x_pct": 22.51,
+  "rate_10x_pct": 8.32,
+  "corr_vs_log_max_multiple": [
+    {
+      "feature": "vix_slope120",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.2008,
+      "spearman": 0.1979
+    },
+    {
+      "feature": "vix_level",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.1797,
+      "spearman": 0.1933
+    },
+    {
+      "feature": "strike",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": 0.1842,
+      "spearman": 0.1887
+    },
+    {
+      "feature": "entry_premium",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": 0.0674,
+      "spearman": 0.1328
+    },
+    {
+      "feature": "log_entry_premium",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": 0.0757,
+      "spearman": 0.1328
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.0472,
+      "spearman": 0.0844
+    },
+    {
+      "feature": "vix_daily_return",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.064,
+      "spearman": 0.0816
+    },
+    {
+      "feature": "vix_above_ma5",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.0729,
+      "spearman": 0.0783
+    },
+    {
+      "feature": "vix_uptrend",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.0663,
+      "spearman": 0.0758
+    },
+    {
+      "feature": "vix_slope5",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5111,
+      "pearson": 0.048,
+      "spearman": 0.0714
+    },
+    {
+      "feature": "bar_count_post",
+      "type": "post(사후)",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": 0.0557,
+      "spearman": 0.0297
+    },
+    {
+      "feature": "entry_time",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": -0.085,
+      "spearman": 0.0202
+    },
+    {
+      "feature": "is_put",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": 0.011,
+      "spearman": 0.0045
+    },
+    {
+      "feature": "log_total_volume_post",
+      "type": "post(사후)",
+      "outcome": "log_max_multiple",
+      "n": 5277,
+      "pearson": 0.0356,
+      "spearman": 0.0018
+    }
+  ],
+  "corr_vs_reached_10x": [
+    {
+      "feature": "vix_slope120",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.1689,
+      "spearman": 0.1784
+    },
+    {
+      "feature": "strike",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": 0.1787,
+      "spearman": 0.1735
+    },
+    {
+      "feature": "vix_level",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.167,
+      "spearman": 0.1538
+    },
+    {
+      "feature": "bar_count_post",
+      "type": "post(사후)",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": -0.0734,
+      "spearman": -0.0914
+    },
+    {
+      "feature": "log_total_volume_post",
+      "type": "post(사후)",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": -0.0871,
+      "spearman": -0.0853
+    },
+    {
+      "feature": "vix_daily_return",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.0609,
+      "spearman": 0.0703
+    },
+    {
+      "feature": "is_put",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": 0.0679,
+      "spearman": 0.0679
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.0388,
+      "spearman": 0.0545
+    },
+    {
+      "feature": "vix_above_ma5",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.0517,
+      "spearman": 0.0517
+    },
+    {
+      "feature": "vix_uptrend",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.046,
+      "spearman": 0.046
+    },
+    {
+      "feature": "vix_slope5",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5111,
+      "pearson": 0.0162,
+      "spearman": 0.022
+    },
+    {
+      "feature": "entry_time",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": -0.0335,
+      "spearman": -0.0033
+    },
+    {
+      "feature": "entry_premium",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": 0.0016,
+      "spearman": 0.0006
+    },
+    {
+      "feature": "log_entry_premium",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 5277,
+      "pearson": 0.0072,
+      "spearman": 0.0006
+    }
+  ],
+  "group_contrast_2x_vs_10x": [
+    {
+      "feature": "entry_premium",
+      "mean_reached2x": 3.1392,
+      "mean_reached10x": 3.0175,
+      "diff(10x-2x)": -0.1218
+    },
+    {
+      "feature": "log_entry_premium",
+      "mean_reached2x": 0.998,
+      "mean_reached10x": 0.9559,
+      "diff(10x-2x)": -0.0421
+    },
+    {
+      "feature": "is_put",
+      "mean_reached2x": 0.5105,
+      "mean_reached10x": 0.6241,
+      "diff(10x-2x)": 0.1136
+    },
+    {
+      "feature": "entry_time",
+      "mean_reached2x": 953.0155,
+      "mean_reached10x": 934.5672,
+      "diff(10x-2x)": -18.4483
+    },
+    {
+      "feature": "strike",
+      "mean_reached2x": 883.083,
+      "mean_reached10x": 1072.0786,
+      "diff(10x-2x)": 188.9956
+    },
+    {
+      "feature": "vix_level",
+      "mean_reached2x": 55.0342,
+      "mean_reached10x": 67.2981,
+      "diff(10x-2x)": 12.264
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "mean_reached2x": 0.4302,
+      "mean_reached10x": 0.759,
+      "diff(10x-2x)": 0.3288
+    },
+    {
+      "feature": "vix_above_ma5",
+      "mean_reached2x": 0.5645,
+      "mean_reached10x": 0.6296,
+      "diff(10x-2x)": 0.0651
+    },
+    {
+      "feature": "vix_slope5",
+      "mean_reached2x": 0.0035,
+      "mean_reached10x": 0.0037,
+      "diff(10x-2x)": 0.0002
+    },
+    {
+      "feature": "vix_slope120",
+      "mean_reached2x": 0.0035,
+      "mean_reached10x": 0.0045,
+      "diff(10x-2x)": 0.001
+    },
+    {
+      "feature": "vix_daily_return",
+      "mean_reached2x": 0.0083,
+      "mean_reached10x": 0.0187,
+      "diff(10x-2x)": 0.0104
+    },
+    {
+      "feature": "vix_uptrend",
+      "mean_reached2x": 0.3889,
+      "mean_reached10x": 0.4421,
+      "diff(10x-2x)": 0.0532
+    },
+    {
+      "feature": "log_total_volume_post",
+      "mean_reached2x": 9.1846,
+      "mean_reached10x": 8.4945,
+      "diff(10x-2x)": -0.6901
+    },
+    {
+      "feature": "bar_count_post",
+      "mean_reached2x": 276.4597,
+      "mean_reached10x": 240.0683,
+      "diff(10x-2x)": -36.3913
+    }
+  ],
+  "premium_band_rates": [
+    {
+      "premium_band": "1.0-1.49",
+      "n": 1526,
+      "rate_2x_pct": 55.11,
+      "rate_5x_pct": 19.33,
+      "rate_10x_pct": 7.8,
+      "mean_max_multiple": 3.908
+    },
+    {
+      "premium_band": "1.5-1.99",
+      "n": 378,
+      "rate_2x_pct": 65.08,
+      "rate_5x_pct": 19.05,
+      "rate_10x_pct": 8.73,
+      "mean_max_multiple": 4.145
+    },
+    {
+      "premium_band": "2.0-2.49",
+      "n": 334,
+      "rate_2x_pct": 65.27,
+      "rate_5x_pct": 22.46,
+      "rate_10x_pct": 8.08,
+      "mean_max_multiple": 4.588
+    },
+    {
+      "premium_band": "2.5-2.99",
+      "n": 320,
+      "rate_2x_pct": 70.94,
+      "rate_5x_pct": 24.06,
+      "rate_10x_pct": 9.06,
+      "mean_max_multiple": 4.7
+    },
+    {
+      "premium_band": "3.0-3.49",
+      "n": 344,
+      "rate_2x_pct": 72.97,
+      "rate_5x_pct": 29.65,
+      "rate_10x_pct": 11.92,
+      "mean_max_multiple": 4.949
+    },
+    {
+      "premium_band": "3.5-3.99",
+      "n": 350,
+      "rate_2x_pct": 64.29,
+      "rate_5x_pct": 22.0,
+      "rate_10x_pct": 6.29,
+      "mean_max_multiple": 4.209
+    },
+    {
+      "premium_band": "4.0-5.0",
+      "n": 2025,
+      "rate_2x_pct": 69.83,
+      "rate_5x_pct": 24.2,
+      "rate_10x_pct": 8.3,
+      "mean_max_multiple": 4.455
+    }
+  ]
+}
