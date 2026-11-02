@@ -1,0 +1,203 @@
+{
+  "generated_at": "2026-10-29T04:42:23.993869+00:00",
+  "initial_cash": 20000000,
+  "common_rules": {
+    "core_band": [
+      1.0,
+      3.0
+    ],
+    "core_budget": [
+      0.05,
+      5000000
+    ],
+    "lottery_band": [
+      0.4,
+      0.8
+    ],
+    "lottery_budget": [
+      0.02,
+      1000000
+    ],
+    "gate": "전일 VKOSPI ≥ 5일선, 풋 우선, 09:30~12:59, 당일 재진입 없음",
+    "exit_engine": "strategy6_v01.execute_exits 재사용"
+  },
+  "variants": {
+    "S7-v0.1": {
+      "version": "S7-v0.1",
+      "label": "S7-v0.1 듀얼 슬리브 사다리(2·5·10배)",
+      "summary": {
+        "label": "full",
+        "period_start": "20230803",
+        "period_end": "20260928",
+        "expiry_days": 289,
+        "trade_days": 131,
+        "win_rate_pct": 36.64,
+        "core_10x_days": 5,
+        "lottery_10x_days": 9,
+        "total_pnl": 21264000,
+        "total_return_pct": 106.32,
+        "profit_factor": 1.296,
+        "max_drawdown": -13634500,
+        "max_drawdown_pct": -53.76,
+        "pnl_excluding_best_3_days": -9394500,
+        "pnl_excluding_best_5_days": -20498000
+      },
+      "recent_2025_03_on": {
+        "label": "2025-03~",
+        "period_start": "20250304",
+        "period_end": "20260928",
+        "expiry_days": 144,
+        "trade_days": 70,
+        "win_rate_pct": 32.86,
+        "core_10x_days": 4,
+        "lottery_10x_days": 8,
+        "total_pnl": 22857000,
+        "total_return_pct": 114.28,
+        "profit_factor": 1.533,
+        "max_drawdown": -11644500,
+        "max_drawdown_pct": -43.46,
+        "pnl_excluding_best_3_days": -7801500,
+        "pnl_excluding_best_5_days": -17260000
+      },
+      "audit": {
+        "passed": true,
+        "error_count": 0,
+        "error_samples": []
+      }
+    },
+    "S7-v0.2": {
+      "version": "S7-v0.2",
+      "label": "S7-v0.2 듀얼 슬리브 전량 2배 익절",
+      "summary": {
+        "label": "full",
+        "period_start": "20230803",
+        "period_end": "20260928",
+        "expiry_days": 289,
+        "trade_days": 131,
+        "win_rate_pct": 52.67,
+        "core_10x_days": 0,
+        "lottery_10x_days": 0,
+        "total_pnl": 8195500,
+        "total_return_pct": 40.98,
+        "profit_factor": 1.114,
+        "max_drawdown": -15571500,
+        "max_drawdown_pct": -47.46,
+        "pnl_excluding_best_3_days": 2224000,
+        "pnl_excluding_best_5_days": -1554000
+      },
+      "recent_2025_03_on": {
+        "label": "2025-03~",
+        "period_start": "20250304",
+        "period_end": "20260928",
+        "expiry_days": 144,
+        "trade_days": 70,
+        "win_rate_pct": 51.43,
+        "core_10x_days": 0,
+        "lottery_10x_days": 0,
+        "total_pnl": -274000,
+        "total_return_pct": -1.37,
+        "profit_factor": 0.994,
+        "max_drawdown": -15571500,
+        "max_drawdown_pct": -47.46,
+        "pnl_excluding_best_3_days": -6198000,
+        "pnl_excluding_best_5_days": -9770500
+      },
+      "audit": {
+        "passed": true,
+        "error_count": 0,
+        "error_samples": []
+      }
+    },
+    "S7-v0.3": {
+      "version": "S7-v0.3",
+      "label": "S7-v0.3 듀얼 슬리브 전량 10배 홀드",
+      "summary": {
+        "label": "full",
+        "period_start": "20230803",
+        "period_end": "20260928",
+        "expiry_days": 289,
+        "trade_days": 131,
+        "win_rate_pct": 32.06,
+        "core_10x_days": 6,
+        "lottery_10x_days": 9,
+        "total_pnl": 5949500,
+        "total_return_pct": 29.75,
+        "profit_factor": 1.086,
+        "max_drawdown": -15675500,
+        "max_drawdown_pct": -66.93,
+        "pnl_excluding_best_3_days": -23468500,
+        "pnl_excluding_best_5_days": -33384000
+      },
+      "recent_2025_03_on": {
+        "label": "2025-03~",
+        "period_start": "20250304",
+        "period_end": "20260928",
+        "expiry_days": 144,
+        "trade_days": 70,
+        "win_rate_pct": 30.0,
+        "core_10x_days": 5,
+        "lottery_10x_days": 8,
+        "total_pnl": 11324000,
+        "total_return_pct": 56.62,
+        "profit_factor": 1.279,
+        "max_drawdown": -12699000,
+        "max_drawdown_pct": -61.27,
+        "pnl_excluding_best_3_days": -18094000,
+        "pnl_excluding_best_5_days": -24766500
+      },
+      "audit": {
+        "passed": true,
+        "error_count": 0,
+        "error_samples": []
+      }
+    },
+    "S7-v0.4": {
+      "version": "S7-v0.4",
+      "label": "S7-v0.4 조건부 러너(빠른더블 10배·느린더블 2배)",
+      "summary": {
+        "label": "full",
+        "period_start": "20230803",
+        "period_end": "20260928",
+        "expiry_days": 289,
+        "trade_days": 131,
+        "win_rate_pct": 41.98,
+        "core_10x_days": 1,
+        "lottery_10x_days": 3,
+        "total_pnl": -7730000,
+        "total_return_pct": -38.65,
+        "profit_factor": 0.891,
+        "max_drawdown": -19018500,
+        "max_drawdown_pct": -61.12,
+        "pnl_excluding_best_3_days": -25312000,
+        "pnl_excluding_best_5_days": -28851000
+      },
+      "recent_2025_03_on": {
+        "label": "2025-03~",
+        "period_start": "20250304",
+        "period_end": "20260928",
+        "expiry_days": 144,
+        "trade_days": 70,
+        "win_rate_pct": 37.14,
+        "core_10x_days": 0,
+        "lottery_10x_days": 2,
+        "total_pnl": -9316500,
+        "total_return_pct": -46.58,
+        "profit_factor": 0.754,
+        "max_drawdown": -11506500,
+        "max_drawdown_pct": -48.74,
+        "pnl_excluding_best_3_days": -18404500,
+        "pnl_excluding_best_5_days": -21342500
+      },
+      "audit": {
+        "passed": true,
+        "error_count": 0,
+        "error_samples": []
+      }
+    }
+  },
+  "limitations": [
+    "분석 구간 자료로 고정한 규칙이므로 미사용 홀드아웃 전진검증 전 실거래 금지.",
+    "복권 슬리브는 승률이 낮고 꼬리수익 비중이 높다.",
+    "최종 미체결 잔량은 0원으로 평가한다."
+  ]
+}

@@ -135,6 +135,7 @@ def analyze_bars(bars: Iterable[Bar]) -> tuple[dict[str, object], list[dict[str,
     ordered = sorted(bars, key=lambda bar: bar.time)
     candidate: tuple[float, int] | None = None
     first_candidate: tuple[float, int] | None = None
+    event_2x: dict[str, object] | None = None
     event_5x: dict[str, object] | None = None
     event_10x: dict[str, object] | None = None
     max_multiple = 0.0
@@ -172,6 +173,13 @@ def analyze_bars(bars: Iterable[Bar]) -> tuple[dict[str, object], list[dict[str,
                 max_multiple_base = base
                 max_multiple_base_time = base_time
 
+            if event_2x is None and reaches_multiple(bar.high, base, 2.0):
+                event_2x = {
+                    "base": base,
+                    "base_time": base_time,
+                    "target_time": bar.time,
+                    "target_high": bar.high,
+                }
             if event_5x is None and reaches_multiple(bar.high, base, 5.0):
                 event_5x = {
                     "base": base,
@@ -231,6 +239,11 @@ def analyze_bars(bars: Iterable[Bar]) -> tuple[dict[str, object], list[dict[str,
         "eligible": first_candidate is not None,
         "first_eligible_low": first_candidate[0] if first_candidate else None,
         "first_eligible_time": first_candidate[1] if first_candidate else None,
+        "success_2x": event_2x is not None,
+        "base_2x": event_2x["base"] if event_2x else None,
+        "base_time_2x": event_2x["base_time"] if event_2x else None,
+        "target_time_2x": event_2x["target_time"] if event_2x else None,
+        "target_high_2x": event_2x["target_high"] if event_2x else None,
         "success_5x": event_5x is not None,
         "base_5x": event_5x["base"] if event_5x else None,
         "base_time_5x": event_5x["base_time"] if event_5x else None,

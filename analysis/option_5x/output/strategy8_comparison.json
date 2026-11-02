@@ -1,0 +1,69 @@
+{
+  "strategy_version": "S8-v0.1",
+  "generated_at": "2026-10-27T02:03:15.366897+00:00",
+  "period_start": "20250301",
+  "expiry_days": 144,
+  "initial_cash": 20000000,
+  "rules": {
+    "core_band": [
+      1.0,
+      3.0
+    ],
+    "core_exit": "절반 2배 익절 + 나머지 10배 러너",
+    "core_budget": [
+      0.05,
+      5000000
+    ],
+    "lottery_band": [
+      0.4,
+      0.8
+    ],
+    "lottery_exit": "전량 10배 러너(2배 익절 없음)",
+    "lottery_budget": [
+      0.02,
+      1000000
+    ],
+    "gate": "전일 VKOSPI ≥ 5일선, 풋 우선, 13시 이전"
+  },
+  "comparison": [
+    {
+      "mode": "core",
+      "trade_days": 68,
+      "win_rate_pct": 42.65,
+      "core_2x_days": 32,
+      "core_10x_days": 5,
+      "lottery_10x_days": 0,
+      "total_pnl": 1860000,
+      "total_return_pct": 9.3,
+      "profit_factor": 1.078,
+      "max_drawdown_pct": -37.37,
+      "pnl_excl_best_3": -9731000
+    },
+    {
+      "mode": "lottery",
+      "trade_days": 65,
+      "win_rate_pct": 21.54,
+      "core_2x_days": 0,
+      "core_10x_days": 0,
+      "lottery_10x_days": 8,
+      "total_pnl": 13708000,
+      "total_return_pct": 68.54,
+      "profit_factor": 1.811,
+      "max_drawdown_pct": -25.98,
+      "pnl_excl_best_3": 296000
+    },
+    {
+      "mode": "dual",
+      "trade_days": 70,
+      "win_rate_pct": 37.14,
+      "core_2x_days": 32,
+      "core_10x_days": 5,
+      "lottery_10x_days": 8,
+      "total_pnl": 25164500,
+      "total_return_pct": 125.82,
+      "profit_factor": 1.569,
+      "max_drawdown_pct": -40.67,
+      "pnl_excl_best_3": -9028000
+    }
+  ]
+}

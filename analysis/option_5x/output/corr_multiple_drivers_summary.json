@@ -375,5 +375,181 @@
       "rate_10x_pct": 8.3,
       "mean_max_multiple": 4.455
     }
+  ],
+  "partial_corr_vs_log_max_multiple": [
+    {
+      "feature": "log_entry_premium",
+      "raw_spearman": 0.1328,
+      "연도통제": 0.1197,
+      "레벨통제": 0.1215,
+      "연도+레벨+행사가": 0.1161
+    },
+    {
+      "feature": "is_put",
+      "raw_spearman": 0.0045,
+      "연도통제": 0.0041,
+      "레벨통제": -0.0036,
+      "연도+레벨+행사가": -0.0052
+    },
+    {
+      "feature": "entry_time",
+      "raw_spearman": 0.0202,
+      "연도통제": -0.053,
+      "레벨통제": -0.0424,
+      "연도+레벨+행사가": -0.0554
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "raw_spearman": 0.0844,
+      "연도통제": 0.0759,
+      "레벨통제": 0.0669,
+      "연도+레벨+행사가": 0.0804
+    },
+    {
+      "feature": "vix_above_ma5",
+      "raw_spearman": 0.0783,
+      "연도통제": 0.0585,
+      "레벨통제": 0.0525,
+      "연도+레벨+행사가": 0.0638
+    },
+    {
+      "feature": "vix_slope5",
+      "raw_spearman": 0.0714,
+      "연도통제": 0.0649,
+      "레벨통제": 0.055,
+      "연도+레벨+행사가": 0.069
+    },
+    {
+      "feature": "vix_slope120",
+      "raw_spearman": 0.1979,
+      "연도통제": 0.003,
+      "레벨통제": 0.0841,
+      "연도+레벨+행사가": 0.0217
+    },
+    {
+      "feature": "vix_daily_return",
+      "raw_spearman": 0.0816,
+      "연도통제": 0.0887,
+      "레벨통제": 0.0752,
+      "연도+레벨+행사가": 0.0933
+    },
+    {
+      "feature": "vix_uptrend",
+      "raw_spearman": 0.0758,
+      "연도통제": 0.0768,
+      "레벨통제": 0.0697,
+      "연도+레벨+행사가": 0.0786
+    }
+  ],
+  "partial_corr_vs_reached_10x": [
+    {
+      "feature": "log_entry_premium",
+      "raw_spearman": 0.0006,
+      "연도통제": -0.0121,
+      "레벨통제": -0.005,
+      "연도+레벨+행사가": -0.0104
+    },
+    {
+      "feature": "is_put",
+      "raw_spearman": 0.0679,
+      "연도통제": 0.0691,
+      "레벨통제": 0.0649,
+      "연도+레벨+행사가": 0.0665
+    },
+    {
+      "feature": "entry_time",
+      "raw_spearman": -0.0033,
+      "연도통제": -0.0639,
+      "레벨통제": -0.0506,
+      "연도+레벨+행사가": -0.0653
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "raw_spearman": 0.0545,
+      "연도통제": 0.048,
+      "레벨통제": 0.0399,
+      "연도+레벨+행사가": 0.0569
+    },
+    {
+      "feature": "vix_above_ma5",
+      "raw_spearman": 0.0517,
+      "연도통제": 0.0374,
+      "레벨통제": 0.0306,
+      "연도+레벨+행사가": 0.0441
+    },
+    {
+      "feature": "vix_slope5",
+      "raw_spearman": 0.022,
+      "연도통제": 0.0158,
+      "레벨통제": 0.008,
+      "연도+레벨+행사가": 0.0285
+    },
+    {
+      "feature": "vix_slope120",
+      "raw_spearman": 0.1784,
+      "연도통제": 0.0297,
+      "레벨통제": 0.0977,
+      "연도+레벨+행사가": 0.022
+    },
+    {
+      "feature": "vix_daily_return",
+      "raw_spearman": 0.0703,
+      "연도통제": 0.0772,
+      "레벨통제": 0.0649,
+      "연도+레벨+행사가": 0.0812
+    },
+    {
+      "feature": "vix_uptrend",
+      "raw_spearman": 0.046,
+      "연도통제": 0.0472,
+      "레벨통제": 0.0406,
+      "연도+레벨+행사가": 0.058
+    }
+  ],
+  "yearly_corr": [
+    {
+      "year": 2023,
+      "n": 228,
+      "rate_10x_pct": 0.0,
+      "mean_vix_level": 15.52,
+      "corr_log_entry_premium": -0.343,
+      "corr_vix_level": 0.107,
+      "corr_vix_slope120": -0.036,
+      "corr_vix_ma5_dev": 0.053,
+      "corr_is_put": 0.069
+    },
+    {
+      "year": 2024,
+      "n": 687,
+      "rate_10x_pct": 1.46,
+      "mean_vix_level": 19.38,
+      "corr_log_entry_premium": -0.206,
+      "corr_vix_level": 0.11,
+      "corr_vix_slope120": 0.007,
+      "corr_vix_ma5_dev": 0.105,
+      "corr_is_put": -0.006
+    },
+    {
+      "year": 2025,
+      "n": 869,
+      "rate_10x_pct": 0.35,
+      "mean_vix_level": 25.54,
+      "corr_log_entry_premium": 0.01,
+      "corr_vix_level": 0.27,
+      "corr_vix_slope120": 0.119,
+      "corr_vix_ma5_dev": 0.119,
+      "corr_is_put": -0.128
+    },
+    {
+      "year": 2026,
+      "n": 3493,
+      "rate_10x_pct": 12.2,
+      "mean_vix_level": 69.27,
+      "corr_log_entry_premium": 0.2,
+      "corr_vix_level": -0.08,
+      "corr_vix_slope120": -0.001,
+      "corr_vix_ma5_dev": 0.061,
+      "corr_is_put": 0.036
+    }
   ]
 }

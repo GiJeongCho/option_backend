@@ -1,0 +1,88 @@
+{
+  "strategy_version": "S10-v0.1",
+  "generated_at": "2026-10-27T06:03:52.019476+00:00",
+  "period_start": "20250301",
+  "expiry_days": 144,
+  "initial_cash": 20000000,
+  "aggressive_rule": "이격 ≥ 0.3 또는 전일변화율 ≥ 0.03",
+  "comparison": [
+    {
+      "mode": "dual_final",
+      "trade_days": 70,
+      "agg_days": 0,
+      "con_days": 0,
+      "win_rate_pct": 32.86,
+      "reached_10x_days": 8,
+      "total_pnl": 35256000,
+      "total_return_pct": 176.28,
+      "profit_factor": 1.688,
+      "max_drawdown_pct": -41.69,
+      "pnl_excl_best_3": -5029500
+    },
+    {
+      "mode": "cond_core",
+      "trade_days": 68,
+      "agg_days": 71,
+      "con_days": 73,
+      "win_rate_pct": 29.41,
+      "reached_10x_days": 5,
+      "total_pnl": 4870000,
+      "total_return_pct": 24.35,
+      "profit_factor": 1.139,
+      "max_drawdown_pct": -43.58,
+      "pnl_excl_best_3": -17466000
+    },
+    {
+      "mode": "cond_ladder_core",
+      "trade_days": 68,
+      "agg_days": 71,
+      "con_days": 73,
+      "win_rate_pct": 29.41,
+      "reached_10x_days": 5,
+      "total_pnl": 4870000,
+      "total_return_pct": 24.35,
+      "profit_factor": 1.139,
+      "max_drawdown_pct": -43.58,
+      "pnl_excl_best_3": -17466000
+    },
+    {
+      "mode": "static_ladder_core",
+      "trade_days": 68,
+      "agg_days": 0,
+      "con_days": 0,
+      "win_rate_pct": 38.24,
+      "reached_10x_days": 5,
+      "total_pnl": 10871500,
+      "total_return_pct": 54.36,
+      "profit_factor": 1.347,
+      "max_drawdown_pct": -29.23,
+      "pnl_excl_best_3": -5868500
+    },
+    {
+      "mode": "all2x_core",
+      "trade_days": 68,
+      "agg_days": 0,
+      "con_days": 0,
+      "win_rate_pct": 50.0,
+      "reached_10x_days": 0,
+      "total_pnl": -982500,
+      "total_return_pct": -4.91,
+      "profit_factor": 0.956,
+      "max_drawdown_pct": -34.49,
+      "pnl_excl_best_3": -4066000
+    },
+    {
+      "mode": "all10x_core",
+      "trade_days": 68,
+      "agg_days": 0,
+      "con_days": 0,
+      "win_rate_pct": 27.94,
+      "reached_10x_days": 5,
+      "total_pnl": 4907500,
+      "total_return_pct": 24.54,
+      "profit_factor": 1.138,
+      "max_drawdown_pct": -43.41,
+      "pnl_excl_best_3": -17428500
+    }
+  ]
+}

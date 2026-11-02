@@ -38,6 +38,11 @@ LOGIC_DOCUMENTS: dict[str, str] = {
     "S6-v0.1": "S6_v0.1_VIX_RV_PUT_전략_로직.md",
     "S6-v0.2": "S6_v0.2_VIX_MA5_상승추세_비교_로직.md",
     "S6-v0.3": "S6_v0.3_변동성레짐_RV60_연구결과.md",
+    "S7-v0.1": "S7_v0.1_듀얼슬리브_전략_로직.md",
+    "S7-v0.2": "S7_v0.1_듀얼슬리브_전략_로직.md",
+    "S7-v0.3": "S7_v0.1_듀얼슬리브_전략_로직.md",
+    "S7-v0.4": "S7_v0.1_듀얼슬리브_전략_로직.md",
+    "S5-v1.0": "S5_v1.0_분할바스켓_무손절_2배전량_로직.md",
 }
 
 
@@ -307,6 +312,36 @@ class StrategyAnalysisService:
         )
         self.strategy_six_v03_trades_path = (
             self.output_dir / "strategy6_v03_rv60_runner_trades.csv"
+        )
+        self.strategy_seven_v01_daily_path = (
+            self.output_dir / "strategy7_daily.csv"
+        )
+        self.strategy_seven_v01_trades_path = (
+            self.output_dir / "strategy7_trades.csv"
+        )
+        self.strategy_seven_v02_daily_path = (
+            self.output_dir / "strategy7_v02_daily.csv"
+        )
+        self.strategy_seven_v02_trades_path = (
+            self.output_dir / "strategy7_v02_trades.csv"
+        )
+        self.strategy_seven_v03_daily_path = (
+            self.output_dir / "strategy7_v03_daily.csv"
+        )
+        self.strategy_seven_v03_trades_path = (
+            self.output_dir / "strategy7_v03_trades.csv"
+        )
+        self.strategy_seven_v04_daily_path = (
+            self.output_dir / "strategy7_v04_daily.csv"
+        )
+        self.strategy_seven_v04_trades_path = (
+            self.output_dir / "strategy7_v04_trades.csv"
+        )
+        self.strategy_five_v10_daily_path = (
+            self.output_dir / "strategy5_v10_split_daily.csv"
+        )
+        self.strategy_five_v10_trades_path = (
+            self.output_dir / "strategy5_v10_split_trades.csv"
         )
         self.performance_benchmark_path = (
             self.backend_dir
@@ -3214,6 +3249,31 @@ class StrategyAnalysisService:
                 "S6-v0.3 RV60·10분 기울기 러너 연구 후보",
                 self.strategy_six_v03_daily_path,
                 self.strategy_six_v03_trades_path,
+            ),
+            "S7-v0.1": (
+                "S7-v0.1 듀얼 슬리브 사다리(2·5·10배)",
+                self.strategy_seven_v01_daily_path,
+                self.strategy_seven_v01_trades_path,
+            ),
+            "S7-v0.2": (
+                "S7-v0.2 듀얼 슬리브 전량 2배 익절",
+                self.strategy_seven_v02_daily_path,
+                self.strategy_seven_v02_trades_path,
+            ),
+            "S7-v0.3": (
+                "S7-v0.3 듀얼 슬리브 전량 10배 홀드",
+                self.strategy_seven_v03_daily_path,
+                self.strategy_seven_v03_trades_path,
+            ),
+            "S7-v0.4": (
+                "S7-v0.4 조건부 러너(빠른더블 10배·느린더블 2배)",
+                self.strategy_seven_v04_daily_path,
+                self.strategy_seven_v04_trades_path,
+            ),
+            "S5-v1.0": (
+                "S5-v1.0 분할바스켓·무손절·2배전량(초기형)",
+                self.strategy_five_v10_daily_path,
+                self.strategy_five_v10_trades_path,
             ),
         }
 

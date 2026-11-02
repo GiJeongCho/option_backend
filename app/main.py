@@ -8,6 +8,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .backtest_service import BacktestResultService
 from .data_service import DataNotFoundError, MarketDataService
+from .multiple_charts_service import (
+    MultipleChartsDataError,
+    MultipleChartsService,
+)
 from .strategy_analysis_service import StrategyAnalysisService
 
 
@@ -31,6 +35,7 @@ app.add_middleware(
 service = MarketDataService()
 backtest_service = BacktestResultService()
 strategy_analysis_service = StrategyAnalysisService()
+multiple_charts_service = MultipleChartsService()
 
 
 @app.get("/api/health")
@@ -199,6 +204,50 @@ def backtest_result(
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/multiple-charts/summary")
+def multiple_charts_summary(
+    band: Literal["low", "premium"] = "low",
+) -> dict[str, object]:
+    try:
+        return multiple_charts_service.summary(band)
+    except MultipleChartsDataError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/multiple-charts/contracts")
+def multiple_charts_contracts(
+    multiple_min: float = Query(alias="multipleMin", ge=1.0, le=1000.0),
+    multiple_max: float | None = Query(
+        default=None, alias="multipleMax", gt=1.0, le=1000.0
+    ),
+    call_put: Literal["ALL", "CALL", "PUT"] = Query(
+        default="ALL", alias="callPut"
+    ),
+    band: Literal["low", "premium"] = "low",
+    year_from: str | None = Query(
+        default=None, alias="yearFrom", pattern=r"^\d{4}$"
+    ),
+    year_to: str | None = Query(
+        default=None, alias="yearTo", pattern=r"^\d{4}$"
+    ),
+    limit: int = Query(default=600, ge=1, le=2000),
+) -> dict[str, object]:
+    try:
+        return multiple_charts_service.contracts(
+            multiple_min,
+            multiple_max,
+            call_put,
+            band,
+            year_from,
+            year_to,
+            limit,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except MultipleChartsDataError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
 
 

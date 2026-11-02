@@ -1,0 +1,579 @@
+{
+  "n_contracts": 6274,
+  "n_with_vix_slope": 6070,
+  "rate_2x_pct": 72.31,
+  "rate_5x_pct": 29.02,
+  "rate_10x_pct": 12.18,
+  "corr_vs_log_max_multiple": [
+    {
+      "feature": "vix_level",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.1794,
+      "spearman": 0.1892
+    },
+    {
+      "feature": "bar_count_post",
+      "type": "post(사후)",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": 0.1633,
+      "spearman": 0.188
+    },
+    {
+      "feature": "vix_slope120",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.1952,
+      "spearman": 0.178
+    },
+    {
+      "feature": "strike",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": 0.1765,
+      "spearman": 0.1684
+    },
+    {
+      "feature": "entry_premium",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": 0.0584,
+      "spearman": 0.139
+    },
+    {
+      "feature": "log_entry_premium",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": 0.0879,
+      "spearman": 0.139
+    },
+    {
+      "feature": "log_total_volume_post",
+      "type": "post(사후)",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": 0.1038,
+      "spearman": 0.1155
+    },
+    {
+      "feature": "vix_daily_return",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.071,
+      "spearman": 0.0856
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.0457,
+      "spearman": 0.0854
+    },
+    {
+      "feature": "vix_uptrend",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.066,
+      "spearman": 0.0771
+    },
+    {
+      "feature": "vix_above_ma5",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.0699,
+      "spearman": 0.0756
+    },
+    {
+      "feature": "vix_slope5",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6070,
+      "pearson": 0.0468,
+      "spearman": 0.0738
+    },
+    {
+      "feature": "is_put",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": 0.0219,
+      "spearman": 0.0054
+    },
+    {
+      "feature": "entry_time",
+      "type": "leak-free",
+      "outcome": "log_max_multiple",
+      "n": 6274,
+      "pearson": -0.0745,
+      "spearman": 0.0011
+    }
+  ],
+  "corr_vs_reached_10x": [
+    {
+      "feature": "vix_slope120",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.1744,
+      "spearman": 0.1729
+    },
+    {
+      "feature": "strike",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": 0.1751,
+      "spearman": 0.1674
+    },
+    {
+      "feature": "vix_level",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.1709,
+      "spearman": 0.1632
+    },
+    {
+      "feature": "vix_daily_return",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.0725,
+      "spearman": 0.0822
+    },
+    {
+      "feature": "is_put",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": 0.067,
+      "spearman": 0.067
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.047,
+      "spearman": 0.0626
+    },
+    {
+      "feature": "vix_above_ma5",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.0587,
+      "spearman": 0.0587
+    },
+    {
+      "feature": "vix_uptrend",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.0493,
+      "spearman": 0.0493
+    },
+    {
+      "feature": "log_total_volume_post",
+      "type": "post(사후)",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": -0.0338,
+      "spearman": -0.0257
+    },
+    {
+      "feature": "vix_slope5",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6070,
+      "pearson": 0.0191,
+      "spearman": 0.0238
+    },
+    {
+      "feature": "bar_count_post",
+      "type": "post(사후)",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": 0.0233,
+      "spearman": 0.0126
+    },
+    {
+      "feature": "entry_time",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": -0.0255,
+      "spearman": -0.0095
+    },
+    {
+      "feature": "entry_premium",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": -0.0042,
+      "spearman": 0.0037
+    },
+    {
+      "feature": "log_entry_premium",
+      "type": "leak-free",
+      "outcome": "reached_10x",
+      "n": 6274,
+      "pearson": 0.0128,
+      "spearman": 0.0037
+    }
+  ],
+  "group_contrast_2x_vs_10x": [
+    {
+      "feature": "entry_premium",
+      "mean_reached2x": 2.6748,
+      "mean_reached10x": 2.5146,
+      "diff(10x-2x)": -0.1602
+    },
+    {
+      "feature": "log_entry_premium",
+      "mean_reached2x": 0.6795,
+      "mean_reached10x": 0.6144,
+      "diff(10x-2x)": -0.0651
+    },
+    {
+      "feature": "is_put",
+      "mean_reached2x": 0.5129,
+      "mean_reached10x": 0.6073,
+      "diff(10x-2x)": 0.0944
+    },
+    {
+      "feature": "entry_time",
+      "mean_reached2x": 932.8186,
+      "mean_reached10x": 922.0445,
+      "diff(10x-2x)": -10.7741
+    },
+    {
+      "feature": "strike",
+      "mean_reached2x": 871.5274,
+      "mean_reached10x": 1025.8737,
+      "diff(10x-2x)": 154.3463
+    },
+    {
+      "feature": "vix_level",
+      "mean_reached2x": 54.3847,
+      "mean_reached10x": 64.6463,
+      "diff(10x-2x)": 10.2617
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "mean_reached2x": 0.3968,
+      "mean_reached10x": 0.7469,
+      "diff(10x-2x)": 0.3501
+    },
+    {
+      "feature": "vix_above_ma5",
+      "mean_reached2x": 0.5599,
+      "mean_reached10x": 0.6227,
+      "diff(10x-2x)": 0.0627
+    },
+    {
+      "feature": "vix_slope5",
+      "mean_reached2x": 0.0031,
+      "mean_reached10x": 0.0034,
+      "diff(10x-2x)": 0.0003
+    },
+    {
+      "feature": "vix_slope120",
+      "mean_reached2x": 0.0035,
+      "mean_reached10x": 0.0043,
+      "diff(10x-2x)": 0.0008
+    },
+    {
+      "feature": "vix_daily_return",
+      "mean_reached2x": 0.0078,
+      "mean_reached10x": 0.018,
+      "diff(10x-2x)": 0.0102
+    },
+    {
+      "feature": "vix_uptrend",
+      "mean_reached2x": 0.3804,
+      "mean_reached10x": 0.4293,
+      "diff(10x-2x)": 0.049
+    },
+    {
+      "feature": "log_total_volume_post",
+      "mean_reached2x": 9.4057,
+      "mean_reached10x": 8.9988,
+      "diff(10x-2x)": -0.407
+    },
+    {
+      "feature": "bar_count_post",
+      "mean_reached2x": 281.4428,
+      "mean_reached10x": 272.4594,
+      "diff(10x-2x)": -8.9834
+    }
+  ],
+  "premium_band_rates": [
+    {
+      "premium_band": "0.4-0.59",
+      "n": 1335,
+      "rate_2x_pct": 56.55,
+      "rate_5x_pct": 21.65,
+      "rate_10x_pct": 9.59,
+      "mean_max_multiple": 4.539
+    },
+    {
+      "premium_band": "0.6-0.79",
+      "n": 355,
+      "rate_2x_pct": 68.45,
+      "rate_5x_pct": 29.86,
+      "rate_10x_pct": 12.68,
+      "mean_max_multiple": 6.218
+    },
+    {
+      "premium_band": "0.8-0.99",
+      "n": 258,
+      "rate_2x_pct": 64.73,
+      "rate_5x_pct": 31.01,
+      "rate_10x_pct": 13.95,
+      "mean_max_multiple": 6.136
+    },
+    {
+      "premium_band": "1.0-1.49",
+      "n": 606,
+      "rate_2x_pct": 74.75,
+      "rate_5x_pct": 30.36,
+      "rate_10x_pct": 15.68,
+      "mean_max_multiple": 7.121
+    },
+    {
+      "premium_band": "1.5-1.99",
+      "n": 357,
+      "rate_2x_pct": 78.99,
+      "rate_5x_pct": 28.01,
+      "rate_10x_pct": 14.29,
+      "mean_max_multiple": 6.343
+    },
+    {
+      "premium_band": "2.0-2.49",
+      "n": 330,
+      "rate_2x_pct": 81.82,
+      "rate_5x_pct": 32.73,
+      "rate_10x_pct": 13.64,
+      "mean_max_multiple": 7.092
+    },
+    {
+      "premium_band": "2.5-2.99",
+      "n": 318,
+      "rate_2x_pct": 86.16,
+      "rate_5x_pct": 32.08,
+      "rate_10x_pct": 13.84,
+      "mean_max_multiple": 7.076
+    },
+    {
+      "premium_band": "3.0-3.49",
+      "n": 343,
+      "rate_2x_pct": 83.97,
+      "rate_5x_pct": 37.32,
+      "rate_10x_pct": 16.33,
+      "mean_max_multiple": 6.757
+    },
+    {
+      "premium_band": "3.5-3.99",
+      "n": 349,
+      "rate_2x_pct": 76.5,
+      "rate_5x_pct": 28.65,
+      "rate_10x_pct": 9.46,
+      "mean_max_multiple": 5.561
+    },
+    {
+      "premium_band": "4.0-5.0",
+      "n": 2023,
+      "rate_2x_pct": 76.03,
+      "rate_5x_pct": 30.85,
+      "rate_10x_pct": 11.42,
+      "mean_max_multiple": 5.491
+    }
+  ],
+  "partial_corr_vs_log_max_multiple": [
+    {
+      "feature": "log_entry_premium",
+      "raw_spearman": 0.139,
+      "연도통제": 0.1326,
+      "레벨통제": 0.128,
+      "연도+레벨+행사가": 0.1279
+    },
+    {
+      "feature": "is_put",
+      "raw_spearman": 0.0054,
+      "연도통제": 0.0038,
+      "레벨통제": -0.0021,
+      "연도+레벨+행사가": -0.0064
+    },
+    {
+      "feature": "entry_time",
+      "raw_spearman": 0.0011,
+      "연도통제": -0.0623,
+      "레벨통제": -0.0591,
+      "연도+레벨+행사가": -0.0664
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "raw_spearman": 0.0854,
+      "연도통제": 0.0774,
+      "레벨통제": 0.0675,
+      "연도+레벨+행사가": 0.0759
+    },
+    {
+      "feature": "vix_above_ma5",
+      "raw_spearman": 0.0756,
+      "연도통제": 0.057,
+      "레벨통제": 0.0494,
+      "연도+레벨+행사가": 0.0567
+    },
+    {
+      "feature": "vix_slope5",
+      "raw_spearman": 0.0738,
+      "연도통제": 0.0689,
+      "레벨통제": 0.0576,
+      "연도+레벨+행사가": 0.0655
+    },
+    {
+      "feature": "vix_slope120",
+      "raw_spearman": 0.178,
+      "연도통제": 0.0021,
+      "레벨통제": 0.0588,
+      "연도+레벨+행사가": 0.0191
+    },
+    {
+      "feature": "vix_daily_return",
+      "raw_spearman": 0.0856,
+      "연도통제": 0.0911,
+      "레벨통제": 0.0783,
+      "연도+레벨+행사가": 0.0918
+    },
+    {
+      "feature": "vix_uptrend",
+      "raw_spearman": 0.0771,
+      "연도통제": 0.0784,
+      "레벨통제": 0.0712,
+      "연도+레벨+행사가": 0.0747
+    }
+  ],
+  "partial_corr_vs_reached_10x": [
+    {
+      "feature": "log_entry_premium",
+      "raw_spearman": 0.0037,
+      "연도통제": -0.0049,
+      "레벨통제": -0.0027,
+      "연도+레벨+행사가": -0.0045
+    },
+    {
+      "feature": "is_put",
+      "raw_spearman": 0.067,
+      "연도통제": 0.0674,
+      "레벨통제": 0.062,
+      "연도+레벨+행사가": 0.0627
+    },
+    {
+      "feature": "entry_time",
+      "raw_spearman": -0.0095,
+      "연도통제": -0.0678,
+      "레벨통제": -0.0589,
+      "연도+레벨+행사가": -0.0697
+    },
+    {
+      "feature": "vix_ma5_dev",
+      "raw_spearman": 0.0626,
+      "연도통제": 0.0558,
+      "레벨통제": 0.0467,
+      "연도+레벨+행사가": 0.0606
+    },
+    {
+      "feature": "vix_above_ma5",
+      "raw_spearman": 0.0587,
+      "연도통제": 0.0433,
+      "레벨통제": 0.0358,
+      "연도+레벨+행사가": 0.047
+    },
+    {
+      "feature": "vix_slope5",
+      "raw_spearman": 0.0238,
+      "연도통제": 0.0184,
+      "레벨통제": 0.0089,
+      "연도+레벨+행사가": 0.0243
+    },
+    {
+      "feature": "vix_slope120",
+      "raw_spearman": 0.1729,
+      "연도통제": 0.019,
+      "레벨통제": 0.0792,
+      "연도+레벨+행사가": 0.0174
+    },
+    {
+      "feature": "vix_daily_return",
+      "raw_spearman": 0.0822,
+      "연도통제": 0.0884,
+      "레벨통제": 0.0757,
+      "연도+레벨+행사가": 0.091
+    },
+    {
+      "feature": "vix_uptrend",
+      "raw_spearman": 0.0493,
+      "연도통제": 0.0507,
+      "레벨통제": 0.0437,
+      "연도+레벨+행사가": 0.0562
+    }
+  ],
+  "yearly_corr": [
+    {
+      "year": 2023,
+      "n": 274,
+      "rate_10x_pct": 0.73,
+      "mean_vix_level": 15.54,
+      "corr_log_entry_premium": -0.367,
+      "corr_vix_level": 0.123,
+      "corr_vix_slope120": 0.02,
+      "corr_vix_ma5_dev": 0.001,
+      "corr_is_put": 0.098
+    },
+    {
+      "year": 2024,
+      "n": 803,
+      "rate_10x_pct": 3.11,
+      "mean_vix_level": 19.35,
+      "corr_log_entry_premium": -0.297,
+      "corr_vix_level": 0.1,
+      "corr_vix_slope120": 0.018,
+      "corr_vix_ma5_dev": 0.111,
+      "corr_is_put": -0.021
+    },
+    {
+      "year": 2025,
+      "n": 1040,
+      "rate_10x_pct": 3.85,
+      "mean_vix_level": 25.59,
+      "corr_log_entry_premium": -0.037,
+      "corr_vix_level": 0.231,
+      "corr_vix_slope120": 0.113,
+      "corr_vix_ma5_dev": 0.115,
+      "corr_is_put": -0.128
+    },
+    {
+      "year": 2026,
+      "n": 4157,
+      "rate_10x_pct": 16.77,
+      "mean_vix_level": 69.06,
+      "corr_log_entry_premium": 0.246,
+      "corr_vix_level": -0.044,
+      "corr_vix_slope120": -0.008,
+      "corr_vix_ma5_dev": 0.065,
+      "corr_is_put": 0.036
+    }
+  ]
+}

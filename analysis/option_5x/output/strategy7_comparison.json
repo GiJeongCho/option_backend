@@ -1,0 +1,70 @@
+{
+  "strategy_version": "S7-v0.1",
+  "generated_at": "2026-10-27T01:13:41.566211+00:00",
+  "initial_cash": 20000000,
+  "rules": {
+    "entry_gate": "전일 VKOSPI ≥ 5일선 (변동성 미붕괴)",
+    "regime_split": "전일 VKOSPI ≥ 30.0 → 고변동성",
+    "band_low_vol": [
+      0.5,
+      1.0
+    ],
+    "band_high_vol": [
+      1.0,
+      2.5
+    ],
+    "direction": "풋 우선",
+    "exit": "절반 2배 익절 + 나머지 10배 러너 (strategy6_v01)",
+    "entry_window": [
+      930,
+      1300
+    ]
+  },
+  "comparison": [
+    {
+      "mode": "regime",
+      "trade_days": 129,
+      "win_rate_pct": 44.19,
+      "reached_2x_days": 60,
+      "reached_10x_days": 6,
+      "total_pnl": -2200500,
+      "total_return_pct": -11.0025,
+      "profit_factor": 0.9547,
+      "max_drawdown_pct": -52.4167,
+      "pnl_excl_best_3": -12192000,
+      "dev_pnl": -367500,
+      "val_pnl": -1833000,
+      "audit_passed": true
+    },
+    {
+      "mode": "mid_only",
+      "trade_days": 129,
+      "win_rate_pct": 47.29,
+      "reached_2x_days": 57,
+      "reached_10x_days": 6,
+      "total_pnl": 2086000,
+      "total_return_pct": 10.43,
+      "profit_factor": 1.0487,
+      "max_drawdown_pct": -39.6872,
+      "pnl_excl_best_3": -9505000,
+      "dev_pnl": 2667000,
+      "val_pnl": -581000,
+      "audit_passed": true
+    },
+    {
+      "mode": "cheap_only",
+      "trade_days": 127,
+      "win_rate_pct": 46.46,
+      "reached_2x_days": 58,
+      "reached_10x_days": 8,
+      "total_pnl": 8946500,
+      "total_return_pct": 44.7325,
+      "profit_factor": 1.1871,
+      "max_drawdown_pct": -55.5035,
+      "pnl_excl_best_3": -5182500,
+      "dev_pnl": 5846500,
+      "val_pnl": 3100000,
+      "audit_passed": true
+    }
+  ]
+}

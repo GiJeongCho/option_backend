@@ -64,6 +64,8 @@ STEPS = (
     "strategy6_v02_vix_ma5_rising_backtest.py",
     "audit_strategy6_v02.py",
     "strategy6_v03_rv60_runner_backtest.py",
+    "strategy7_dual_sleeve_backtest.py",
+    "strategy5_v10_split_noloss_backtest.py",
 )
 
 STRATEGY_DAILY_FILES = (
@@ -91,6 +93,11 @@ STRATEGY_DAILY_FILES = (
     "strategy6_v01_daily.csv",
     "strategy6_v02_daily.csv",
     "strategy6_v03_rv60_runner_daily.csv",
+    "strategy7_daily.csv",
+    "strategy7_v02_daily.csv",
+    "strategy7_v03_daily.csv",
+    "strategy7_v04_daily.csv",
+    "strategy5_v10_split_daily.csv",
 )
 
 

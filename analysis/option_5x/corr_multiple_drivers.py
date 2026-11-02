@@ -27,8 +27,15 @@ import pandas as pd
 
 BASE = Path(__file__).resolve().parent
 OUT = BASE / "output"
-OPP = OUT / "opportunities.csv"
+# 입력 파일/출력 접미사: argv[1]=입력 csv명(기본 opportunities.csv), argv[2]=출력 접미사
+OPP_NAME = sys.argv[1] if len(sys.argv) > 1 else "opportunities.csv"
+SUFFIX = sys.argv[2] if len(sys.argv) > 2 else ""
+OPP = OUT / OPP_NAME
 S3 = OUT / "s3_breakout_event_details.csv"
+
+
+def outp(stem: str) -> Path:
+    return OUT / f"{stem}{SUFFIX}.csv"
 
 # 기울기/추세 스냅샷 재사용 (직전일까지만 사용 = leak-free)
 sys.path.insert(0, str(BASE))
@@ -104,6 +111,9 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     f["bar_count_post"] = df["bar_count"].astype(float)
 
     # --- 결과(outcome) ---
+    # 연도(국면 통제용)
+    f["year"] = (df["expiry_date"].astype(int) // 10000).astype(int)
+
     mm = df["max_multiple"].astype(float)
     f["max_multiple"] = mm
     f["log_max_multiple"] = np.log(mm.clip(lower=1e-6))
@@ -147,6 +157,125 @@ def corr_table(f: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _residualize(y: np.ndarray, Z: np.ndarray) -> np.ndarray:
+    """y를 통제변수 Z(절편 포함)로 회귀한 잔차."""
+    X = np.column_stack([np.ones(len(y)), Z]) if Z.size else np.ones((len(y), 1))
+    beta, *_ = np.linalg.lstsq(X, y, rcond=None)
+    return y - X @ beta
+
+
+def _rank(a: np.ndarray) -> np.ndarray:
+    return pd.Series(a).rank().to_numpy()
+
+
+def partial_corr(
+    f: pd.DataFrame,
+    feat: str,
+    outcome: str,
+    num_controls: list[str],
+    use_year: bool,
+    method: str = "spearman",
+) -> tuple[float, int]:
+    """feat vs outcome 편상관 (num_controls + 연도더미 통제)."""
+    cols = [feat, outcome, *num_controls]
+    if use_year:
+        cols.append("year")
+    sub = f[cols].dropna()
+    if len(sub) < 50 or sub[feat].nunique() < 2:
+        return float("nan"), len(sub)
+
+    a = sub[feat].to_numpy(dtype=float)
+    b = sub[outcome].to_numpy(dtype=float)
+    if method == "spearman":
+        a, b = _rank(a), _rank(b)
+
+    z_parts: list[np.ndarray] = []
+    for c in num_controls:
+        col = sub[c].to_numpy(dtype=float)
+        z_parts.append(_rank(col) if method == "spearman" else col)
+    if use_year:
+        # 연도 더미 (첫 범주 제외) - 더미는 순위변환 안 함
+        dummies = pd.get_dummies(sub["year"], drop_first=True).to_numpy(dtype=float)
+        if dummies.size:
+            z_parts.append(dummies)
+
+    Z = np.column_stack(z_parts) if z_parts else np.empty((len(sub), 0))
+    ra = _residualize(a, Z)
+    rb = _residualize(b, Z)
+    if np.std(ra) < 1e-12 or np.std(rb) < 1e-12:
+        return float("nan"), len(sub)
+    return float(np.corrcoef(ra, rb)[0, 1]), len(sub)
+
+
+# 편상관 대상 피처 (레벨/행사가는 통제변수로 쓰므로 피처에서 제외)
+PARTIAL_FEATURES = [
+    "log_entry_premium", "is_put", "entry_time",
+    "vix_ma5_dev", "vix_above_ma5", "vix_slope5", "vix_slope120",
+    "vix_daily_return", "vix_uptrend",
+]
+
+# 통제 시나리오: (라벨, 연속통제, 연도통제여부)
+CONTROL_SETS = [
+    ("연도통제", [], True),
+    ("레벨통제", ["vix_level"], False),
+    ("연도+레벨+행사가", ["vix_level", "strike"], True),
+]
+
+
+def partial_corr_table(f: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    for feat in PARTIAL_FEATURES:
+        # 원시 상관(통제 없음)
+        base = f[[feat, "log_max_multiple"]].dropna()
+        raw = (
+            base[feat].corr(base["log_max_multiple"], method="spearman")
+            if len(base) >= 50 else float("nan")
+        )
+        row = {"feature": feat, "raw_spearman": round(raw, 4) if raw == raw else None}
+        for label, num_c, use_year in CONTROL_SETS:
+            pc, n = partial_corr(f, feat, "log_max_multiple", num_c, use_year)
+            row[label] = round(pc, 4) if pc == pc else None
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def partial_corr_table_10x(f: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    for feat in PARTIAL_FEATURES:
+        base = f[[feat, "reached_10x"]].dropna()
+        raw = (
+            base[feat].corr(base["reached_10x"], method="spearman")
+            if len(base) >= 50 else float("nan")
+        )
+        row = {"feature": feat, "raw_spearman": round(raw, 4) if raw == raw else None}
+        for label, num_c, use_year in CONTROL_SETS:
+            pc, n = partial_corr(f, feat, "reached_10x", num_c, use_year)
+            row[label] = round(pc, 4) if pc == pc else None
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def yearly_corr(f: pd.DataFrame) -> pd.DataFrame:
+    """연도별 10배도달율 + 주요 피처 Spearman 상관."""
+    feats = ["log_entry_premium", "vix_level", "vix_slope120", "vix_ma5_dev", "is_put"]
+    rows = []
+    for year, sub in f.groupby("year"):
+        row = {
+            "year": int(year),
+            "n": int(len(sub)),
+            "rate_10x_pct": round(float(sub["reached_10x"].mean() * 100), 2),
+            "mean_vix_level": round(float(sub["vix_level"].mean()), 2),
+        }
+        for feat in feats:
+            s = sub[[feat, "log_max_multiple"]].dropna()
+            row[f"corr_{feat}"] = (
+                round(float(s[feat].corr(s["log_max_multiple"], method="spearman")), 3)
+                if len(s) >= 30 else None
+            )
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
 def group_contrast(f: pd.DataFrame) -> list[dict]:
     """2배 도달(2x~) vs 10배 도달(10x~) 그룹의 피처 평균 대비."""
     reached2 = f[f["reached_2x"] == 1]
@@ -169,8 +298,9 @@ def group_contrast(f: pd.DataFrame) -> list[dict]:
 
 
 def premium_band_rates(f: pd.DataFrame) -> list[dict]:
-    bins = [0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.01]
-    labels = ["1.0-1.49", "1.5-1.99", "2.0-2.49", "2.5-2.99", "3.0-3.49", "3.5-3.99", "4.0-5.0"]
+    bins = [0, 0.6, 0.8, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.01]
+    labels = ["0.4-0.59", "0.6-0.79", "0.8-0.99", "1.0-1.49", "1.5-1.99",
+              "2.0-2.49", "2.5-2.99", "3.0-3.49", "3.5-3.99", "4.0-5.0"]
     f = f.copy()
     f["band"] = pd.cut(f["entry_premium"], bins=bins, labels=labels, right=False)
     g = f.groupby("band", observed=True)
@@ -200,7 +330,7 @@ def main() -> None:
           f"5x: {f['reached_5x'].mean()*100:.1f}%  10x: {f['reached_10x'].mean()*100:.1f}%")
 
     ct = corr_table(f)
-    ct.to_csv(OUT / "corr_multiple_drivers.csv", index=False, encoding="utf-8-sig")
+    ct.to_csv(outp("corr_multiple_drivers"), index=False, encoding="utf-8-sig")
 
     # 피처 간 상관행렬 (주요 leak-free + 결과)
     mat_cols = [
@@ -209,10 +339,18 @@ def main() -> None:
         "log_max_multiple", "reached_10x",
     ]
     mat = f[mat_cols].corr(method="spearman").round(3)
-    mat.to_csv(OUT / "corr_multiple_drivers_matrix.csv", encoding="utf-8-sig")
+    mat.to_csv(outp("corr_multiple_drivers_matrix"), encoding="utf-8-sig")
 
     contrast = group_contrast(f)
     bands = premium_band_rates(f)
+
+    # 편상관 (교란 통제)
+    pct_mm = partial_corr_table(f)
+    pct_10x = partial_corr_table_10x(f)
+    pct_mm.to_csv(outp("corr_multiple_drivers_partial"), index=False, encoding="utf-8-sig")
+    pct_10x.to_csv(outp("corr_multiple_drivers_partial_10x"), index=False, encoding="utf-8-sig")
+    ycorr = yearly_corr(f)
+    ycorr.to_csv(outp("corr_multiple_drivers_yearly"), index=False, encoding="utf-8-sig")
 
     summary = {
         "n_contracts": n_total,
@@ -228,8 +366,11 @@ def main() -> None:
         .to_dict(orient="records"),
         "group_contrast_2x_vs_10x": contrast,
         "premium_band_rates": bands,
+        "partial_corr_vs_log_max_multiple": pct_mm.to_dict(orient="records"),
+        "partial_corr_vs_reached_10x": pct_10x.to_dict(orient="records"),
+        "yearly_corr": ycorr.to_dict(orient="records"),
     }
-    (OUT / "corr_multiple_drivers_summary.json").write_text(
+    (OUT / f"corr_multiple_drivers_summary{SUFFIX}.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
@@ -256,7 +397,16 @@ def main() -> None:
     print("\n[5] 피처 간 Spearman 상관행렬")
     print(mat.to_string())
 
-    print("\n저장: output/corr_multiple_drivers.csv / _matrix.csv / _summary.json")
+    print("\n[6] 편상관 - log(max_multiple) 대비 (교란 통제 전후)")
+    print(pct_mm.to_string(index=False))
+
+    print("\n[7] 편상관 - reached_10x 대비 (교란 통제 전후)")
+    print(pct_10x.to_string(index=False))
+
+    print("\n[8] 연도별 10배율 + 피처 상관")
+    print(ycorr.to_string(index=False))
+
+    print(f"\n저장: output/corr_multiple_drivers*{SUFFIX}.csv / _summary{SUFFIX}.json")
 
 
 if __name__ == "__main__":
