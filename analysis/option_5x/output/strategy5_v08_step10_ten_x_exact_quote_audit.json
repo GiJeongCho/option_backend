@@ -2,8 +2,8 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "buy_rows": 61,
-  "traded_days": 37,
+  "buy_rows": 68,
+  "traded_days": 42,
   "observed_entry_levels": [
     "0.4",
     "0.5",

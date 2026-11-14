@@ -287,6 +287,67 @@ class MarketDataService:
             )
         return result
 
+    @lru_cache(maxsize=256)
+    def option_series_bars(
+        self, expiry_date: str, code: str, lookback_days: int = 10
+    ) -> dict[str, object]:
+        """상장일부터 만기일 종가까지(약 1주일) 같은 종목코드의 day 분봉을 연결.
+
+        만기일에서 과거로 최대 ``lookback_days`` 거래일을 훑어, 해당 종목코드가
+        거래된 날을 만기일로부터 연속되는 블록으로 수집한다(주간물은 상장~만기까지
+        연속 거래). 각 봉에 ``tradingDate``를 붙여 반환한다.
+        """
+        if DATE_PATTERN.fullmatch(expiry_date) is None:
+            raise ValueError("날짜는 YYYYMMDD 형식이어야 합니다.")
+        dates = self.list_option_dates()
+        if expiry_date not in dates:
+            raise DataNotFoundError(
+                f"{expiry_date} 옵션 파일을 찾을 수 없습니다."
+            )
+        end_index = dates.index(expiry_date)
+        start_index = max(0, end_index - lookback_days)
+        window = dates[start_index : end_index + 1]
+
+        collected: list[tuple[str, list[dict[str, object]]]] = []
+        # 만기일에서 과거로: 종목코드가 끊기면(상장일 이전) 중단해 연속 블록만.
+        for trading_date in reversed(window):
+            try:
+                day_bars = self.option_bars(trading_date, code, "day")
+            except DataNotFoundError:
+                if collected:
+                    break
+                continue
+            collected.append((trading_date, day_bars))
+        collected.reverse()
+        if not collected:
+            raise DataNotFoundError(
+                f"{expiry_date} {code} 주간 분봉을 찾을 수 없습니다."
+            )
+
+        bars: list[dict[str, object]] = []
+        for trading_date, day_bars in collected:
+            for bar in day_bars:
+                merged = dict(bar)
+                merged["tradingDate"] = trading_date
+                bars.append(merged)
+        bars.sort(key=lambda item: int(item["time"]))
+
+        contracts = self.list_contracts(expiry_date, "day")
+        contract = next(
+            (item for item in contracts if item["code"] == code), None
+        )
+        trading_dates = [trading_date for trading_date, _ in collected]
+        return {
+            "expiryDate": expiry_date,
+            "code": code,
+            "series": str(contract["series"]) if contract else "",
+            "name": str(contract["name"]) if contract else "",
+            "callPut": str(contract["callPut"]) if contract else "",
+            "strike": contract["strike"] if contract else None,
+            "tradingDates": trading_dates,
+            "bars": bars,
+        }
+
     @lru_cache(maxsize=1)
     def volatility_bars(self) -> list[dict[str, object]]:
         if not self.volatility_path.exists():

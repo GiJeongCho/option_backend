@@ -4,15 +4,23 @@
   "base_strategy": "S3-v0.3",
   "scope": {
     "start": "20251010",
-    "end": "20260928",
-    "expiry_days": 90,
+    "end": "20261029",
+    "expiry_days": 98,
     "futures_aligned_days": 85,
     "futures_missing_dates": [
       "20251224",
       "20251230",
       "20260430",
       "20260504",
-      "20260928"
+      "20260928",
+      "20261001",
+      "20261006",
+      "20261012",
+      "20261015",
+      "20261019",
+      "20261022",
+      "20261026",
+      "20261029"
     ],
     "development_end": "20260430"
   },
@@ -32,7 +40,7 @@
     "PUT": 56
   },
   "summary": {
-    "days": 90,
+    "days": 98,
     "signal_days": 85,
     "trade_days": 52,
     "profitable_days": 23,
@@ -80,7 +88,7 @@
     "principal_recovered_days": 15
   },
   "validation": {
-    "days": 38,
+    "days": 46,
     "signal_days": 36,
     "trade_days": 17,
     "profitable_days": 6,
@@ -107,7 +115,7 @@
     "base_strategy": "S3-v0.1",
     "rule": "futures open below shifted weekly LSMA permits CALL; open above LSMA permits PUT",
     "all": {
-      "days": 90,
+      "days": 98,
       "signal_days": 32,
       "trade_days": 29,
       "profitable_days": 15,
@@ -147,7 +155,7 @@
       "entry_reached_10x_days": 1
     },
     "validation": {
-      "days": 38,
+      "days": 46,
       "signal_days": 17,
       "trade_days": 14,
       "profitable_days": 7,
@@ -172,26 +180,26 @@
       "strategy": "S4-research|S3-v0.1|baseline",
       "base_strategy": "S3-v0.1",
       "direction_mode": "baseline",
-      "unfiltered_signal_days": 90,
+      "unfiltered_signal_days": 98,
       "direction_rejected_days": 0,
       "all": {
-        "days": 90,
-        "signal_days": 90,
-        "trade_days": 78,
-        "profitable_days": 43,
-        "losing_days": 35,
-        "total_pnl": 51993500,
-        "average_trade_day_pnl": 666583,
-        "profit_factor": 1.4793,
+        "days": 98,
+        "signal_days": 98,
+        "trade_days": 84,
+        "profitable_days": 47,
+        "losing_days": 37,
+        "total_pnl": 57924000,
+        "average_trade_day_pnl": 689571,
+        "profit_factor": 1.4997,
         "minimum_day_pnl": -4956000,
         "maximum_day_pnl": 6360000,
         "max_drawdown": -13931000,
-        "pnl_excluding_best_3_days": 33922500,
-        "pnl_excluding_best_5_days": 22508000,
-        "total_buy_principal": 275275000,
-        "expired_contracts": 99,
-        "entry_reached_2x_days": 42,
-        "entry_reached_5x_days": 9,
+        "pnl_excluding_best_3_days": 39853000,
+        "pnl_excluding_best_5_days": 28438500,
+        "total_buy_principal": 294982500,
+        "expired_contracts": 119,
+        "entry_reached_2x_days": 46,
+        "entry_reached_5x_days": 11,
         "entry_reached_10x_days": 2
       },
       "development": {
@@ -215,23 +223,23 @@
         "entry_reached_10x_days": 1
       },
       "validation": {
-        "days": 38,
-        "signal_days": 38,
-        "trade_days": 28,
-        "profitable_days": 15,
-        "losing_days": 13,
-        "total_pnl": 5899500,
-        "average_trade_day_pnl": 210696,
-        "profit_factor": 1.2253,
+        "days": 46,
+        "signal_days": 46,
+        "trade_days": 34,
+        "profitable_days": 19,
+        "losing_days": 15,
+        "total_pnl": 11830000,
+        "average_trade_day_pnl": 347941,
+        "profit_factor": 1.3518,
         "minimum_day_pnl": -4946500,
         "maximum_day_pnl": 6360000,
         "max_drawdown": -13931000,
-        "pnl_excluding_best_3_days": -9762500,
-        "pnl_excluding_best_5_days": -16016000,
-        "total_buy_principal": 56702500,
-        "expired_contracts": 50,
-        "entry_reached_2x_days": 15,
-        "entry_reached_5x_days": 5,
+        "pnl_excluding_best_3_days": -3832000,
+        "pnl_excluding_best_5_days": -11904500,
+        "total_buy_principal": 76410000,
+        "expired_contracts": 70,
+        "entry_reached_2x_days": 19,
+        "entry_reached_5x_days": 7,
         "entry_reached_10x_days": 1
       }
     },
@@ -239,10 +247,10 @@
       "strategy": "S4-v0.1",
       "base_strategy": "S3-v0.1",
       "direction_mode": "toward_gate",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 58,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 66,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 32,
         "trade_days": 29,
         "profitable_days": 15,
@@ -282,7 +290,7 @@
         "entry_reached_10x_days": 1
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 17,
         "trade_days": 14,
         "profitable_days": 7,
@@ -306,10 +314,10 @@
       "strategy": "S4-research|S3-v0.1|toward_filter",
       "base_strategy": "S3-v0.1",
       "direction_mode": "toward_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 5,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 13,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 85,
         "trade_days": 66,
         "profitable_days": 30,
@@ -349,7 +357,7 @@
         "entry_reached_10x_days": 2
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 36,
         "trade_days": 24,
         "profitable_days": 13,
@@ -373,10 +381,10 @@
       "strategy": "S4-research|S3-v0.1|away_filter",
       "base_strategy": "S3-v0.1",
       "direction_mode": "away_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 5,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 13,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 85,
         "trade_days": 67,
         "profitable_days": 37,
@@ -416,7 +424,7 @@
         "entry_reached_10x_days": 1
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 36,
         "trade_days": 22,
         "profitable_days": 10,
@@ -440,10 +448,10 @@
       "strategy": "S4-research|S3-v0.1|slope_filter",
       "base_strategy": "S3-v0.1",
       "direction_mode": "slope_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 5,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 13,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 85,
         "trade_days": 70,
         "profitable_days": 34,
@@ -483,7 +491,7 @@
         "entry_reached_10x_days": 1
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 36,
         "trade_days": 25,
         "profitable_days": 12,
@@ -507,10 +515,10 @@
       "strategy": "S4-research|S3-v0.1|consensus_filter",
       "base_strategy": "S3-v0.1",
       "direction_mode": "consensus_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 54,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 62,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 36,
         "trade_days": 28,
         "profitable_days": 13,
@@ -550,7 +558,7 @@
         "entry_reached_10x_days": 0
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 17,
         "trade_days": 12,
         "profitable_days": 7,
@@ -574,30 +582,30 @@
       "strategy": "S4-research|S3-v0.3|baseline",
       "base_strategy": "S3-v0.3",
       "direction_mode": "baseline",
-      "unfiltered_signal_days": 90,
+      "unfiltered_signal_days": 98,
       "direction_rejected_days": 0,
       "all": {
-        "days": 90,
-        "signal_days": 90,
-        "trade_days": 53,
-        "profitable_days": 19,
-        "losing_days": 34,
-        "total_pnl": -813500,
-        "average_trade_day_pnl": -15349,
-        "profit_factor": 0.9467,
+        "days": 98,
+        "signal_days": 98,
+        "trade_days": 58,
+        "profitable_days": 21,
+        "losing_days": 37,
+        "total_pnl": -1379500,
+        "average_trade_day_pnl": -23784,
+        "profit_factor": 0.9196,
         "minimum_day_pnl": -1520500,
         "maximum_day_pnl": 2132000,
-        "max_drawdown": -5676000,
-        "pnl_excluding_best_3_days": -5860000,
-        "pnl_excluding_best_5_days": -7588500,
-        "total_buy_principal": 54365000,
+        "max_drawdown": -6242000,
+        "pnl_excluding_best_3_days": -6426000,
+        "pnl_excluding_best_5_days": -8169500,
+        "total_buy_principal": 58135000,
         "expired_contracts": 0,
-        "one_stage_days": 47,
+        "one_stage_days": 52,
         "two_stage_days": 3,
         "three_stage_days": 3,
         "qualified_pattern_days": 6,
-        "reached_2x_days": 29,
-        "principal_recovered_days": 17
+        "reached_2x_days": 31,
+        "principal_recovered_days": 19
       },
       "development": {
         "days": 52,
@@ -623,37 +631,37 @@
         "principal_recovered_days": 14
       },
       "validation": {
-        "days": 38,
-        "signal_days": 38,
-        "trade_days": 14,
-        "profitable_days": 4,
-        "losing_days": 10,
-        "total_pnl": -3522500,
-        "average_trade_day_pnl": -251607,
-        "profit_factor": 0.3349,
-        "minimum_day_pnl": -802000,
-        "maximum_day_pnl": 718000,
-        "max_drawdown": -3646500,
-        "pnl_excluding_best_3_days": -5126000,
-        "pnl_excluding_best_5_days": -5168000,
-        "total_buy_principal": 11260000,
+        "days": 46,
+        "signal_days": 46,
+        "trade_days": 19,
+        "profitable_days": 6,
+        "losing_days": 13,
+        "total_pnl": -4088500,
+        "average_trade_day_pnl": -215184,
+        "profit_factor": 0.4322,
+        "minimum_day_pnl": -814500,
+        "maximum_day_pnl": 837000,
+        "max_drawdown": -4212500,
+        "pnl_excluding_best_3_days": -6157500,
+        "pnl_excluding_best_5_days": -7029500,
+        "total_buy_principal": 15030000,
         "expired_contracts": 0,
-        "one_stage_days": 13,
+        "one_stage_days": 18,
         "two_stage_days": 1,
         "three_stage_days": 0,
         "qualified_pattern_days": 1,
-        "reached_2x_days": 5,
-        "principal_recovered_days": 3
+        "reached_2x_days": 7,
+        "principal_recovered_days": 5
       }
     },
     {
       "strategy": "S4-research|S3-v0.3|toward_gate",
       "base_strategy": "S3-v0.3",
       "direction_mode": "toward_gate",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 48,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 56,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 42,
         "trade_days": 26,
         "profitable_days": 9,
@@ -699,7 +707,7 @@
         "principal_recovered_days": 5
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 21,
         "trade_days": 6,
         "profitable_days": 3,
@@ -726,10 +734,10 @@
       "strategy": "S4-research|S3-v0.3|toward_filter",
       "base_strategy": "S3-v0.3",
       "direction_mode": "toward_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 5,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 13,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 85,
         "trade_days": 54,
         "profitable_days": 20,
@@ -775,7 +783,7 @@
         "principal_recovered_days": 11
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 36,
         "trade_days": 15,
         "profitable_days": 6,
@@ -802,10 +810,10 @@
       "strategy": "S4-v0.2",
       "base_strategy": "S3-v0.3",
       "direction_mode": "away_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 5,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 13,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 85,
         "trade_days": 52,
         "profitable_days": 23,
@@ -851,7 +859,7 @@
         "principal_recovered_days": 15
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 36,
         "trade_days": 17,
         "profitable_days": 6,
@@ -878,10 +886,10 @@
       "strategy": "S4-research|S3-v0.3|slope_filter",
       "base_strategy": "S3-v0.3",
       "direction_mode": "slope_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 5,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 13,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 85,
         "trade_days": 55,
         "profitable_days": 23,
@@ -927,7 +935,7 @@
         "principal_recovered_days": 13
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 36,
         "trade_days": 18,
         "profitable_days": 8,
@@ -954,10 +962,10 @@
       "strategy": "S4-research|S3-v0.3|consensus_filter",
       "base_strategy": "S3-v0.3",
       "direction_mode": "consensus_filter",
-      "unfiltered_signal_days": 90,
-      "direction_rejected_days": 54,
+      "unfiltered_signal_days": 98,
+      "direction_rejected_days": 62,
       "all": {
-        "days": 90,
+        "days": 98,
         "signal_days": 36,
         "trade_days": 23,
         "profitable_days": 9,
@@ -1003,7 +1011,7 @@
         "principal_recovered_days": 6
       },
       "validation": {
-        "days": 38,
+        "days": 46,
         "signal_days": 17,
         "trade_days": 8,
         "profitable_days": 3,
@@ -1028,16 +1036,16 @@
     }
   ],
   "comparison": {
-    "to_s3_v03_total_pnl": 5179000,
+    "to_s3_v03_total_pnl": 5745000,
     "to_s3_v03_development_pnl": 3589000,
-    "to_s3_v03_validation_pnl": 1590000,
-    "to_s3_v01_total_pnl": -47628000
+    "to_s3_v03_validation_pnl": 2156000,
+    "to_s3_v01_total_pnl": -53558500
   },
   "audit": {
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 90,
+    "daily_rows": 98,
     "trade_rows": 120
   },
   "candidate_audits": {
@@ -1045,84 +1053,84 @@
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
-      "trade_rows": 193
+      "daily_rows": 98,
+      "trade_rows": 219
     },
     "S4-v0.1": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 76
     },
     "S4-research|S3-v0.1|toward_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 182
     },
     "S4-research|S3-v0.1|away_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 163
     },
     "S4-research|S3-v0.1|slope_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 177
     },
     "S4-research|S3-v0.1|consensus_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 74
     },
     "S4-research|S3-v0.3|baseline": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
-      "trade_rows": 126
+      "daily_rows": 98,
+      "trade_rows": 139
     },
     "S4-research|S3-v0.3|toward_gate": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 61
     },
     "S4-research|S3-v0.3|toward_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 122
     },
     "S4-v0.2": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 120
     },
     "S4-research|S3-v0.3|slope_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 128
     },
     "S4-research|S3-v0.3|consensus_filter": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 90,
+      "daily_rows": 98,
       "trade_rows": 53
     }
   },

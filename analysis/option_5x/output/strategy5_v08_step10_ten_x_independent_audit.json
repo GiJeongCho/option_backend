@@ -2,9 +2,9 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 67,
-  "trade_rows": 138,
-  "position_rows": 61,
+  "daily_rows": 75,
+  "trade_rows": 152,
+  "position_rows": 68,
   "checks": [
     "independent P0 and actual entry-price reconstruction",
     "post-entry 1.5x confirmation only through 09:29",

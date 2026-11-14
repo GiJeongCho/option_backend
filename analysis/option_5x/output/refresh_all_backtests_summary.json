@@ -1,54 +1,291 @@
 {
   "status": "ok",
-  "generated_at": "2026-10-19T19:45:22.766882+00:00",
+  "generated_at": "2026-11-13T01:11:23.243485+00:00",
   "dataset_directories": [
+    "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(R2-2026년10월)",
     "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4437-1)",
     "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4571-1)",
     "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-1)",
     "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4831-2)",
     "[파생 옵션 코스피200 위클리]일중 매매정보(1분)(주문번호-4949-1)"
   ],
-  "raw_file_count": 769,
+  "raw_file_count": 789,
   "raw_min_date": "20230801",
-  "raw_max_date": "20260930",
-  "expiry_group_count": 289,
-  "latest_completed_expiry": "20260928",
-  "strategy_count": 22,
+  "raw_max_date": "20261030",
+  "expiry_group_count": 297,
+  "latest_completed_expiry": "20261029",
+  "strategy_count": 33,
   "strategy_latest_dates": {
-    "strategy1_daily.csv": "20260928",
-    "strategy2_daily.csv": "20260928",
-    "strategy2_v02_daily.csv": "20260928",
-    "strategy2_v03_daily.csv": "20260928",
-    "strategy3_daily.csv": "20260928",
-    "strategy3_v02_daily.csv": "20260928",
-    "strategy3_v03_daily.csv": "20260928",
-    "strategy3_v04_daily.csv": "20260928",
-    "strategy4_v01_daily.csv": "20260928",
-    "strategy4_daily.csv": "20260928",
-    "strategy5_daily.csv": "20260928",
-    "strategy5_v03_early_daily.csv": "20260928",
-    "strategy5_v03_late_daily.csv": "20260928",
-    "strategy5_v04_ev_daily.csv": "20260928",
-    "strategy5_v04_staged_daily.csv": "20260928",
-    "strategy5_v05_daily.csv": "20260928",
-    "strategy5_v06_ten_x_daily.csv": "20260928",
-    "strategy5_v07_04_bin_ev_daily.csv": "20260928",
-    "strategy5_v07_04_bin_ten_x_daily.csv": "20260928",
-    "strategy5_v08_step10_ten_x_daily.csv": "20260928",
-    "strategy6_v01_daily.csv": "20260928",
-    "strategy6_v02_daily.csv": "20260928"
+    "strategy1_daily.csv": "20261029",
+    "strategy2_daily.csv": "20261029",
+    "strategy2_v02_daily.csv": "20261029",
+    "strategy2_v03_daily.csv": "20261029",
+    "strategy3_daily.csv": "20261029",
+    "strategy3_v02_daily.csv": "20261029",
+    "strategy3_v03_daily.csv": "20261029",
+    "strategy3_v04_daily.csv": "20261029",
+    "strategy4_v01_daily.csv": "20261029",
+    "strategy4_daily.csv": "20261029",
+    "strategy5_daily.csv": "20261029",
+    "strategy5_v03_early_daily.csv": "20261029",
+    "strategy5_v03_late_daily.csv": "20261029",
+    "strategy5_v04_ev_daily.csv": "20261029",
+    "strategy5_v04_staged_daily.csv": "20261029",
+    "strategy5_v05_daily.csv": "20261029",
+    "strategy5_v06_ten_x_daily.csv": "20261029",
+    "strategy5_v07_04_bin_ev_daily.csv": "20261029",
+    "strategy5_v07_04_bin_ten_x_daily.csv": "20261029",
+    "strategy5_v08_step10_ten_x_daily.csv": "20261029",
+    "strategy5_v09_strike10_ten_x_daily.csv": "20261029",
+    "strategy6_v01_daily.csv": "20261029",
+    "strategy6_v02_daily.csv": "20261029",
+    "strategy6_v03_rv60_runner_daily.csv": "20261029",
+    "strategy7_daily.csv": "20261029",
+    "strategy7_v02_daily.csv": "20261029",
+    "strategy7_v03_daily.csv": "20261029",
+    "strategy7_v04_daily.csv": "20261029",
+    "strategy5_v10_split_daily.csv": "20261029",
+    "strategy5_v11_stop30_daily.csv": "20261029",
+    "strategy8_v01_pair_x2_daily.csv": "20261029",
+    "strategy8_v02_pair_x3_daily.csv": "20261029",
+    "strategy8_v03_pair_x4_daily.csv": "20261029"
   },
   "steps": [
     {
+      "script": "profile_data.py",
+      "elapsed_seconds": 64.992,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\profile_data.log"
+    },
+    {
+      "script": "count_opportunities.py",
+      "elapsed_seconds": 26.274,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\count_opportunities.log"
+    },
+    {
+      "script": "verify_opportunities.py",
+      "elapsed_seconds": 20.496,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\verify_opportunities.log"
+    },
+    {
+      "script": "minimal_baseline_backtest.py",
+      "elapsed_seconds": 55.642,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\minimal_baseline_backtest.log"
+    },
+    {
+      "script": "audit_minimal_baseline.py",
+      "elapsed_seconds": 0.202,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_minimal_baseline.log"
+    },
+    {
+      "script": "strategy1_backtest.py",
+      "elapsed_seconds": 51.065,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy1_backtest.log"
+    },
+    {
+      "script": "analyze_strategy1_patterns.py",
+      "elapsed_seconds": 32.33,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\analyze_strategy1_patterns.log"
+    },
+    {
+      "script": "strategy2_backtest.py",
+      "elapsed_seconds": 58.314,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy2_backtest.log"
+    },
+    {
+      "script": "strategy2_v02_backtest.py",
+      "elapsed_seconds": 106.819,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy2_v02_backtest.log"
+    },
+    {
+      "script": "strategy2_v03_backtest.py",
+      "elapsed_seconds": 107.245,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy2_v03_backtest.log"
+    },
+    {
+      "script": "strategy3_research.py",
+      "elapsed_seconds": 53.943,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy3_research.log"
+    },
+    {
+      "script": "strategy3_v02_backtest.py",
+      "elapsed_seconds": 27.975,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy3_v02_backtest.log"
+    },
+    {
+      "script": "strategy3_v03_backtest.py",
+      "elapsed_seconds": 27.732,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy3_v03_backtest.log"
+    },
+    {
+      "script": "strategy3_v04_research.py",
+      "elapsed_seconds": 27.923,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy3_v04_research.log"
+    },
+    {
+      "script": "strategy3_v04_backtest.py",
+      "elapsed_seconds": 27.445,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy3_v04_backtest.log"
+    },
+    {
+      "script": "audit_strategy3_v04.py",
+      "elapsed_seconds": 0.099,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy3_v04.log"
+    },
+    {
+      "script": "strategy4_lsma_futures_backtest.py",
+      "elapsed_seconds": 39.855,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy4_lsma_futures_backtest.log"
+    },
+    {
+      "script": "strategy5_ppt_momentum_backtest.py",
+      "elapsed_seconds": 27.431,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_ppt_momentum_backtest.log"
+    },
+    {
+      "script": "strategy5_ppt_momentum_research.py",
+      "elapsed_seconds": 28.317,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_ppt_momentum_research.log"
+    },
+    {
+      "script": "strategy5_ppt_confirmation_backtest.py",
+      "elapsed_seconds": 28.646,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_ppt_confirmation_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_ppt_momentum.py",
+      "elapsed_seconds": 0.095,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_ppt_momentum.log"
+    },
+    {
+      "script": "strategy5_v03_event_research.py",
+      "elapsed_seconds": 31.581,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v03_event_research.log"
+    },
+    {
+      "script": "strategy5_v03_dual_confirmation_backtest.py",
+      "elapsed_seconds": 39.113,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v03_dual_confirmation_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v03.py",
+      "elapsed_seconds": 0.22,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v03.log"
+    },
+    {
+      "script": "strategy5_v04_basket_backtest.py",
+      "elapsed_seconds": 34.058,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v04_basket_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v04.py",
+      "elapsed_seconds": 32.296,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v04.log"
+    },
+    {
+      "script": "strategy5_v05_no_reentry_backtest.py",
+      "elapsed_seconds": 32.374,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v05_no_reentry_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v05.py",
+      "elapsed_seconds": 31.342,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v05.log"
+    },
+    {
+      "script": "strategy5_v06_ten_x_backtest.py",
+      "elapsed_seconds": 28.371,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v06_ten_x_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v06_ten_x.py",
+      "elapsed_seconds": 25.46,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v06_ten_x.log"
+    },
+    {
+      "script": "strategy5_v07_04_bin_ev_backtest.py",
+      "elapsed_seconds": 24.861,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v07_04_bin_ev_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v07_04_bin_ev.py",
+      "elapsed_seconds": 24.187,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v07_04_bin_ev.log"
+    },
+    {
+      "script": "strategy5_v07_04_bin_ten_x_backtest.py",
+      "elapsed_seconds": 23.91,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v07_04_bin_ten_x_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v07_04_bin_ten_x.py",
+      "elapsed_seconds": 24.508,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v07_04_bin_ten_x.log"
+    },
+    {
+      "script": "strategy5_v08_step10_ten_x_backtest.py",
+      "elapsed_seconds": 23.869,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v08_step10_ten_x_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v08_step10_ten_x.py",
+      "elapsed_seconds": 38.96,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v08_step10_ten_x.log"
+    },
+    {
+      "script": "strategy5_v09_strike10_ten_x_backtest.py",
+      "elapsed_seconds": 26.021,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v09_strike10_ten_x_backtest.log"
+    },
+    {
+      "script": "audit_strategy5_v09_strike10_ten_x.py",
+      "elapsed_seconds": 24.184,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy5_v09_strike10_ten_x.log"
+    },
+    {
+      "script": "strategy6_v01_vix_rv_put_backtest.py",
+      "elapsed_seconds": 46.564,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy6_v01_vix_rv_put_backtest.log"
+    },
+    {
+      "script": "audit_strategy6_v01.py",
+      "elapsed_seconds": 27.626,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy6_v01.log"
+    },
+    {
       "script": "strategy6_v02_vix_ma5_rising_backtest.py",
-      "elapsed_seconds": 36.183,
+      "elapsed_seconds": 45.029,
       "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy6_v02_vix_ma5_rising_backtest.log"
     },
     {
       "script": "audit_strategy6_v02.py",
-      "elapsed_seconds": 10.62,
+      "elapsed_seconds": 11.556,
       "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\audit_strategy6_v02.log"
+    },
+    {
+      "script": "strategy6_v03_rv60_runner_backtest.py",
+      "elapsed_seconds": 49.046,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy6_v03_rv60_runner_backtest.log"
+    },
+    {
+      "script": "strategy7_dual_sleeve_backtest.py",
+      "elapsed_seconds": 60.492,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy7_dual_sleeve_backtest.log"
+    },
+    {
+      "script": "strategy5_v10_split_noloss_backtest.py",
+      "elapsed_seconds": 56.301,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy5_v10_split_noloss_backtest.log"
+    },
+    {
+      "script": "strategy6_v01_pair_half_backtest.py",
+      "elapsed_seconds": 134.032,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy6_v01_pair_half_backtest.log"
+    },
+    {
+      "script": "strategy8_pair_multi_catalog.py",
+      "elapsed_seconds": 130.633,
+      "log": "C:\\project\\option\\backend\\analysis\\option_5x\\output\\refresh_logs\\strategy8_pair_multi_catalog.log"
     }
   ],
-  "elapsed_seconds": 46.876
+  "elapsed_seconds": 1839.622
 }

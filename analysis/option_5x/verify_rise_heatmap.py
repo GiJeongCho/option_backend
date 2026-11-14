@@ -53,7 +53,11 @@ def band_of(price: float):
 
 
 def find_p0(contract):
-    """09:00~09:10 첫 관측에서 가격대에 처음 든 (P0, t0_minute, band)."""
+    """09:00~09:10 첫 관측에서 가격대에 처음 든 (P0, t0_minute, band).
+
+    '세 가격대 합산' = P0가 A/B/C 중 하나에 들면 해당 종목을 포함(종목당 1관측).
+    같은 분봉은 OPEN→CLOSE→HIGH→LOW 순, 이른 분봉 우선.
+    """
     for bar in contract.bars:
         if bar.minute < OBS_START or bar.minute > OBS_END:
             continue
@@ -68,14 +72,15 @@ def find_p0(contract):
     return None
 
 
-def contract_cells(contract):
-    """이 종목이 기여하는 (T, M) -> {'buy': True, 'reach': {K: bool}} 와 band."""
-    p0info = find_p0(contract)
-    if p0info is None:
-        return None, None
-    p0, t0, band = p0info
+def _cells_for_p0(contract, p0, t0, t0_idx):
+    """특정 (P0, t0) 관측에 대한 (T, M) -> {reach: {K:bool}, crashed: bool}.
+
+    crashed = P0 관측시점(t0)부터 신호봉(t0+T)까지 사이에 실제 거래 저가가
+    0.5*P0 이하로 내려간 적이 있는지. '절반 이하로 하락하지 않은 옵션' 필터용.
+    """
     bars = contract.bars
     idx = base.MINUTE_INDEX
+    half = 0.5 * p0
     results = {}
     for T in T_VALUES:
         sig_clock = to_hhmm(to_min(t0) + T)
@@ -98,6 +103,13 @@ def contract_cells(contract):
                 break
         if buy_price is None or buy_price <= 0:
             continue  # 매수 불가 → 분모 제외
+        # 절반 이하 하락 여부: t0 관측봉 ~ 신호봉 사이 실제 거래 저가
+        crashed = False
+        for j in range(t0_idx, sig_idx + 1):
+            b = bars[j]
+            if b.traded and b.low is not None and float(b.low) <= half + EPS:
+                crashed = True
+                break
         # 매수봉 제외 이후 ~ 15:20 최고가
         max_high = 0.0
         for j in range(buy_idx + 1, len(bars)):
@@ -110,8 +122,18 @@ def contract_cells(contract):
         for M in M_VALUES:
             if close + EPS >= M * p0:
                 reach = {K: (max_high + EPS >= K * buy_price) for K in K_VALUES}
-                results[(T, M)] = reach
-    return results, band
+                results[(T, M)] = {"reach": reach, "crashed": crashed}
+    return results
+
+
+def contract_observations(contract):
+    """이 종목이 기여하는 (results, band) 목록(종목당 단일 P0 관측)."""
+    p0info = find_p0(contract)
+    if p0info is None:
+        return []
+    p0, t0, band = p0info
+    t0_idx = base.MINUTE_INDEX[t0]
+    return [(_cells_for_p0(contract, p0, t0, t0_idx), band)]
 
 
 def blank_grid():
@@ -119,8 +141,11 @@ def blank_grid():
     return {K: defaultdict(lambda: [0, 0, set()]) for K in K_VALUES}
 
 
-def accumulate(grid, results, expiry_date):
-    for (T, M), reach in results.items():
+def accumulate(grid, results, expiry_date, require_no_crash=False):
+    for (T, M), info in results.items():
+        if require_no_crash and info["crashed"]:
+            continue  # P0 대비 절반 이하로 떨어진 적 있으면 제외
+        reach = info["reach"]
         for K in K_VALUES:
             cell = grid[K][(T, M)]
             cell[1] += 1
@@ -169,13 +194,22 @@ def run():
             for scope in ("all", year):
                 stats[scope]["contracts"] += 1
                 stats[scope]["expiry"].add(date)
-            results, band = contract_cells(contract)
-            if results is None:
+            observations = contract_observations(contract)
+            if not observations:
                 continue
             for scope in ("all", year):
                 stats[scope]["with_p0"] += 1
-                accumulate(get_bucket(scope, "combined"), results, date)
-                accumulate(get_bucket(scope, sub_dir), results, date)
+            for results, _band in observations:
+                for scope in ("all", year):
+                    accumulate(get_bucket(scope, "combined"), results, date)
+                    accumulate(get_bucket(scope, sub_dir), results, date)
+                    # P0 대비 절반 이하로 하락한 적 없는 종목만 (nohalf)
+                    accumulate(
+                        get_bucket(scope, "combined_nohalf"), results, date,
+                        require_no_crash=True)
+                    accumulate(
+                        get_bucket(scope, sub_dir + "_nohalf"), results, date,
+                        require_no_crash=True)
 
     document = {"definition": {
         "bands": [list(b) for b in BANDS], "T": T_VALUES, "M": M_VALUES,

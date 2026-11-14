@@ -3,34 +3,34 @@
   "error_count": 0,
   "error_samples": [],
   "event_denominators": {
-    "eligible_contracts": 1333,
-    "ambiguous_initial_bar": 84,
-    "ordered_contracts": 1249,
-    "early": 500,
-    "early_reached_2x": 377,
-    "early_unconfirmed": 749,
-    "early_unconfirmed_reached_003": 703,
-    "late": 199,
-    "late_reached_2x": 151,
-    "late_reached_5x": 78,
-    "late_reached_10x": 45,
-    "never": 550,
-    "never_reached_003": 550
+    "eligible_contracts": 1476,
+    "ambiguous_initial_bar": 90,
+    "ordered_contracts": 1386,
+    "early": 553,
+    "early_reached_2x": 415,
+    "early_unconfirmed": 833,
+    "early_unconfirmed_reached_003": 771,
+    "late": 243,
+    "late_reached_2x": 183,
+    "late_reached_5x": 103,
+    "late_reached_10x": 55,
+    "never": 590,
+    "never_reached_003": 590
   },
   "branches": {
     "EARLY": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 67,
-      "trade_rows": 129
+      "daily_rows": 75,
+      "trade_rows": 149
     },
     "LATE": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 67,
-      "trade_rows": 77
+      "daily_rows": 75,
+      "trade_rows": 92
     }
   },
   "checks": [

@@ -23,6 +23,7 @@ SUMMARY_PATH = OUTPUT_DIR / "refresh_all_backtests_summary.json"
 STEPS = (
     "profile_data.py",
     "count_opportunities.py",
+    "count_opportunities_lowband.py",
     "verify_opportunities.py",
     "minimal_baseline_backtest.py",
     "audit_minimal_baseline.py",
@@ -66,6 +67,8 @@ STEPS = (
     "strategy6_v03_rv60_runner_backtest.py",
     "strategy7_dual_sleeve_backtest.py",
     "strategy5_v10_split_noloss_backtest.py",
+    "strategy6_v01_pair_half_backtest.py",
+    "strategy8_pair_multi_catalog.py",
 )
 
 STRATEGY_DAILY_FILES = (
@@ -98,6 +101,10 @@ STRATEGY_DAILY_FILES = (
     "strategy7_v03_daily.csv",
     "strategy7_v04_daily.csv",
     "strategy5_v10_split_daily.csv",
+    "strategy5_v11_stop30_daily.csv",
+    "strategy8_v02_x2_daily.csv",
+    "strategy8_v03_x3_daily.csv",
+    "strategy8_v04_x4_daily.csv",
 )
 
 

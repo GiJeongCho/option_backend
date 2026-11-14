@@ -34,9 +34,40 @@ import minimal_baseline_backtest as base
 from count_opportunities import derive_expiry_groups
 
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"
-STEM = "strategy5_v10_split"
-VERSION = "S5-v1.0"
-LABEL = "S5-v1.0 분할바스켓·무손절·2배전량(초기형)"
+
+# 손절 효과 비교용 변형. stop_frac = 종가가 진입가의 이 배율 이하이면 전량 손절.
+# None 이면 무손절(초기형 그대로).
+# stop_frac: 종가가 진입가의 이 배율 이하이면 전량 손절(None=무손절)
+# call_put : "ALL"/"CALL"/"PUT" 진입 방향 필터
+# filter   : 진입 제외 필터
+#   "high_0950" = 첫거래~09:50 장중 고점 대비 50% 이상 하락 제외
+#   "p0_half"   = 09:00~09:10 최초 관측가 P0 대비 절반 이하로 하락한 종목 제외
+CONFIGS = (
+    {"version": "S5-v1.0", "stem": "strategy5_v10_split",
+     "label": "S5-v1.0 분할바스켓·무손절·2배전량(초기형)",
+     "stop_frac": None, "call_put": "ALL", "filter": "high_0950"},
+    {"version": "S5-v1.1", "stem": "strategy5_v11_stop30",
+     "label": "S5-v1.1 분할바스켓·손절 −30%·2배전량",
+     "stop_frac": 0.70, "call_put": "ALL", "filter": "high_0950"},
+    {"version": "S5-v1.0-stop50", "stem": "strategy5_v10_stop50",
+     "label": "S5-v1.0 손절 −50% 비교안",
+     "stop_frac": 0.50, "call_put": "ALL", "filter": "high_0950"},
+    {"version": "S5-v1.0-stop70", "stem": "strategy5_v10_stop70",
+     "label": "S5-v1.0 손절 −70% 비교안",
+     "stop_frac": 0.30, "call_put": "ALL", "filter": "high_0950"},
+    {"version": "S5-v1.1-CALL", "stem": "strategy5_v11_stop30_call",
+     "label": "S5-v1.1 손절−30%·콜옵션만",
+     "stop_frac": 0.70, "call_put": "CALL", "filter": "high_0950"},
+    {"version": "S5-v1.2", "stem": "strategy5_v12_p0half",
+     "label": "S5-v1.2 손절−30%·P0대비 절반이상 유지 필터",
+     "stop_frac": 0.70, "call_put": "ALL", "filter": "p0_half"},
+    {"version": "S5-v1.2-CALL", "stem": "strategy5_v12_p0half_call",
+     "label": "S5-v1.2 손절−30%·P0절반필터·콜옵션만",
+     "stop_frac": 0.70, "call_put": "CALL", "filter": "p0_half"},
+)
+
+MORNING_START = 900
+MORNING_END = 910
 
 INITIAL_CASH = 20_000_000
 DAILY_BUDGET = 5_000_000
@@ -71,6 +102,41 @@ def passes_drawdown_filter(contract: base.ContractGrid, decision_index: int) -> 
         ):
             return False
     return traded_any
+
+
+def p0_observation(contract: base.ContractGrid):
+    """09:00~09:10 최초 거래 분봉의 시가를 P0로 본다. 없으면 None."""
+    for index in range(base.MINUTE_INDEX[MORNING_START],
+                       base.MINUTE_INDEX[MORNING_END] + 1):
+        bar = contract.bars[index]
+        if bar.traded and bar.open is not None:
+            return float(bar.open)
+    return None
+
+
+def passes_p0_half_filter(contract: base.ContractGrid, decision_index: int) -> bool:
+    """09:00~09:10 최초 관측가 P0 대비, decision_index(09:50)까지 저가가
+    절반(0.5×P0) 이하로 떨어진 적이 없으면 True."""
+    p0 = p0_observation(contract)
+    if p0 is None or p0 <= 0:
+        return False
+    floor = 0.5 * p0
+    for index in range(0, decision_index + 1):
+        bar = contract.bars[index]
+        if bar.traded and bar.low is not None and float(bar.low) <= floor + 1e-12:
+            return False
+    return True
+
+
+def match_call_put(contract: base.ContractGrid, want: str) -> bool:
+    if want == "ALL":
+        return True
+    cp = contract.call_put.upper()
+    if want == "CALL":
+        return "CALL" in cp or "콜" in contract.call_put or cp == "C"
+    if want == "PUT":
+        return "PUT" in cp or "풋" in contract.call_put or cp == "P"
+    return True
 
 
 def entry_fill(contract: base.ContractGrid, decision_index: int):
@@ -132,76 +198,86 @@ def sell_all(contract: base.ContractGrid, signal_index: int, quantity: int):
     return None
 
 
-def simulate_position(date_value, contract, campaign, entry_index, entry_bar,
-                      fill_price, qty):
-    """단일 진입 후 2배 전량 익절 / 시간청산 / 소멸."""
+def simulate_position(version, stop_frac, date_value, contract, campaign,
+                      entry_index, entry_bar, fill_price, qty):
+    """단일 진입 후 2배 전량 익절 / (옵션)손절 / 시간청산 / 소멸."""
     buy_principal = round(qty * fill_price * MULT)
     buy_fee = qty * COMM
     trades = [{
-        "strategy": VERSION, "date": date_value, "campaign": campaign,
+        "strategy": version, "date": date_value, "campaign": campaign,
         "code": contract.code, "call_put": contract.call_put, "side": "BUY",
         "reason": "SPLIT_BASKET_0950", "minute": entry_bar.minute,
         "quantity": qty, "price": round(fill_price, 4),
         "cash_flow": -(buy_principal + buy_fee),
     }]
     target = fill_price * EXIT_MULTIPLE
+    stop_price = fill_price * stop_frac if stop_frac is not None else None
     sold_qty = 0
     gross_total = 0
     fee_total = buy_fee
     index = entry_index
     reached_2x = False
+    stopped = False
+
+    def record_sell(signal_index, reason):
+        nonlocal gross_total, fee_total, sold_qty
+        sale = sell_all(contract, signal_index, qty)
+        if sale is not None:
+            gross, fee, minute, price, _ = sale
+            gross_total += gross
+            fee_total += fee
+            sold_qty = qty
+            trades.append({
+                "strategy": version, "date": date_value, "campaign": campaign,
+                "code": contract.code, "call_put": contract.call_put,
+                "side": "SELL", "reason": reason, "minute": minute,
+                "quantity": qty, "price": price, "cash_flow": gross - fee,
+            })
+
     while index < len(contract.bars):
         bar = contract.bars[index]
-        if bar.traded and bar.close is not None and float(bar.close) >= target:
-            reached_2x = True
-            sale = sell_all(contract, index, qty)
-            if sale is not None:
-                gross, fee, minute, price, _ = sale
-                gross_total += gross
-                fee_total += fee
-                sold_qty = qty
-                trades.append({
-                    "strategy": VERSION, "date": date_value, "campaign": campaign,
-                    "code": contract.code, "call_put": contract.call_put,
-                    "side": "SELL", "reason": "TWO_X_ALL", "minute": minute,
-                    "quantity": qty, "price": price, "cash_flow": gross - fee,
-                })
-            break
+        if bar.traded and bar.close is not None:
+            close = float(bar.close)
+            if close >= target:
+                reached_2x = True
+                record_sell(index, "TWO_X_ALL")
+                break
+            if stop_price is not None and close <= stop_price:
+                stopped = True
+                record_sell(index, "STOP_LOSS")
+                break
         if bar.minute >= base.FORCE_EXIT_TIME:
-            sale = sell_all(contract, index - 1, qty)
-            if sale is not None:
-                gross, fee, minute, price, _ = sale
-                gross_total += gross
-                fee_total += fee
-                sold_qty = qty
-                trades.append({
-                    "strategy": VERSION, "date": date_value, "campaign": campaign,
-                    "code": contract.code, "call_put": contract.call_put,
-                    "side": "SELL", "reason": "TIME", "minute": minute,
-                    "quantity": qty, "price": price, "cash_flow": gross - fee,
-                })
+            record_sell(index - 1, "TIME")
             break
         index += 1
     expired = qty - sold_qty
     if expired > 0:
         trades.append({
-            "strategy": VERSION, "date": date_value, "campaign": campaign,
+            "strategy": version, "date": date_value, "campaign": campaign,
             "code": contract.code, "call_put": contract.call_put,
             "side": "EXPIRE", "reason": "UNFILLED_ZERO_VALUE",
             "minute": base.SESSION_MINUTES[-1], "quantity": expired,
             "price": 0.0, "cash_flow": 0,
         })
     net = gross_total - fee_total - buy_principal
-    return trades, buy_principal, fee_total, gross_total, expired, reached_2x, net
+    return (trades, buy_principal, fee_total, gross_total, expired,
+            reached_2x, stopped, net)
 
 
-def simulate_day(date_value, start_cash, contracts):
+def simulate_day(version, stop_frac, call_put, filter_mode, date_value,
+                 start_cash, contracts):
     cash = start_cash
     decision_index = base.MINUTE_INDEX[DECISION_MINUTE]
     candidates: list[dict] = []
     for contract in contracts.values():
-        if not passes_drawdown_filter(contract, decision_index):
+        if not match_call_put(contract, call_put):
             continue
+        if filter_mode == "p0_half":
+            if not passes_p0_half_filter(contract, decision_index):
+                continue
+        else:
+            if not passes_drawdown_filter(contract, decision_index):
+                continue
         fill = entry_fill(contract, decision_index)
         if fill is None:
             continue
@@ -219,13 +295,13 @@ def simulate_day(date_value, start_cash, contracts):
     total_sell = 0
     expired_qty = 0
     reached_2x_count = 0
+    stop_count = 0
     positions = 0
     for campaign, cand in enumerate(chosen, start=1):
-        pos_trades, buy_principal, fee_total, gross_total, expired, reached, _ = (
-            simulate_position(
-                date_value, cand["contract"], campaign,
-                cand["entry_index"], cand["bar"], cand["fill_price"], cand["qty"],
-            )
+        (pos_trades, buy_principal, fee_total, gross_total, expired,
+         reached, stopped, _) = simulate_position(
+            version, stop_frac, date_value, cand["contract"], campaign,
+            cand["entry_index"], cand["bar"], cand["fill_price"], cand["qty"],
         )
         trades.extend(pos_trades)
         total_buy += buy_principal
@@ -233,12 +309,13 @@ def simulate_day(date_value, start_cash, contracts):
         total_sell += gross_total
         expired_qty += expired
         reached_2x_count += int(reached)
+        stop_count += int(stopped)
         positions += 1
     # 현금은 거래장부 합으로 재계산(정확성 보장).
     end_cash = start_cash + sum(int(t["cash_flow"]) for t in trades)
     pnl = end_cash - start_cash
     daily = {
-        "strategy": VERSION,
+        "strategy": version,
         "date": date_value,
         "start_cash": start_cash,
         "end_cash": end_cash,
@@ -250,6 +327,7 @@ def simulate_day(date_value, start_cash, contracts):
         "expired_quantity": expired_qty,
         "positions": positions,
         "reached_2x_positions": reached_2x_count,
+        "stop_positions": stop_count,
     }
     return daily, trades
 
@@ -315,6 +393,7 @@ def summarize(daily, label):
         "win_rate_pct": round(sum(p > 0 for p in pnls) / len(traded) * 100, 2) if traded else 0.0,
         "total_positions": sum(int(r["positions"]) for r in daily),
         "reached_2x_positions": sum(int(r["reached_2x_positions"]) for r in daily),
+        "stop_positions": sum(int(r.get("stop_positions", 0)) for r in daily),
         "total_pnl": sum(pnls),
         "total_return_pct": round(sum(pnls) / INITIAL_CASH * 100, 2),
         "profit_factor": round(gp / gl, 3) if gl else None,
@@ -339,36 +418,59 @@ def write_csv_union(path, rows):
             w.writerow({k: row.get(k) for k in fields})
 
 
+def by_year(rows, year):
+    return [r for r in rows if str(r["date"]).startswith(year)]
+
+
 def main():
     profile = json.loads(base.PROFILE_PATH.read_text(encoding="utf-8"))
     groups = derive_expiry_groups(profile)
     files = base.target_file_map()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    cash = INITIAL_CASH
-    daily_rows: list[dict] = []
-    all_trades: list[dict] = []
+    state = {cfg["version"]: {"cash": INITIAL_CASH, "daily": [], "trades": []}
+             for cfg in CONFIGS}
+    cfg_by_version = {cfg["version"]: cfg for cfg in CONFIGS}
+
+    # 만기일 파일은 하루에 한 번만 로드하고 각 변형을 함께 돌린다.
     for group in groups:
         date_value = group["expiry_date"]
         if date_value not in files:
             continue
         contracts = base.load_expiry_day(files[date_value], group)
-        daily, trades = simulate_day(date_value, cash, contracts)
-        cash = daily["end_cash"]
-        daily_rows.append(daily)
-        all_trades.extend(trades)
+        for cfg in CONFIGS:
+            st = state[cfg["version"]]
+            daily, trades = simulate_day(
+                cfg["version"], cfg["stop_frac"], cfg["call_put"],
+                cfg["filter"], date_value, st["cash"], contracts,
+            )
+            st["cash"] = daily["end_cash"]
+            st["daily"].append(daily)
+            st["trades"].extend(trades)
 
-    audit = internal_audit(daily_rows, all_trades)
-    write_csv_union(OUTPUT_DIR / f"{STEM}_daily.csv", daily_rows)
-    write_csv_union(OUTPUT_DIR / f"{STEM}_trades.csv", all_trades)
-
-    def by_year(rows, year):
-        return [r for r in rows if str(r["date"]).startswith(year)]
+    variants = {}
+    overall_passed = True
+    for cfg in CONFIGS:
+        version = cfg["version"]
+        st = state[version]
+        audit = internal_audit(st["daily"], st["trades"])
+        overall_passed = overall_passed and audit["passed"]
+        write_csv_union(OUTPUT_DIR / f"{cfg['stem']}_daily.csv", st["daily"])
+        write_csv_union(OUTPUT_DIR / f"{cfg['stem']}_trades.csv", st["trades"])
+        variants[version] = {
+            "version": version,
+            "label": cfg["label"],
+            "stop_frac": cfg["stop_frac"],
+            "call_put": cfg["call_put"],
+            "filter": cfg["filter"],
+            "summary": summarize(st["daily"], "full"),
+            "by_year": {y: summarize(by_year(st["daily"], y), y)
+                        for y in ("2023", "2024", "2025", "2026")},
+            "audit": audit,
+        }
 
     result = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "strategy_version": VERSION,
-        "label": LABEL,
         "initial_cash": INITIAL_CASH,
         "rules": {
             "band": [BAND_LOW, BAND_HIGH],
@@ -377,26 +479,33 @@ def main():
             "entry_cutoff": ENTRY_CUTOFF,
             "drawdown_exclusion": f"첫거래~09:50 고점대비 {int(DRAWDOWN_FLOOR*100)}% 이상 하락 제외",
             "averaging_down": "미사용(초기형)",
-            "stop_loss": "없음",
+            "stop_loss": "변형별: 무손절 / 종가 −30% / −50% / −70% 전량 손절",
             "exit": "평균단가 2배 전량(종가 2배 봉 다음 시가), 미도달 시 15:15 시간청산",
         },
-        "summary": summarize(daily_rows, "full"),
-        "by_year": {y: summarize(by_year(daily_rows, y), y)
-                    for y in ("2023", "2024", "2025", "2026")},
-        "audit": audit,
+        "variants": variants,
         "limitations": [
             "분석구간 자료로 고정한 규칙이므로 미사용 홀드아웃 전진검증 전 실거래 금지.",
             "물타기·차트기반 청산 고도화는 후속 단계.",
             "최종 미체결 잔량은 0원으로 평가한다.",
         ],
     }
-    (OUTPUT_DIR / f"{STEM}_summary.json").write_text(
+    (OUTPUT_DIR / "strategy5_v10_split_summary.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False),
         encoding="utf-8")
     print(json.dumps(
-        {"summary": result["summary"], "by_year": result["by_year"],
-         "audit": audit}, ensure_ascii=False, indent=2))
-    if not audit["passed"]:
+        {v: {"stop_frac": d["stop_frac"], "call_put": d["call_put"],
+             "filter": d["filter"],
+             "total_return_pct": d["summary"].get("total_return_pct"),
+             "win_rate_pct": d["summary"].get("win_rate_pct"),
+             "trade_days": d["summary"].get("trade_days"),
+             "total_positions": d["summary"].get("total_positions"),
+             "max_drawdown_pct": d["summary"].get("max_drawdown_pct"),
+             "by_year_return": {y: d["by_year"][y].get("total_return_pct")
+                                for y in ("2023", "2024", "2025", "2026")},
+             "audit_passed": d["audit"]["passed"]}
+         for v, d in variants.items()},
+        ensure_ascii=False, indent=2))
+    if not overall_passed:
         raise SystemExit(1)
 
 

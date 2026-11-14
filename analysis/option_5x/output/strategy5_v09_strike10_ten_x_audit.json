@@ -2,9 +2,9 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 67,
-  "trade_rows": 72,
-  "position_rows": 32,
+  "daily_rows": 75,
+  "trade_rows": 82,
+  "position_rows": 37,
   "checks": [
     "cash continuity, 5,000,000 won entry cap, and closed quantity",
     "post-entry 1.5x confirmation only through 09:29",

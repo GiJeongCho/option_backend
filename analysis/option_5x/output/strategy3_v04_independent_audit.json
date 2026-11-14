@@ -2,8 +2,8 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 90,
-  "trade_rows": 342,
+  "daily_rows": 98,
+  "trade_rows": 378,
   "checks": [
     "cash chain and pnl equation",
     "trade cash-flow reconciliation",

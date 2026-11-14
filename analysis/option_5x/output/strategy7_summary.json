@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T04:42:23.993869+00:00",
+  "generated_at": "2026-11-13T01:06:02.063377+00:00",
   "initial_cash": 20000000,
   "common_rules": {
     "core_band": [
@@ -28,8 +28,8 @@
       "summary": {
         "label": "full",
         "period_start": "20230803",
-        "period_end": "20260928",
-        "expiry_days": 289,
+        "period_end": "20261029",
+        "expiry_days": 297,
         "trade_days": 131,
         "win_rate_pct": 36.64,
         "core_10x_days": 5,
@@ -45,8 +45,8 @@
       "recent_2025_03_on": {
         "label": "2025-03~",
         "period_start": "20250304",
-        "period_end": "20260928",
-        "expiry_days": 144,
+        "period_end": "20261029",
+        "expiry_days": 152,
         "trade_days": 70,
         "win_rate_pct": 32.86,
         "core_10x_days": 4,
@@ -71,8 +71,8 @@
       "summary": {
         "label": "full",
         "period_start": "20230803",
-        "period_end": "20260928",
-        "expiry_days": 289,
+        "period_end": "20261029",
+        "expiry_days": 297,
         "trade_days": 131,
         "win_rate_pct": 52.67,
         "core_10x_days": 0,
@@ -88,8 +88,8 @@
       "recent_2025_03_on": {
         "label": "2025-03~",
         "period_start": "20250304",
-        "period_end": "20260928",
-        "expiry_days": 144,
+        "period_end": "20261029",
+        "expiry_days": 152,
         "trade_days": 70,
         "win_rate_pct": 51.43,
         "core_10x_days": 0,
@@ -114,8 +114,8 @@
       "summary": {
         "label": "full",
         "period_start": "20230803",
-        "period_end": "20260928",
-        "expiry_days": 289,
+        "period_end": "20261029",
+        "expiry_days": 297,
         "trade_days": 131,
         "win_rate_pct": 32.06,
         "core_10x_days": 6,
@@ -131,8 +131,8 @@
       "recent_2025_03_on": {
         "label": "2025-03~",
         "period_start": "20250304",
-        "period_end": "20260928",
-        "expiry_days": 144,
+        "period_end": "20261029",
+        "expiry_days": 152,
         "trade_days": 70,
         "win_rate_pct": 30.0,
         "core_10x_days": 5,
@@ -157,8 +157,8 @@
       "summary": {
         "label": "full",
         "period_start": "20230803",
-        "period_end": "20260928",
-        "expiry_days": 289,
+        "period_end": "20261029",
+        "expiry_days": 297,
         "trade_days": 131,
         "win_rate_pct": 41.98,
         "core_10x_days": 1,
@@ -174,8 +174,8 @@
       "recent_2025_03_on": {
         "label": "2025-03~",
         "period_start": "20250304",
-        "period_end": "20260928",
-        "expiry_days": 144,
+        "period_end": "20261029",
+        "expiry_days": 152,
         "trade_days": 70,
         "win_rate_pct": 37.14,
         "core_10x_days": 0,

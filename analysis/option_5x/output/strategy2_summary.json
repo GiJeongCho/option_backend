@@ -14,24 +14,24 @@
     "maximum_campaigns_per_day": 1
   },
   "summary": {
-    "days": 289,
-    "trade_days": 48,
-    "profitable_days": 28,
+    "days": 297,
+    "trade_days": 51,
+    "profitable_days": 31,
     "losing_days": 20,
-    "total_pnl": 26716500,
-    "average_trade_day_pnl": 556594,
-    "profit_factor": 1.6485,
+    "total_pnl": 34968000,
+    "average_trade_day_pnl": 685647,
+    "profit_factor": 1.8488,
     "minimum_day_pnl": -4393500,
     "maximum_day_pnl": 4064500,
     "max_drawdown": -7908000,
-    "pnl_excluding_best_3_days": 15578500,
-    "pnl_excluding_best_5_days": 9004000,
+    "pnl_excluding_best_3_days": 23830000,
+    "pnl_excluding_best_5_days": 16979500,
     "expired_contracts": 20,
-    "confirmed_days": 16,
-    "added_days": 14,
-    "total_buy_principal": 123552500,
+    "confirmed_days": 18,
+    "added_days": 16,
+    "total_buy_principal": 134210000,
     "initial_cash": 80000000,
-    "ending_cash": 106716500,
+    "ending_cash": 114968000,
     "expiry_residual_days": 9
   },
   "development": {
@@ -53,22 +53,22 @@
     "total_buy_principal": 83657500
   },
   "validation": {
-    "days": 38,
-    "trade_days": 17,
-    "profitable_days": 9,
+    "days": 46,
+    "trade_days": 20,
+    "profitable_days": 12,
     "losing_days": 8,
-    "total_pnl": 5243500,
-    "average_trade_day_pnl": 308441,
-    "profit_factor": 1.3064,
+    "total_pnl": 13495000,
+    "average_trade_day_pnl": 674750,
+    "profit_factor": 1.7886,
     "minimum_day_pnl": -3545500,
     "maximum_day_pnl": 4064500,
     "max_drawdown": -7908000,
-    "pnl_excluding_best_3_days": -5894500,
-    "pnl_excluding_best_5_days": -11150500,
+    "pnl_excluding_best_3_days": 2357000,
+    "pnl_excluding_best_5_days": -4046500,
     "expired_contracts": 10,
-    "confirmed_days": 6,
-    "added_days": 5,
-    "total_buy_principal": 39895000
+    "confirmed_days": 8,
+    "added_days": 7,
+    "total_buy_principal": 50552500
   },
   "analysis": {
     "by_exit_reason": [
@@ -90,29 +90,29 @@
       },
       {
         "group": "TARGET_2X_INITIAL",
-        "count": 28,
-        "profitable_count": 28,
+        "count": 31,
+        "profitable_count": 31,
         "losing_count": 0,
-        "total_pnl": 67915500,
-        "average_pnl": 2425554
+        "total_pnl": 76167000,
+        "average_pnl": 2457000
       }
     ],
     "by_confirmation": [
       {
         "group": "False",
-        "count": 32,
-        "profitable_count": 15,
+        "count": 33,
+        "profitable_count": 16,
         "losing_count": 17,
-        "total_pnl": 6764000,
-        "average_pnl": 211375
+        "total_pnl": 8612000,
+        "average_pnl": 260970
       },
       {
         "group": "True",
-        "count": 16,
-        "profitable_count": 13,
+        "count": 18,
+        "profitable_count": 15,
         "losing_count": 3,
-        "total_pnl": 19952500,
-        "average_pnl": 1247031
+        "total_pnl": 26356000,
+        "average_pnl": 1464222
       }
     ],
     "worst_days": [
@@ -557,8 +557,8 @@
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 289,
-    "trade_rows": 128
+    "daily_rows": 297,
+    "trade_rows": 136
   },
   "limitations": [
     "프리미엄 2.50~5.00은 이전 전체 자료 탐색의 영향을 받았습니다.",

@@ -29,25 +29,25 @@
     "maximum_campaigns_per_day": 1
   },
   "summary": {
-    "days": 289,
-    "trade_days": 47,
-    "profitable_days": 29,
-    "losing_days": 18,
-    "total_pnl": 39324000,
-    "average_trade_day_pnl": 836681,
-    "profit_factor": 2.1177,
+    "days": 297,
+    "trade_days": 50,
+    "profitable_days": 31,
+    "losing_days": 19,
+    "total_pnl": 42291000,
+    "average_trade_day_pnl": 845820,
+    "profit_factor": 2.1289,
     "minimum_day_pnl": -3545500,
     "maximum_day_pnl": 5213000,
     "max_drawdown": -8546000,
-    "pnl_excluding_best_3_days": 26802000,
-    "pnl_excluding_best_5_days": 19896000,
+    "pnl_excluding_best_3_days": 29769000,
+    "pnl_excluding_best_5_days": 22840000,
     "expired_contracts": 14,
-    "confirmed_days": 17,
-    "added_days": 14,
-    "total_buy_principal": 122040000,
+    "confirmed_days": 18,
+    "added_days": 15,
+    "total_buy_principal": 130790000,
     "expiry_residual_days": 6,
     "initial_cash": 80000000,
-    "ending_cash": 119324000
+    "ending_cash": 122291000
   },
   "historical_backcast": {
     "days": 199,
@@ -88,33 +88,33 @@
     "expiry_residual_days": 3
   },
   "validation": {
-    "days": 38,
-    "trade_days": 17,
-    "profitable_days": 9,
-    "losing_days": 8,
-    "total_pnl": 7370000,
-    "average_trade_day_pnl": 433529,
-    "profit_factor": 1.4065,
+    "days": 46,
+    "trade_days": 20,
+    "profitable_days": 11,
+    "losing_days": 9,
+    "total_pnl": 10337000,
+    "average_trade_day_pnl": 516850,
+    "profit_factor": 1.5065,
     "minimum_day_pnl": -3545500,
     "maximum_day_pnl": 5213000,
     "max_drawdown": -8546000,
-    "pnl_excluding_best_3_days": -5152000,
-    "pnl_excluding_best_5_days": -11658000,
+    "pnl_excluding_best_3_days": -2185000,
+    "pnl_excluding_best_5_days": -9114000,
     "expired_contracts": 7,
-    "confirmed_days": 6,
-    "added_days": 4,
-    "total_buy_principal": 39170000,
+    "confirmed_days": 7,
+    "added_days": 5,
+    "total_buy_principal": 47920000,
     "expiry_residual_days": 3
   },
   "analysis": {
     "by_exit_reason": [
       {
         "group": "TIME",
-        "count": 12,
+        "count": 13,
         "profitable_count": 0,
-        "losing_count": 12,
-        "total_pnl": -23147000,
-        "average_pnl": -1928917
+        "losing_count": 13,
+        "total_pnl": -25424000,
+        "average_pnl": -1955692
       },
       {
         "group": "UNFILLED_ZERO_VALUE",
@@ -126,29 +126,29 @@
       },
       {
         "group": "TARGET_2X_INITIAL",
-        "count": 29,
-        "profitable_count": 29,
+        "count": 31,
+        "profitable_count": 31,
         "losing_count": 0,
-        "total_pnl": 74507500,
-        "average_pnl": 2569224
+        "total_pnl": 79751500,
+        "average_pnl": 2572629
       }
     ],
     "by_confirmation": [
       {
         "group": "False",
-        "count": 30,
-        "profitable_count": 14,
-        "losing_count": 16,
-        "total_pnl": 5386000,
-        "average_pnl": 179533
+        "count": 32,
+        "profitable_count": 15,
+        "losing_count": 17,
+        "total_pnl": 4957000,
+        "average_pnl": 154906
       },
       {
         "group": "True",
-        "count": 17,
-        "profitable_count": 15,
+        "count": 18,
+        "profitable_count": 16,
         "losing_count": 2,
-        "total_pnl": 33938000,
-        "average_pnl": 1996353
+        "total_pnl": 37334000,
+        "average_pnl": 2074111
       }
     ],
     "by_call_put": [
@@ -162,11 +162,11 @@
       },
       {
         "group": "PUT",
-        "count": 27,
-        "profitable_count": 17,
-        "losing_count": 10,
-        "total_pnl": 26404000,
-        "average_pnl": 977926
+        "count": 30,
+        "profitable_count": 19,
+        "losing_count": 11,
+        "total_pnl": 29371000,
+        "average_pnl": 979033
       }
     ],
     "worst_days": [
@@ -285,6 +285,35 @@
         "expired_quantity": 0,
         "mfe_pct": 0.0,
         "mae_pct": -99.6764
+      },
+      {
+        "strategy": "S2-v0.2",
+        "date": "20261015",
+        "previous_vix": 46.28,
+        "start_cash": 124568000,
+        "end_cash": 122291000,
+        "pnl": -2277000,
+        "signal_found": true,
+        "entry_filled": true,
+        "code": "C09FGW850",
+        "call_put": "PUT",
+        "signal_minute": 1018,
+        "entry_minute": 1019,
+        "initial_price": 4.609999999999999,
+        "initial_quantity": 2,
+        "confirmed": false,
+        "confirmation_minute": null,
+        "added_quantity": 0,
+        "total_quantity": 2,
+        "buy_principal": 2305000,
+        "buy_fee": 1000,
+        "gross_sales": 30000,
+        "sell_fee": 1000,
+        "exit_reason": "TIME",
+        "exit_minute": 1516,
+        "expired_quantity": 0,
+        "mfe_pct": 55.5315,
+        "mae_pct": -98.6985
       },
       {
         "strategy": "S2-v0.2",
@@ -575,35 +604,6 @@
         "expired_quantity": 0,
         "mfe_pct": 25.9777,
         "mae_pct": -94.4134
-      },
-      {
-        "strategy": "S2-v0.2",
-        "date": "20260720",
-        "previous_vix": 87.14,
-        "start_cash": 119641000,
-        "end_cash": 117965000,
-        "pnl": -1676000,
-        "signal_found": true,
-        "entry_filled": true,
-        "code": "KR4BAFBNA488",
-        "call_put": "CALL",
-        "signal_minute": 913,
-        "entry_minute": 914,
-        "initial_price": 3.3499999999999996,
-        "initial_quantity": 2,
-        "confirmed": false,
-        "confirmation_minute": null,
-        "added_quantity": 0,
-        "total_quantity": 2,
-        "buy_principal": 1675000,
-        "buy_fee": 1000,
-        "gross_sales": 0,
-        "sell_fee": 0,
-        "exit_reason": "UNFILLED_ZERO_VALUE",
-        "exit_minute": 1519,
-        "expired_quantity": 2,
-        "mfe_pct": 25.0746,
-        "mae_pct": -99.7015
       }
     ]
   },
@@ -611,8 +611,8 @@
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 289,
-    "trade_rows": 122
+    "daily_rows": 297,
+    "trade_rows": 129
   },
   "limitations": [
     "MA20 기울기 조건은 10개 진입 후보를 개발 구간에서 비교해 선택한 탐색 결과입니다.",

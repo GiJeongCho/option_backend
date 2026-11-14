@@ -132,6 +132,19 @@ def option_bars(
     }
 
 
+@app.get("/api/options/series-bars")
+def option_series_bars(
+    date: str = Query(pattern=r"^\d{8}$"),
+    code: str = Query(min_length=1, max_length=32),
+) -> dict[str, object]:
+    try:
+        return service.option_series_bars(date, code)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except DataNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
 @app.get("/api/volatility")
 def volatility(
     start: str | None = Query(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$"),
@@ -249,6 +262,18 @@ def multiple_charts_contracts(
         raise HTTPException(status_code=400, detail=str(error)) from error
     except MultipleChartsDataError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/api/strategy-pair/summary")
+def strategy_pair_summary() -> dict[str, object]:
+    """S6 콜·풋 페어(반토막) 전략 백테스트 결과(배수별·연도별·분기)."""
+    path = strategy_analysis_service.output_dir / "strategy6_v01_pair.json"
+    if not path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail="pair strategy result not found",
+        )
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 @app.get("/api/strategy-analysis/strategy-1")
@@ -403,9 +428,12 @@ def strategy_version_logic(
 @app.get("/api/strategy-analysis/version-detail")
 def strategy_version_detail(
     strategy: str = Query(min_length=1, max_length=32),
+    year: str | None = Query(default=None, max_length=8),
 ) -> dict[str, object]:
     try:
-        return strategy_analysis_service.strategy_version_detail(strategy)
+        return strategy_analysis_service.strategy_version_detail(
+            strategy, year=year
+        )
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except DataNotFoundError as error:

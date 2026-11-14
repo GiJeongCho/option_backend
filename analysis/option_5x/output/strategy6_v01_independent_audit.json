@@ -4,9 +4,9 @@
   "passed": true,
   "error_count": 0,
   "error_samples": [],
-  "daily_rows": 184,
-  "trade_rows": 284,
-  "position_rows": 93,
+  "daily_rows": 297,
+  "trade_rows": 367,
+  "position_rows": 123,
   "checks": [
     "현금 연속성·일별 손익·거래장부 현금흐름",
     "하루 한 번 진입·위험예산·수량 보존",

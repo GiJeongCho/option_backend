@@ -6,15 +6,15 @@
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 67,
-      "trade_rows": 1221
+      "daily_rows": 75,
+      "trade_rows": 1383
     },
     "STAGED": {
       "passed": true,
       "error_count": 0,
       "error_samples": [],
-      "daily_rows": 67,
-      "trade_rows": 1410
+      "daily_rows": 75,
+      "trade_rows": 1593
     }
   }
 }

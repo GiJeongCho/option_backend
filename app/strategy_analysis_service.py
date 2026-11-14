@@ -43,6 +43,10 @@ LOGIC_DOCUMENTS: dict[str, str] = {
     "S7-v0.3": "S7_v0.1_듀얼슬리브_전략_로직.md",
     "S7-v0.4": "S7_v0.1_듀얼슬리브_전략_로직.md",
     "S5-v1.0": "S5_v1.0_분할바스켓_무손절_2배전량_로직.md",
+    "S5-v1.1": "S5_v1.0_분할바스켓_무손절_2배전량_로직.md",
+    "S8-v0.2": "S8_하프컷리버스_로직.md",
+    "S8-v0.3": "S8_하프컷리버스_로직.md",
+    "S8-v0.4": "S8_하프컷리버스_로직.md",
 }
 
 
@@ -342,6 +346,31 @@ class StrategyAnalysisService:
         )
         self.strategy_five_v10_trades_path = (
             self.output_dir / "strategy5_v10_split_trades.csv"
+        )
+        self.strategy_five_v11_daily_path = (
+            self.output_dir / "strategy5_v11_stop30_daily.csv"
+        )
+        self.strategy_five_v11_trades_path = (
+            self.output_dir / "strategy5_v11_stop30_trades.csv"
+        )
+        # S8 하프컷 리버스 — 버전 끝자리 = 익절 배수 (v0.2=2배, v0.3=3배, v0.4=4배)
+        self.strategy_eight_v02_daily_path = (
+            self.output_dir / "strategy8_v02_x2_daily.csv"
+        )
+        self.strategy_eight_v02_trades_path = (
+            self.output_dir / "strategy8_v02_x2_trades.csv"
+        )
+        self.strategy_eight_v03_daily_path = (
+            self.output_dir / "strategy8_v03_x3_daily.csv"
+        )
+        self.strategy_eight_v03_trades_path = (
+            self.output_dir / "strategy8_v03_x3_trades.csv"
+        )
+        self.strategy_eight_v04_daily_path = (
+            self.output_dir / "strategy8_v04_x4_daily.csv"
+        )
+        self.strategy_eight_v04_trades_path = (
+            self.output_dir / "strategy8_v04_x4_trades.csv"
         )
         self.performance_benchmark_path = (
             self.backend_dir
@@ -2864,6 +2893,7 @@ class StrategyAnalysisService:
     def strategy_version_detail(
         self,
         strategy_version: str,
+        year: str | None = None,
     ) -> dict[str, object]:
         sources = self._trade_sources()
         if strategy_version not in sources:
@@ -2873,10 +2903,46 @@ class StrategyAnalysisService:
             raise DataNotFoundError(
                 f"{strategy_version} 거래 결과 파일이 없습니다."
             )
-        daily_rows = sorted(
+        all_rows = sorted(
             self._read_csv(daily_path),
             key=lambda row: row["date"],
         )
+        all_trades = self._read_csv(trades_path)
+        available_years = sorted(
+            {row["date"][:4] for row in all_rows if row.get("date")}
+        )
+        selected_year = year if year and year != "ALL" else None
+        if selected_year and selected_year not in available_years:
+            raise DataNotFoundError(
+                f"{strategy_version} 전략에 {selected_year}년 데이터가 없습니다."
+            )
+
+        if selected_year:
+            # 전체 시드(첫 행 start_cash)를 기준으로 선택 연도만 재기준화
+            seed = _integer(all_rows[0].get("start_cash"))
+            year_rows = [
+                row
+                for row in all_rows
+                if row.get("date", "").startswith(selected_year)
+            ]
+            daily_rows: list[dict[str, str]] = []
+            running = seed
+            for row in year_rows:
+                rebased = dict(row)
+                pnl = _integer(row.get("pnl"))
+                rebased["start_cash"] = str(running)
+                running += pnl
+                rebased["end_cash"] = str(running)
+                daily_rows.append(rebased)
+            trade_rows = [
+                row
+                for row in all_trades
+                if row.get("date", "").startswith(selected_year)
+            ]
+        else:
+            daily_rows = all_rows
+            trade_rows = all_trades
+
         summary = self._version_summary(daily_rows)
         catalog = self.strategy_version_catalog()
         selected_catalog = next(
@@ -2907,6 +2973,8 @@ class StrategyAnalysisService:
             "strategyVersion": strategy_version,
             "strategyLabel": label,
             "metadata": self._version_metadata(strategy_version, label),
+            "availableYears": available_years,
+            "selectedYear": selected_year,
             "summary": summary,
             "ranking": {
                 "returnRank": dict(selected_catalog)["returnRank"],
@@ -2921,9 +2989,7 @@ class StrategyAnalysisService:
             "worstDays": loss_days[:15],
             "bestDays": profit_days[:10],
             "monthlyLosses": self._version_monthly_losses(daily_rows),
-            "exitReasons": self._version_exit_reasons(
-                self._read_csv(trades_path)
-            ),
+            "exitReasons": self._version_exit_reasons(trade_rows),
         }
 
     def strategy_seed_backtest(
@@ -3274,6 +3340,26 @@ class StrategyAnalysisService:
                 "S5-v1.0 분할바스켓·무손절·2배전량(초기형)",
                 self.strategy_five_v10_daily_path,
                 self.strategy_five_v10_trades_path,
+            ),
+            "S5-v1.1": (
+                "S5-v1.1 분할바스켓·손절 −30%·2배전량",
+                self.strategy_five_v11_daily_path,
+                self.strategy_five_v11_trades_path,
+            ),
+            "S8-v0.2": (
+                "S8-v0.2 하프컷 리버스·2배 전량청산",
+                self.strategy_eight_v02_daily_path,
+                self.strategy_eight_v02_trades_path,
+            ),
+            "S8-v0.3": (
+                "S8-v0.3 하프컷 리버스·3배 전량청산",
+                self.strategy_eight_v03_daily_path,
+                self.strategy_eight_v03_trades_path,
+            ),
+            "S8-v0.4": (
+                "S8-v0.4 하프컷 리버스·4배 전량청산",
+                self.strategy_eight_v04_daily_path,
+                self.strategy_eight_v04_trades_path,
             ),
         }
 

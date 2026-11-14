@@ -17,8 +17,8 @@
   },
   "scope": {
     "start": "20260105",
-    "end": "20260928",
-    "expiry_days": 67,
+    "end": "20261029",
+    "expiry_days": 75,
     "development_end": "20260430",
     "validation_is_independent": false
   },
@@ -53,28 +53,28 @@
     }
   },
   "summary": {
-    "days": 67,
-    "signal_days": 67,
-    "trade_days": 50,
-    "profitable_days": 13,
-    "losing_days": 37,
+    "days": 75,
+    "signal_days": 75,
+    "trade_days": 54,
+    "profitable_days": 15,
+    "losing_days": 39,
     "break_even_days": 0,
-    "total_pnl": -4319000,
-    "average_trade_day_pnl": -86380,
-    "profit_factor": 0.9483,
+    "total_pnl": 5161500,
+    "average_trade_day_pnl": 95583,
+    "profit_factor": 1.0593,
     "minimum_day_pnl": -4536000,
     "maximum_day_pnl": 21764000,
-    "max_drawdown": -34272000,
-    "pnl_excluding_best_3_days": -52671000,
-    "pnl_excluding_best_5_days": -72144500,
-    "total_buy_principal": 154857500,
-    "expired_contracts": 111,
-    "confirmed_days": 15,
-    "reached_2x_days": 10,
-    "reached_5x_days": 5,
-    "reached_10x_days": 3,
+    "max_drawdown": -37696000,
+    "pnl_excluding_best_3_days": -43190500,
+    "pnl_excluding_best_5_days": -65897500,
+    "total_buy_principal": 168200000,
+    "expired_contracts": 120,
+    "confirmed_days": 17,
+    "reached_2x_days": 12,
+    "reached_5x_days": 6,
+    "reached_10x_days": 4,
     "initial_cash": 80000000,
-    "ending_cash": 75681000
+    "ending_cash": 85161500
   },
   "development": {
     "days": 29,
@@ -99,54 +99,54 @@
     "reached_10x_days": 1
   },
   "validation": {
-    "days": 38,
-    "signal_days": 38,
-    "trade_days": 29,
-    "profitable_days": 6,
-    "losing_days": 23,
+    "days": 46,
+    "signal_days": 46,
+    "trade_days": 33,
+    "profitable_days": 8,
+    "losing_days": 25,
     "break_even_days": 0,
-    "total_pnl": -19607500,
-    "average_trade_day_pnl": -676121,
-    "profit_factor": 0.5557,
+    "total_pnl": -10127000,
+    "average_trade_day_pnl": -306879,
+    "profit_factor": 0.7871,
     "minimum_day_pnl": -4536000,
     "maximum_day_pnl": 14236500,
-    "max_drawdown": -19623000,
-    "pnl_excluding_best_3_days": -43335000,
-    "pnl_excluding_best_5_days": -44018000,
-    "total_buy_principal": 74965000,
-    "expired_contracts": 42,
-    "confirmed_days": 7,
-    "reached_2x_days": 4,
-    "reached_5x_days": 2,
-    "reached_10x_days": 2
+    "max_drawdown": -23047000,
+    "pnl_excluding_best_3_days": -42359500,
+    "pnl_excluding_best_5_days": -46774500,
+    "total_buy_principal": 88307500,
+    "expired_contracts": 51,
+    "confirmed_days": 9,
+    "reached_2x_days": 6,
+    "reached_5x_days": 3,
+    "reached_10x_days": 3
   },
   "analysis": {
     "by_confirmation": [
       {
         "group": "False",
-        "count": 35,
+        "count": 37,
         "profitable_count": 3,
-        "losing_count": 32,
-        "total_pnl": -65636500,
-        "average_pnl": -1875329
+        "losing_count": 34,
+        "total_pnl": -69076000,
+        "average_pnl": -1866919
       },
       {
         "group": "True",
-        "count": 15,
-        "profitable_count": 10,
+        "count": 17,
+        "profitable_count": 12,
         "losing_count": 5,
-        "total_pnl": 61317500,
-        "average_pnl": 4087833
+        "total_pnl": 74237500,
+        "average_pnl": 4366912
       }
     ],
     "by_call_put": [
       {
         "group": "CALL",
-        "count": 38,
-        "profitable_count": 10,
-        "losing_count": 28,
-        "total_pnl": 15816000,
-        "average_pnl": 416211
+        "count": 42,
+        "profitable_count": 12,
+        "losing_count": 30,
+        "total_pnl": 25296500,
+        "average_pnl": 602298
       },
       {
         "group": "PUT",
@@ -160,19 +160,19 @@
     "by_exit_reason": [
       {
         "group": "NO_1_5X_30M",
-        "count": 35,
+        "count": 37,
         "profitable_count": 3,
-        "losing_count": 32,
-        "total_pnl": -65636500,
-        "average_pnl": -1875329
+        "losing_count": 34,
+        "total_pnl": -69076000,
+        "average_pnl": -1866919
       },
       {
         "group": "TARGET_10X_ALL",
-        "count": 3,
-        "profitable_count": 3,
+        "count": 4,
+        "profitable_count": 4,
         "losing_count": 0,
-        "total_pnl": 42237000,
-        "average_pnl": 14079000
+        "total_pnl": 53996500,
+        "average_pnl": 13499125
       },
       {
         "group": "TIME",
@@ -184,11 +184,11 @@
       },
       {
         "group": "UNFILLED_ZERO_VALUE",
-        "count": 10,
-        "profitable_count": 5,
+        "count": 11,
+        "profitable_count": 6,
         "losing_count": 5,
-        "total_pnl": -1797000,
-        "average_pnl": -179700
+        "total_pnl": -636500,
+        "average_pnl": -57864
       }
     ],
     "worst_days": [
@@ -648,8 +648,8 @@
     "passed": true,
     "error_count": 0,
     "error_samples": [],
-    "daily_rows": 67,
-    "trade_rows": 177
+    "daily_rows": 75,
+    "trade_rows": 191
   },
   "limitations": [
     "The PPT used all 2026-01~08 observations to derive the rule, so the displayed temporal split is not an independent holdout.",
