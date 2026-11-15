@@ -47,6 +47,7 @@ LOGIC_DOCUMENTS: dict[str, str] = {
     "S8-v0.2": "S8_하프컷리버스_로직.md",
     "S8-v0.3": "S8_하프컷리버스_로직.md",
     "S8-v0.4": "S8_하프컷리버스_로직.md",
+    "S9-v0.1": "S9_원요구사항_페어_로직.md",
 }
 
 
@@ -371,6 +372,13 @@ class StrategyAnalysisService:
         )
         self.strategy_eight_v04_trades_path = (
             self.output_dir / "strategy8_v04_x4_trades.csv"
+        )
+        # S9 — 원 요구사항(양쪽 선진입+재배분)을 그대로 구현한 검증용 페어 전략
+        self.strategy_nine_v01_daily_path = (
+            self.output_dir / "strategy9_v01_daily.csv"
+        )
+        self.strategy_nine_v01_trades_path = (
+            self.output_dir / "strategy9_v01_trades.csv"
         )
         self.performance_benchmark_path = (
             self.backend_dir
@@ -3355,6 +3363,11 @@ class StrategyAnalysisService:
                 "S8-v0.3 하프컷 리버스·3배 전량청산",
                 self.strategy_eight_v03_daily_path,
                 self.strategy_eight_v03_trades_path,
+            ),
+            "S9-v0.1": (
+                "S9-v0.1 원 요구사항·양쪽 선진입+재배분",
+                self.strategy_nine_v01_daily_path,
+                self.strategy_nine_v01_trades_path,
             ),
             "S8-v0.4": (
                 "S8-v0.4 하프컷 리버스·4배 전량청산",

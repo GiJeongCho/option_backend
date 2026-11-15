@@ -1,8 +1,8 @@
 """S6-v0.1 콜·풋 페어(반토막) 전략 백테스트 — 2026 전용.
 
-근거: docs/plan.md 27절 (녹음7 + 요구사항.md), 사용자 회신 반영.
+근거: docs/plan.md 27절 (전략 명세 + 요구사항.md), 사용자 회신 반영.
 
-핵심 로직 (녹음7 + 요구사항.md 정합)
+핵심 로직 (전략 명세 + 요구사항.md 정합)
 ------------------------------------
 - P0: 09:00~09:10 최초 적격 1분봉을 시간순으로 시가→종가→고가→저가 순서로 보아
   0.40~1.20에 처음 걸리는 값(종목마다).
@@ -10,7 +10,7 @@
   09:10 이후 0.5*P0 이하로 내려가면 그 side '반토막'.
 - 진입 side(방향신호 선별): 한쪽 반토막 → 반대편만(500 전액) / 양쪽 반토막 → 먼저 난 쪽
   금지·반대편만(반대편도 무너지면 '꽝') / 둘 다 정상 → 양쪽(250/250).
-    · NOTE: 녹음7 571 '양쪽 선매수 후 재배분(몰빵)'을 전진 시뮬레이션하면 매일 밴드 전체를
+    · NOTE: 원 명세의 '양쪽 선매수 후 재배분(몰빵)'을 전진 시뮬레이션하면 매일 밴드 전체를
       사서 소멸 → 전략 붕괴(실측). 수익원은 '한쪽 반토막' 방향신호이므로 선별 진입을 채택하고,
       신호 난 날 생존 측에 500 전액을 실어 몰빵의 경제효과만 취한다.
 - 매수 밴드: P0 0.40~1.20 안의 종목을 '전부' 대상(P0 낮은 것부터).
@@ -19,7 +19,7 @@
 - 체결: 트리거 이후 매 분봉 min(남은예산, 분봉거래량*10%) 만큼만 체결 → 물량 걸리면
   여러 분봉에 걸쳐 '천천히' 매집(11:00까지). 체결가 = 분봉 시가 + 1틱(SLIPPAGE).
 - 손절선 아래 매수 금지(전제조건): 체결가가 이미 0.5*P0 이하면 '꽝'이라 그 분봉 매수 제외
-  (요구사항.md/녹음7 "절반 이하 하락 시 매수X"). 손절선 아래 진입→즉시 손절 '가짜 이득' 차단.
+  (요구사항.md "절반 이하 하락 시 매수X"). 손절선 아래 진입→즉시 손절 '가짜 이득' 차단.
 - 손절: 보유 중 저가 <= 0.5*P0 → 0.5*P0에 전량 손절(페어 전략 고유, 체결 건별).
 - 11:00 이후 신규진입 제외.
 - 익절/정산 변형(비교): time(15:15) / 2~10배 / settle(만기결제=마지막 종가).
@@ -108,27 +108,35 @@ def last_close(contract) -> float | None:
 
 
 def ma120_for_day(current, prior) -> list[float | None]:
-    """갭보정 120분 이평(만기일 세션 분봉에 정렬). prior=전일 grid(또는 None)."""
-    cur = [b.close for b in current.bars]
-    cur_first = next((c for c in cur if c is not None), None)
+    """갭보정 120분 이평(만기일 세션 분봉에 정렬). prior=전일 grid(또는 None).
+
+    매매로직은 09:00부터만 사용하므로 08:45~08:59(장전 단일가)·야간은 MA 입력에서
+    제외한다(야간은 애초에 day 세션만 로드되어 들어오지 않음). 반환 배열은
+    current.bars 인덱스에 그대로 정렬되며, 09:00 이전 분은 항상 None 이다.
+    """
+    cur_bars = current.bars
+    # 09:00 이후 분만 MA 입력으로 사용. day_pos 로 원래 인덱스를 보존해 정렬 유지.
+    day_pos = [i for i, b in enumerate(cur_bars) if b.minute >= OBS_START]
+    day_closes = [cur_bars[i].close for i in day_pos]
+    cur_first = next((c for c in day_closes if c is not None), None)
     prior_adj: list[float | None] = []
     if prior is not None and cur_first:
-        pc = [b.close for b in prior.bars]
+        pc = [b.close for b in prior.bars if b.minute >= OBS_START]
         prior_last = next((c for c in reversed(pc) if c is not None), None)
         if prior_last and prior_last > 0:
             factor = cur_first / prior_last
             prior_adj = [c * factor if c is not None else None for c in pc]
-    series = prior_adj + cur
+    series = prior_adj + day_closes
     offset = len(prior_adj)
-    out: list[float | None] = [None] * len(cur)
-    for i in range(len(cur)):
-        end = offset + i
+    out: list[float | None] = [None] * len(cur_bars)
+    for j in range(len(day_closes)):
+        end = offset + j
         if end - MA_PERIOD + 1 < 0:
             continue
         window = series[end - MA_PERIOD + 1 : end + 1]
         if any(v is None for v in window):
             continue
-        out[i] = sum(window) / MA_PERIOD
+        out[day_pos[j]] = sum(window) / MA_PERIOD
     return out
 
 
@@ -400,7 +408,7 @@ def build_day(group, expiry_path, prior_path) -> tuple[dict, list[dict]]:
         result["status"] = "both_active" if len(present) == 2 else "one_side_only"
 
     # ----- 진입 side·예산 결정 (선별: 반토막 난 쪽의 '반대편'을 산다) -----
-    # 녹음7/요구사항 items 1·3: 한쪽 반토막 → 반대편만(500 전액),
+    # 요구사항 items 1·3: 한쪽 반토막 → 반대편만(500 전액),
     #   양쪽 반토막 → 먼저 난 쪽 금지·반대편만(반대편도 무너지면 '꽝'),
     #   둘 다 반토막 안 함 → 양쪽 진입(250/250).
     entry_after_obs = IDX.get(OBS_END + 1, 0)  # 09:11
