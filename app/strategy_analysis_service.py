@@ -48,6 +48,9 @@ LOGIC_DOCUMENTS: dict[str, str] = {
     "S8-v0.3": "S8_하프컷리버스_로직.md",
     "S8-v0.4": "S8_하프컷리버스_로직.md",
     "S9-v0.1": "S9_원요구사항_페어_로직.md",
+    "S9-v0.2": "S9_동일분봉체결_비교_로직.md",
+    "S9-v0.3": "S9_동일분봉체결_비교_로직.md",
+    "S9-v0.4": "S9_동일분봉체결_비교_로직.md",
 }
 
 
@@ -379,6 +382,25 @@ class StrategyAnalysisService:
         )
         self.strategy_nine_v01_trades_path = (
             self.output_dir / "strategy9_v01_trades.csv"
+        )
+        # S9-v0.2~v0.4 — 이전 S8의 동일 분봉 체결을 재현한 비교용 결과
+        self.strategy_nine_v02_daily_path = (
+            self.output_dir / "strategy9_v02_samebar_x2_daily.csv"
+        )
+        self.strategy_nine_v02_trades_path = (
+            self.output_dir / "strategy9_v02_samebar_x2_trades.csv"
+        )
+        self.strategy_nine_v03_daily_path = (
+            self.output_dir / "strategy9_v03_samebar_x3_daily.csv"
+        )
+        self.strategy_nine_v03_trades_path = (
+            self.output_dir / "strategy9_v03_samebar_x3_trades.csv"
+        )
+        self.strategy_nine_v04_daily_path = (
+            self.output_dir / "strategy9_v04_samebar_x4_daily.csv"
+        )
+        self.strategy_nine_v04_trades_path = (
+            self.output_dir / "strategy9_v04_samebar_x4_trades.csv"
         )
         self.performance_benchmark_path = (
             self.backend_dir
@@ -3369,6 +3391,21 @@ class StrategyAnalysisService:
                 self.strategy_nine_v01_daily_path,
                 self.strategy_nine_v01_trades_path,
             ),
+            "S9-v0.2": (
+                "S9-v0.2 과거 S8 동일분봉 체결·2배 비교용",
+                self.strategy_nine_v02_daily_path,
+                self.strategy_nine_v02_trades_path,
+            ),
+            "S9-v0.3": (
+                "S9-v0.3 과거 S8 동일분봉 체결·3배 비교용",
+                self.strategy_nine_v03_daily_path,
+                self.strategy_nine_v03_trades_path,
+            ),
+            "S9-v0.4": (
+                "S9-v0.4 과거 S8 동일분봉 체결·4배 비교용",
+                self.strategy_nine_v04_daily_path,
+                self.strategy_nine_v04_trades_path,
+            ),
             "S8-v0.4": (
                 "S8-v0.4 하프컷 리버스·4배 전량청산",
                 self.strategy_eight_v04_daily_path,
@@ -3523,6 +3560,29 @@ class StrategyAnalysisService:
             ],
         }
 
+    @staticmethod
+    def _pair_signal_context(row: dict[str, str]) -> dict[str, object] | None:
+        if not row.get("signal_code"):
+            return None
+        return {
+            "code": row["signal_code"],
+            "callPut": row["signal_call_put"],
+            "p0": _number(row["signal_p0"]),
+            "minute": _integer(row["signal_minute"]),
+            "close": _number(row["signal_close"]),
+            "ownP0": _number(row["own_p0"]),
+            "ownP0Minute": _integer(row["own_p0_minute"]),
+            "decisionClose": _number(row["decision_close"]),
+            "pairRule": row["pair_rule"],
+            "series": row["pair_series"],
+            "productKind": row["pair_product_kind"],
+            "ma120CrossMinute": _integer(row.get("ma120_cross_minute")) or None,
+            "ma120CrossClose": _number(row["ma120_cross_close"]) if row.get("ma120_cross_close") else None,
+            "ma120CrossValue": _number(row["ma120_cross_value"]) if row.get("ma120_cross_value") else None,
+            "orderReadyMinute": _integer(row.get("order_ready_minute")) or None,
+            "ma120GapAnchor": row.get("ma120_gap_anchor", ""),
+        }
+
     def strategy_trade_records(
         self, strategy_version: str, losses_only: bool = True
     ) -> dict[str, object]:
@@ -3616,6 +3676,7 @@ class StrategyAnalysisService:
                     "lastMinute": max(
                         _integer(row["minute"]) for row in actionable
                     ),
+                    "pairSignal": self._pair_signal_context(ordered[0]),
                     "strategyContext": self._strategy_trade_context(
                         strategy_version,
                         position_by_key.get(

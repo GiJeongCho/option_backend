@@ -69,6 +69,7 @@ STEPS = (
     "strategy5_v10_split_noloss_backtest.py",
     "strategy6_v01_pair_half_backtest.py",
     "strategy8_pair_multi_catalog.py",
+    "strategy9_s8_samebar_legacy_catalog.py",
 )
 
 STRATEGY_DAILY_FILES = (
@@ -105,6 +106,9 @@ STRATEGY_DAILY_FILES = (
     "strategy8_v02_x2_daily.csv",
     "strategy8_v03_x3_daily.csv",
     "strategy8_v04_x4_daily.csv",
+    "strategy9_v02_samebar_x2_daily.csv",
+    "strategy9_v03_samebar_x3_daily.csv",
+    "strategy9_v04_samebar_x4_daily.csv",
 )
 
 

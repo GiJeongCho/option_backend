@@ -1,4 +1,4 @@
-"""S6-v0.1 콜·풋 페어(반토막) 전략 백테스트 — 2026 전용.
+"""S8 하프컷 리버스와 페어 비교 화면의 전체 기간 공통 엔진.
 
 근거: docs/plan.md 27절 (전략 명세 + 요구사항.md), 사용자 회신 반영.
 
@@ -6,17 +6,15 @@
 ------------------------------------
 - P0: 09:00~09:10 최초 적격 1분봉을 시간순으로 시가→종가→고가→저가 순서로 보아
   0.40~1.20에 처음 걸리는 값(종목마다).
-- 방향 대표종목 = P0 0.40~1.20 중 가장 등가(ATM)쪽(P0 최대). 그 대표의 '종가'가
-  09:10 이후 0.5*P0 이하로 내려가면 그 side '반토막'.
-- 진입 side(방향신호 선별): 한쪽 반토막 → 반대편만(500 전액) / 양쪽 반토막 → 먼저 난 쪽
-  금지·반대편만(반대편도 무너지면 '꽝') / 둘 다 정상 → 양쪽(250/250).
-    · NOTE: 원 명세의 '양쪽 선매수 후 재배분(몰빵)'을 전진 시뮬레이션하면 매일 밴드 전체를
-      사서 소멸 → 전략 붕괴(실측). 수익원은 '한쪽 반토막' 방향신호이므로 선별 진입을 채택하고,
-      신호 난 날 생존 측에 500 전액을 실어 몰빵의 경제효과만 취한다.
+- 같은 만기·주차의 반대 방향에서 동일 P0 우선, 없으면 P0 차이가 최소인 종목을 고정.
+- 종목별 반대 짝의 종가가 09:10 이후 그 짝의 0.5*P0 이하이면 매수 신호.
+- 자신이 먼저/동시에 반토막 난 종목은 제외. 신호가 없으면 매수하지 않음.
+- 하루 예산 500만원을 모든 짝이 공유하며 실제 신호 정보를 거래 파일에 저장.
 - 매수 밴드: P0 0.40~1.20 안의 종목을 '전부' 대상(P0 낮은 것부터).
-- 진입 트리거(종목별): entry_start 가격 < P0 → 그 시점부터 지속매수(below_p0) ;
-  entry_start 가격 >= P0 → 갭보정 120분 이평(전일 접합) 상향돌파 후 매수(ma120_cross).
-- 체결: 트리거 이후 매 분봉 min(남은예산, 분봉거래량*10%) 만큼만 체결 → 물량 걸리면
+- 진입 판단은 판단봉 종가로 수행하고, 실제 주문은 다음 분봉부터 시도:
+  종가 < P0 → 다음 분봉부터 지속매수(below_p0) ;
+  종가 >= P0 → 갭보정 120분 이평 상향돌파를 종가로 확인한 다음 분봉부터 매수(ma120_cross).
+- 체결: 신호 확인 다음 분봉부터 매 분봉 min(남은예산, 분봉거래량*10%) 만큼만 체결 → 물량 걸리면
   여러 분봉에 걸쳐 '천천히' 매집(11:00까지). 체결가 = 분봉 시가 + 1틱(SLIPPAGE).
 - 손절선 아래 매수 금지(전제조건): 체결가가 이미 0.5*P0 이하면 '꽝'이라 그 분봉 매수 제외
   (요구사항.md "절반 이하 하락 시 매수X"). 손절선 아래 진입→즉시 손절 '가짜 이득' 차단.
@@ -61,6 +59,14 @@ IDX = base.MINUTE_INDEX
 BARS_LEN = len(base.SESSION_MINUTES)
 CUTOFF_IDX = IDX[ENTRY_CUTOFF]
 FORCE_IDX = IDX[FORCE_EXIT]
+
+SIGNAL_FIELDS = (
+    "signal_code", "signal_call_put", "signal_p0", "signal_minute", "signal_close",
+    "own_p0", "own_p0_minute", "decision_close", "pair_rule",
+    "pair_series", "pair_product_kind",
+    "ma120_cross_minute", "ma120_cross_close", "ma120_cross_value",
+    "order_ready_minute", "ma120_gap_anchor",
+)
 
 
 # --------------------------------------------------------------------------- #
@@ -107,21 +113,40 @@ def last_close(contract) -> float | None:
     return None
 
 
-def ma120_for_day(current, prior) -> list[float | None]:
+def _day_session_closes(contract) -> list[float | None]:
+    """09:00 이후 체결 종가만 사용해 빈 분을 직전 주간 종가로 채운다."""
+    values = []
+    previous = None
+    for bar in contract.bars:
+        if bar.minute < OBS_START:
+            continue
+        if bar.traded and bar.close is not None:
+            previous = bar.close
+        values.append(previous)
+    return values
+
+
+def ma120_for_day(current, prior, *, legacy_close_anchor=False) -> list[float | None]:
     """갭보정 120분 이평(만기일 세션 분봉에 정렬). prior=전일 grid(또는 None).
 
     매매로직은 09:00부터만 사용하므로 08:45~08:59(장전 단일가)·야간은 MA 입력에서
     제외한다(야간은 애초에 day 세션만 로드되어 들어오지 않음). 반환 배열은
     current.bars 인덱스에 그대로 정렬되며, 09:00 이전 분은 항상 None 이다.
+    전일 종가를 당일 첫 실제 주간 시가에 비율 보정한다. 주간 첫 체결 이전 빈 분에
+    08:45~08:59 가격을 이월하지 않는다. legacy_close_anchor는 과거 S9 재현 전용이다.
     """
     cur_bars = current.bars
     # 09:00 이후 분만 MA 입력으로 사용. day_pos 로 원래 인덱스를 보존해 정렬 유지.
     day_pos = [i for i, b in enumerate(cur_bars) if b.minute >= OBS_START]
-    day_closes = [cur_bars[i].close for i in day_pos]
-    cur_first = next((c for c in day_closes if c is not None), None)
+    day_closes = ([cur_bars[i].close for i in day_pos] if legacy_close_anchor
+                  else _day_session_closes(current))
+    cur_first = (next((c for c in day_closes if c is not None), None)
+                 if legacy_close_anchor else next((b.open for b in cur_bars
+                    if b.minute >= OBS_START and b.traded and b.open is not None), None))
     prior_adj: list[float | None] = []
     if prior is not None and cur_first:
-        pc = [b.close for b in prior.bars if b.minute >= OBS_START]
+        pc = ([b.close for b in prior.bars if b.minute >= OBS_START] if legacy_close_anchor
+              else _day_session_closes(prior))
         prior_last = next((c for c in reversed(pc) if c is not None), None)
         if prior_last and prior_last > 0:
             factor = cur_first / prior_last
@@ -173,12 +198,18 @@ def cross_up_idx(contract, ma: list[float | None], start_idx: int) -> int | None
     return ma_cross_up(contract, ma, start_idx)
 
 
-def buy_side(candidates, budget: int, entry_start: int, ma_map) -> list[dict]:
+def buy_side(
+    candidates, budget: int, entry_start: int, ma_map,
+    *, entry_starts: dict[str, int] | None = None,
+    signal_details: dict[str, dict] | None = None,
+) -> list[dict]:
     """candidates: [(code, contract, p0, p0_idx)] P0 오름차순. P0 낮은 것부터 매수.
 
-    진입 트리거(요구사항.md 2번):
-      · entry_start 가격 < P0  → 그 시점부터 '지속매수'(below_p0).
-      · entry_start 가격 >= P0 → 갭보정 120분 이평 '상향돌파' 후 매수(ma120_cross).
+    entry_start는 신호/판단 봉의 인덱스다. 그 봉 종가로 분기를 정하고,
+    실제 주문은 반드시 다음 봉부터 시도한다(종가 신호를 같은 봉 시가에 소급 체결하지 않음).
+      · entry_start 종가 < P0 → 다음 봉부터 '지속매수'(below_p0).
+      · entry_start 종가 >= P0 → 갭보정 120분 이평 상향돌파를 종가로 확인한
+        다음 봉부터 매수(ma120_cross).
     트리거 이후 매 분봉 체결수량 = min(남은예산, 분봉거래량*10%) →
       물량이 걸리면 자동으로 여러 분봉에 걸쳐 '천천히' 분할 체결(11:00까지).
     체결가 = 분봉 시가 + 1틱. 손절선(0.5*P0) 이하 분봉은 매수 금지.
@@ -186,32 +217,52 @@ def buy_side(candidates, budget: int, entry_start: int, ma_map) -> list[dict]:
     positions: list[dict] = []
     remaining = budget
 
+    # entry_start는 판단 봉, trigger_idx는 실제 첫 주문 가능 봉이다.
+    first_order_idx = entry_start + 1
+    if first_order_idx > CUTOFF_IDX:
+        return positions
+
     # 종목별 트리거 시점·분기 확정(진입 가능한 후보만)
     plan = []  # (trigger_idx, code, contract, p0, branch)
+    plan_details = {}
     for code, contract, p0, p0_idx in candidates:
+        decision_idx = entry_starts[code] if entry_starts is not None else entry_start
         start_price = (
-            contract.bars[entry_start].close
-            if entry_start < len(contract.bars)
+            contract.bars[decision_idx].close
+            if decision_idx < len(contract.bars)
             else None
         )
         if start_price is None:
             continue
         if start_price < p0:
-            trigger_idx = entry_start
+            cross_idx = None
+            trigger_idx = decision_idx + 1
             branch = "below_p0"
         else:
-            trigger_idx = cross_up_idx(contract, ma_map[code], entry_start)
-            if trigger_idx is None:
+            cross_idx = cross_up_idx(contract, ma_map[code], decision_idx)
+            if cross_idx is None:
+                continue
+            # 상향돌파는 해당 분 종가에서 확정되므로 다음 분부터 주문 가능.
+            trigger_idx = cross_idx + 1
+            if trigger_idx > CUTOFF_IDX:
                 continue
             branch = "ma120_cross"
         if base.SESSION_MINUTES[trigger_idx] > ENTRY_CUTOFF:
             continue
+        plan_details[code] = {
+            **(signal_details.get(code, {}) if signal_details else {}),
+            "ma120_cross_minute": contract.bars[cross_idx].minute if cross_idx is not None else "",
+            "ma120_cross_close": contract.bars[cross_idx].close if cross_idx is not None else "",
+            "ma120_cross_value": ma_map[code][cross_idx] if cross_idx is not None else "",
+            "order_ready_minute": base.SESSION_MINUTES[trigger_idx],
+            "ma120_gap_anchor": "first_day_open",
+        }
         plan.append((trigger_idx, code, contract, p0, branch))
     if not plan:
         return positions
 
     # 분봉을 바깥 루프로 — 트리거가 열린 종목들에 P0 낮은 것부터 조금씩(물량 10%) 체결
-    for t in range(entry_start, CUTOFF_IDX + 1):
+    for t in range(first_order_idx, CUTOFF_IDX + 1):
         if remaining <= 0:
             break
         for trigger_idx, code, contract, p0, branch in plan:
@@ -221,6 +272,11 @@ def buy_side(candidates, budget: int, entry_start: int, ma_map) -> list[dict]:
                 continue
             bar = contract.bars[t]
             if not bar.traded or bar.open is None:
+                continue
+            detail = plan_details[code]
+            # 매수 종목의 반토막 종가가 이미 확인된 뒤에는 추가 매수하지 않는다.
+            blocked_idx = detail.get("own_half_idx")
+            if blocked_idx is not None and t > blocked_idx:
                 continue
             fill_price = bar.open + SLIP
             # 손절선 아래 매수 금지(전제조건): 이미 0.5*P0 이하면 '꽝'이라 제외
@@ -245,6 +301,7 @@ def buy_side(candidates, budget: int, entry_start: int, ma_map) -> list[dict]:
                     "buy_cost": buy_cost,
                     "branch": branch,
                     "contract": contract,
+                    **detail,
                 }
             )
     return positions
@@ -329,124 +386,104 @@ def exit_pnl(pos: dict, variant: str) -> float:
 # --------------------------------------------------------------------------- #
 # 하루 백테스트
 # --------------------------------------------------------------------------- #
+
+
+def match_opposite_p0(candidate, enriched):
+    """같은 만기 그룹에서 반대 방향의 P0가 가장 가까운 종목을 고른다.
+
+    정확히 같은 값 우선. 거리 동률이면 낮은 P0, 종목코드 순으로 고정한다.
+    장중 고가·손익·반토막 발생 여부는 짝 선정에 사용하지 않는다.
+    """
+    opposite = [item for item in enriched if item[1].call_put != candidate[1].call_put]
+    return min(
+        opposite,
+        key=lambda item: (round(abs(item[2] - candidate[2]), 8), item[2], item[0]),
+    ) if opposite else None
+
+
 def build_day(group, expiry_path, prior_path) -> tuple[dict, list[dict]]:
-    """하루치 메타(result)와 raw 포지션(contract 포함) 목록을 함께 반환."""
+    """종목별 동일/근접 P0 반대 옵션을 고정하고 그 짝의 신호만 사용한다."""
     contracts = base.load_expiry_day(expiry_path, group)
     prior = base.load_expiry_day(prior_path, group) if prior_path else {}
-
-    # P0 산출 (P0 적격 밴드 0.40~1.20)
-    enriched = {}
-    for code, c in contracts.items():
-        res = p0_of(c)
-        if res is None:
-            continue
-        p0, p0_idx = res
-        enriched[code] = (code, c, p0, p0_idx)
-
-    def buy_candidates(cp):
-        """매수 사다리 후보: P0 0.40~1.00, P0 오름차순(0.4 먼저)."""
-        items = [
-            v for v in enriched.values()
-            if v[1].call_put == cp and BUY_LOW <= v[2] <= BUY_HIGH
-        ]
-        items.sort(key=lambda v: v[2])
-        return items
-
-    def signal_rep(cp):
-        """방향 신호 대표 = P0 0.40~1.20 중 가장 등가(ATM)쪽(P0 최대)."""
-        items = [
-            v for v in enriched.values()
-            if v[1].call_put == cp and BUY_LOW <= v[2] <= P0_HIGH
-        ]
-        return max(items, key=lambda v: v[2]) if items else None
-
-    calls = buy_candidates("CALL")
-    puts = buy_candidates("PUT")
-
-    def rep_half(cp):
-        """side 신호 대표의 반토막(종가 기준) 시점 idx (없으면 None)."""
-        rep = signal_rep(cp)
-        if rep is None:
-            return None
-        _, c, p0, p0_idx = rep
-        return half_index(c, p0, p0_idx, field="close")
-
-    call_half = rep_half("CALL")
-    put_half = rep_half("PUT")
-    call_halved = call_half is not None
-    put_halved = put_half is not None
-
+    enriched = []
+    for code, contract in contracts.items():
+        observed = p0_of(contract)
+        if observed is not None:
+            p0, p0_idx = observed
+            enriched.append((code, contract, p0, p0_idx))
+    enriched.sort(key=lambda item: (item[2], item[0]))
+    half_indices = {
+        code: half_index(contract, p0, p0_idx, field="close")
+        for code, contract, p0, p0_idx in enriched
+    }
     result = {
         "date": group["expiry_date"],
-        "product_kind": group["product_kind"],
-        "series": group["series"],
-        "call_halved": call_halved,
-        "put_halved": put_halved,
-        "status": "",
-        "positions": [],
-        "pnl": {v: 0.0 for v in VARIANTS},
-        "invested": 0.0,
+        "product_kind": group["product_kind"], "series": group["series"],
+        "call_halved": any(half_indices[item[0]] is not None for item in enriched if item[1].call_put == "CALL"),
+        "put_halved": any(half_indices[item[0]] is not None for item in enriched if item[1].call_put == "PUT"),
+        "status": "no_candidate" if not enriched else "no_pair_signal",
+        "pairing_rule": "nearest_p0_same_expiry",
+        "signal_found": False, "positions": [],
+        "pnl": {variant: 0.0 for variant in VARIANTS}, "invested": 0.0,
     }
-
-    # 상태 라벨(보고용) — '먼저 반토막'은 종가 반토막 시점 비교
-    cand = {"CALL": calls, "PUT": puts}
-    present = [cp for cp in ("CALL", "PUT") if cand[cp]]
-    if not present:
-        result["status"] = "no_candidate"
+    candidates = []
+    entry_starts = {}
+    details = {}
+    for candidate in enriched:
+        code, contract, p0, p0_idx = candidate
+        opposite = match_opposite_p0(candidate, enriched)
+        if opposite is None:
+            continue
+        signal_code, signal_contract, signal_p0, _signal_p0_idx = opposite
+        signal_idx = half_indices[signal_code]
+        own_half_idx = half_indices[code]
+        # 매수 종목이 먼저/동시에 반토막 난 짝은 제외한다. 방향은 종목별 짝 안에서 결정한다.
+        if signal_idx is None or (own_half_idx is not None and own_half_idx <= signal_idx):
+            continue
+        if signal_idx >= CUTOFF_IDX:
+            continue
+        result["signal_found"] = True
+        candidates.append(candidate)
+        entry_starts[code] = signal_idx
+        details[code] = {
+            "signal_code": signal_code,
+            "signal_call_put": signal_contract.call_put,
+            "signal_p0": signal_p0,
+            "signal_minute": signal_contract.bars[signal_idx].minute,
+            "signal_close": signal_contract.bars[signal_idx].close,
+            "own_p0": p0,
+            "own_p0_minute": contract.bars[p0_idx].minute,
+            "decision_close": contract.bars[signal_idx].close,
+            "pair_rule": "exact_p0" if abs(p0 - signal_p0) < 1e-9 else "nearest_p0",
+            "pair_series": group["series"],
+            "pair_product_kind": group["product_kind"],
+            "own_half_idx": own_half_idx,
+        }
+    if not candidates:
         return result, []
-    if call_halved and put_halved:
-        result["status"] = (
-            "both_halved_call_first_buy_put"
-            if call_half <= put_half
-            else "both_halved_put_first_buy_call"
-        )
-    elif call_halved:
-        result["status"] = "call_halved_buy_put"
-    elif put_halved:
-        result["status"] = "put_halved_buy_call"
-    else:
-        result["status"] = "both_active" if len(present) == 2 else "one_side_only"
-
-    # ----- 진입 side·예산 결정 (선별: 반토막 난 쪽의 '반대편'을 산다) -----
-    # 요구사항 items 1·3: 한쪽 반토막 → 반대편만(500 전액),
-    #   양쪽 반토막 → 먼저 난 쪽 금지·반대편만(반대편도 무너지면 '꽝'),
-    #   둘 다 반토막 안 함 → 양쪽 진입(250/250).
-    entry_after_obs = IDX.get(OBS_END + 1, 0)  # 09:11
-    active: list[tuple[list, int, int]] = []  # (candidates, budget, entry_start)
-    if call_halved and put_halved:
-        if call_half <= put_half and puts:
-            active.append((puts, DAILY_BUDGET, call_half))   # 콜 먼저 → 풋 500 전액
-        elif put_half < call_half and calls:
-            active.append((calls, DAILY_BUDGET, put_half))   # 풋 먼저 → 콜 500 전액
-    elif call_halved and puts:
-        active.append((puts, DAILY_BUDGET, call_half))       # 콜 붕괴 → 풋 500 전액
-    elif put_halved and calls:
-        active.append((calls, DAILY_BUDGET, put_half))       # 풋 붕괴 → 콜 500 전액
-    elif not call_halved and not put_halved:
-        n = len(present)
-        budget = DAILY_BUDGET // n
-        for cp in present:
-            active.append((cand[cp], budget, entry_after_obs))
-
-    # entry_start 가 11시 이후면 진입 불가
-    active = [a for a in active if base.SESSION_MINUTES[a[2]] <= ENTRY_CUTOFF]
-    if not active:
-        if not result["status"].endswith("_late"):
-            result["status"] += "_late"
-        return result, []
-
-    positions: list[dict] = []
-    for candidates, budget, entry_start in active:
-        ma_map = {}
-        for code, c, p0, p0_idx in candidates:
-            ma_map[code] = ma120_for_day(c, prior.get(code))
-        positions.extend(buy_side(candidates, budget, entry_start, ma_map))
-
+    ma_map = {
+        code: ma120_for_day(contract, prior.get(code))
+        for code, contract, _p0, _p0_idx in candidates
+    }
+    positions = buy_side(
+        candidates, DAILY_BUDGET, min(entry_starts.values()), ma_map,
+        entry_starts=entry_starts, signal_details=details,
+    )
+    sides = {position["call_put"] for position in positions}
+    result["status"] = (
+        "matched_buy_both" if len(sides) == 2 else
+        "matched_buy_call" if "CALL" in sides else
+        "matched_buy_put" if "PUT" in sides else "pair_signal_unfilled"
+    )
     return result, positions
 
 
 def run_day(group, expiry_path, prior_path) -> dict:
     result, positions = build_day(group, expiry_path, prior_path)
+    return day_report(result, positions)
+
+
+def day_report(result: dict, positions: list[dict]) -> dict:
     result["invested"] = sum(p["buy_cost"] for p in positions)
     for v in VARIANTS:
         result["pnl"][v] = sum(exit_pnl(p, v) for p in positions)
@@ -461,6 +498,7 @@ def run_day(group, expiry_path, prior_path) -> dict:
             "buy_cost": round(p["buy_cost"]),
             "branch": p["branch"],
             "pnl_settle": round(exit_pnl(p, "settle")),
+            **{field: p.get(field, "") for field in SIGNAL_FIELDS},
         }
         for p in positions
     ]
@@ -521,6 +559,10 @@ def run() -> dict:
         print(f"[{i}/{len(groups)}] {exp} {g['product_kind']} {g['series']}", flush=True)
         daily.append(run_day(g, files[exp], pf))
 
+    return write_report(daily)
+
+
+def write_report(daily: list[dict]) -> dict:
     status_count: dict[str, int] = {}
     total_trades = 0
     branch_count = {"below_p0": 0, "ma120_cross": 0}
@@ -539,6 +581,7 @@ def run() -> dict:
 
     out = {
         "strategy": "S6-v0.1-pair-half",
+        "pairing_rule": "nearest_p0_same_expiry",
         "year": YEAR or "ALL",
         "expiry_days": len(daily),
         "total_positions": total_trades,

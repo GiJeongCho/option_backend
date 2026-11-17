@@ -49,6 +49,7 @@ TRADES_FIELDS = [
     "strategy", "date", "campaign", "minute", "code", "call_put",
     "side", "reason", "stage", "quantity", "price",
     "principal", "fee", "cash_flow", "bar_volume",
+    *pair.SIGNAL_FIELDS,
 ]
 
 SIGNAL_STATUSES = {
@@ -94,6 +95,7 @@ def run() -> None:
     # variant 별 누적 저장소
     daily_by_variant: dict[str, list[dict]] = {v[0]: [] for v in VARIANTS}
     trades_by_variant: dict[str, list[dict]] = {v[0]: [] for v in VARIANTS}
+    pair_daily: list[dict] = []
 
     for i, g in enumerate(groups, 1):
         exp = g["expiry_date"]
@@ -102,6 +104,7 @@ def run() -> None:
         pf = prior_file(g)
         print(f"[{i}/{len(groups)}] {exp} {g['product_kind']} {g['series']}", flush=True)
         result, positions = pair.build_day(g, files[exp], pf)
+        pair_daily.append(pair.day_report(result, positions))
 
         for sid, variant, mult, _, _ in VARIANTS:
             day_pnl = 0.0
@@ -144,6 +147,7 @@ def run() -> None:
                     "quantity": qty, "price": round(fill, 4),
                     "principal": round(buy_principal), "fee": round(buy_fee),
                     "cash_flow": round(buy_cash), "bar_volume": "",
+                    **{field: p.get(field, "") for field in pair.SIGNAL_FIELDS},
                 })
                 trows.append({
                     "strategy": sid, "date": exp, "campaign": 1,
@@ -153,6 +157,7 @@ def run() -> None:
                     "quantity": qty, "price": round(det["exit_price"], 4),
                     "principal": round(gross_sales), "fee": round(sell_fee),
                     "cash_flow": round(sell_cash), "bar_volume": "",
+                    **{field: p.get(field, "") for field in pair.SIGNAL_FIELDS},
                 })
 
             has_trade = bool(positions)
@@ -160,7 +165,7 @@ def run() -> None:
                 "date": exp,
                 "pnl": round(day_pnl),
                 "trade_day": has_trade,
-                "signal_found": result["status"] in SIGNAL_STATUSES or has_trade,
+                "signal_found": result.get("signal_found", False) or has_trade,
                 "entry_filled": has_trade,
                 "initial_positions": len(positions),
                 "campaign_count": len(positions),
@@ -218,6 +223,8 @@ def run() -> None:
         print(f"  win {wins}/{tdays} ({100*wins/tdays:.1f}%)" if tdays else "  no trades")
         print(f"  total_pnl {total:,.0f} | return {100*total/INITIAL_CASH:.1f}%")
 
+    # 페어 비교 화면도 S8과 같은 날짜·짝·신호로 함께 갱신한다.
+    pair.write_report(pair_daily)
 
 if __name__ == "__main__":
     run()
